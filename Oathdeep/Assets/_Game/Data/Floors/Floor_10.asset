@@ -25,5 +25,5 @@ MonoBehaviour:
   wavesPerRoom: {x: 2, y: 4}
   enemiesPerWave: {x: 7, y: 10}
   eliteChance: 0.3
-  statScale: 3.8799999
+  statScale: 7.3450003
   boss: {fileID: 7283961950000724510, guid: ba33e9cbef8a1f04db3961207d9b993d, type: 3}

@@ -92,7 +92,8 @@ namespace Oathdeep.UI
 
             // --- Toast ---
             // Wraps onto a second line and shrinks a little rather than cutting long item names off.
-            var toastRect = UIFactory.Rect("Toast", safeArea, new Vector2(0.5f, 0.68f), new Vector2(0.5f, 0.68f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(340, 44));
+            // Stretches with the screen: a 20:9 phone's canvas is only ~322 units wide, narrower than a fixed box.
+            var toastRect = UIFactory.Rect("Toast", safeArea, new Vector2(0.04f, 0.68f), new Vector2(0.96f, 0.68f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(0, 44));
             var toastBack = UIFactory.Image(toastRect, skin.white, new Color(0.03f, 0.04f, 0.08f, 0.6f));
             toastBack.preserveAspect = false;
             var toastText = UIFactory.Stretch("Text", toastRect);
@@ -135,7 +136,7 @@ namespace Oathdeep.UI
             var zone = UIFactory.Rect("MoveZone", controlsRoot, layout.MoveZoneMin, layout.MoveZoneMax, Vector2.zero, Vector2.zero, Vector2.zero);
             var zoneImg = UIFactory.Image(zone, skin.white, new Color(0, 0, 0, 0), false, true);
             zoneImg.preserveAspect = false;
-            var stickBase = UIFactory.Rect("Base", zone, Vector2.zero, Vector2.zero, new Vector2(0.5f, 0.5f), ControlLayout.StickRest, new Vector2(112, 112));
+            var stickBase = UIFactory.Rect("Base", zone, Vector2.zero, Vector2.zero, new Vector2(0.5f, 0.5f), ControlLayout.StickRest, Vector2.one * ControlLayout.StickSize);
             UIFactory.Image(stickBase, skin.joystickBase);
             var knob = UIFactory.Rect("Knob", stickBase, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(52, 52));
             UIFactory.Image(knob, skin.joystickKnob);

@@ -34,6 +34,16 @@ namespace Oathdeep.Dungeon
         public float EliteChance => eliteChance;
         public EnemyBase Boss => boss;
 
+        /// <summary>
+        /// Enemy health and attack multiplier for a floor. It accelerates because the player's power compounds
+        /// (floor bonus x rarity x affixes x boons); a straight line let the late floors get easier than the middle.
+        /// </summary>
+        public static float StatScaleFor(int floor)
+        {
+            int d = Mathf.Max(0, floor - 1);
+            return 1f + 0.3f * d + 0.045f * d * d;
+        }
+
         public EnemyBase PickEnemy(System.Random rng)
         {
             if (enemies == null || enemies.Length == 0) return null;

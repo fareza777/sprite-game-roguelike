@@ -19,6 +19,22 @@ namespace Oathdeep.Tests
             Assert.IsFalse(Box(l.Dodge).Overlaps(Box(l.Skill)));
         }
 
+        // The canvas matches width and height halfway, so a 20:9 phone (1080x2400) is only ~322 units wide.
+        [Test]
+        public void StickAtRest_ClearsEveryActionButton([Values(false, true)] bool leftHanded, [Values(300f, 322f, 360f, 420f)] float width)
+        {
+            var l = ControlLayout.Compute(leftHanded);
+            var stickCentre = new Vector2(l.MoveZoneMin.x * width, 0f) + ControlLayout.StickRest;
+            var stick = new Rect(stickCentre - Vector2.one * ControlLayout.StickSize / 2f, Vector2.one * ControlLayout.StickSize);
+            var corner = new Vector2(leftHanded ? 0f : width, 0f);
+            foreach (var (name, slot) in new[] { ("Attack", l.Attack), ("Dodge", l.Dodge), ("Skill", l.Skill) })
+            {
+                var button = Box(slot);
+                button.position += corner;
+                Assert.IsFalse(stick.Overlaps(button), $"{name} overlaps the joystick at width {width}");
+            }
+        }
+
         [Test]
         public void ActionButtons_StayInBottomFortyPercent([Values(false, true)] bool leftHanded)
         {

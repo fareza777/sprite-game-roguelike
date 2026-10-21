@@ -165,7 +165,7 @@ namespace Oathdeep.EditorTools
                 Set(floor, ("floorNumber", n), ("roomCount", 15 + (n + 1) / 2),
                     ("wavesPerRoom", new Vector2Int(2, n < 4 ? 3 : 4)),
                     ("enemiesPerWave", new Vector2Int(4 + n / 3, 7 + n / 3)),
-                    ("eliteChance", 0.1f + 0.02f * n), ("statScale", 1f + 0.32f * (n - 1)));
+                    ("eliteChance", 0.1f + 0.02f * n), ("statScale", FloorConfig.StatScaleFor(n)));
                 EditorUtility.SetDirty(floor);
                 Floors.Add(floor);
             }
