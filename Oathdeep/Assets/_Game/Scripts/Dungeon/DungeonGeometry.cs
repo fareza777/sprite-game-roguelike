@@ -107,7 +107,7 @@ namespace Oathdeep.Dungeon
             RoomType.Boss => RoomShape.Arena,
             RoomType.Elite => rng.NextDouble() < 0.5 ? RoomShape.GreatHall : RoomShape.Gallery,
             RoomType.Merchant or RoomType.Pilgrim or RoomType.Rest => RoomShape.Chamber,
-            RoomType.Shrine or RoomType.Event => RoomShape.Hall,
+            RoomType.Sunstone or RoomType.Event => RoomShape.Hall,
             _ => CombatShapes[rng.Next(CombatShapes.Length)],
         };
 

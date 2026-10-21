@@ -5,7 +5,7 @@ using Oathdeep.Data;
 namespace Oathdeep.Core
 {
     /// <summary>What advances a side quest.</summary>
-    public enum QuestTrigger { Kills, EliteKills, ChestsOpened, Purchases, PilgrimsMet, ShrinesPrayed, DiceRolled, ItemsFound, LegendariesFound, HeroesAtB3, ChoristersSilenced }
+    public enum QuestTrigger { Kills, EliteKills, ChestsOpened, Purchases, PilgrimsMet, SunstonesTouched, DiceRolled, ItemsFound, LegendariesFound, HeroesAtB3, ChoristersSilenced }
 
     /// <summary>A permanent bonus earned by claiming a side quest; it applies to every hero on every later run.</summary>
     public readonly struct MetaReward
@@ -74,7 +74,7 @@ namespace Oathdeep.Core
             new SideQuest("treasure_hunter", "Treasure Hunter", "Open 20 chests.", QuestTrigger.ChestsOpened, 20, R(gold: 25)),
             new SideQuest("tallow_patron", "Patron of Tallow", "Buy 10 wares from Old Tallow.", QuestTrigger.Purchases, 10, R(find: 0.05f)),
             new SideQuest("pilgrims_friend", "Pilgrim's Friend", "Speak with 8 pilgrims of the Sun.", QuestTrigger.PilgrimsMet, 8, R(hp: 5)),
-            new SideQuest("faithful", "The Faithful", "Pray at 10 sun shrines.", QuestTrigger.ShrinesPrayed, 10, R(haste: 0.05f)),
+            new SideQuest("stone_seeker", "Stone Seeker", "Draw light from 10 sunstones.", QuestTrigger.SunstonesTouched, 10, R(haste: 0.05f)),
             new SideQuest("gambler", "Bone Dice", "Roll the gambler's dice 5 times.", QuestTrigger.DiceRolled, 5, R(gold: 25)),
             new SideQuest("collector", "Collector", "Find 40 different items.", QuestTrigger.ItemsFound, 40, R(def: 1)),
             new SideQuest("legend_seeker", "Legend Seeker", "Find 5 different legendaries.", QuestTrigger.LegendariesFound, 5, R(crit: 0.03f)),

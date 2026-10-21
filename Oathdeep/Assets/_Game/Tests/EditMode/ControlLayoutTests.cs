@@ -45,8 +45,28 @@ namespace Oathdeep.Tests
             Assert.GreaterOrEqual(p.x, 56f + ControlLayout.EdgeMargin - 1e-4f);
             Assert.GreaterOrEqual(p.y, 56f + ControlLayout.EdgeMargin - 1e-4f);
             var q = ControlLayout.ClampStick(new Vector2(500f, 500f), zone, 112f);
-            Assert.LessOrEqual(q.x, zone.x - 56f + 1e-4f);
-            Assert.LessOrEqual(q.y, zone.y - 56f + 1e-4f);
+            Assert.LessOrEqual(q.x, zone.x + 1e-4f);
+            Assert.LessOrEqual(q.y, zone.y + 1e-4f);
+        }
+
+        [Test]
+        public void FloatingStick_AppearsWhereTheThumbLands_AcrossTheWholeZone()
+        {
+            var zone = new Vector2(180f, 288f);
+            // Used to be clamped to x <= 124 (zone width - stick radius), which made "floating" feel fixed.
+            var p = ControlLayout.ClampStick(new Vector2(160f, 140f), zone, 112f);
+            Assert.AreEqual(160f, p.x, 1e-4f);
+            Assert.AreEqual(140f, p.y, 1e-4f);
+        }
+
+        [Test]
+        public void FollowStick_DragsTheBaseOnlyBeyondTheRadius()
+        {
+            var basePos = new Vector2(100f, 100f);
+            Assert.AreEqual(basePos, ControlLayout.FollowStick(basePos, new Vector2(30f, 0f), 56f));
+            var moved = ControlLayout.FollowStick(basePos, new Vector2(80f, 0f), 56f);
+            Assert.AreEqual(124f, moved.x, 1e-4f);
+            Assert.AreEqual(100f, moved.y, 1e-4f);
         }
     }
 }

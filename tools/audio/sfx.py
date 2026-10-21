@@ -276,7 +276,7 @@ def explosion():
     return trim_silence(drive(mix(0.9, (0, boom), (0, crack), (0, rumble)), 1.8))
 
 
-def blessing():
+def boon():
     arp = notes([(74, 0.09), (78, 0.09), (81, 0.09), (86, 0.4)], lambda f, d: sine(f, d) + 0.3 * triangle(f * 2, d), env=(0.002, 0.08, 0.6, 0.3))
     return trim_silence(reverb(arp * 0.6, size=0.8, mix=0.4, tail=0.8))
 
@@ -297,7 +297,7 @@ SFX = {
     "room_clear": (room_clear, -3), "ui_click": (ui_click, -9), "ui_confirm": (ui_confirm, -7),
     "crossbow": (crossbow, -5), "flare": (flare, -4), "soul_cast": (soul_cast, -6), "toll": (toll, -1),
     "shadowstep": (shadowstep, -4), "enemy_shot": (enemy_shot, -8), "explosion": (explosion, -2),
-    "blessing": (blessing, -5), "quest_complete": (quest_complete, -6),
+    "boon": (boon, -5), "quest_complete": (quest_complete, -6),
 }
 
 if __name__ == "__main__":

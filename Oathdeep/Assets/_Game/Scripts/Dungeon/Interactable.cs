@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Oathdeep.Dungeon
 {
     /// <summary>
-    /// Something the player can use by standing close and tapping the context button (TALK, TRADE, PRAY...).
+    /// Something the player can use by standing close and tapping the context button (TALK, TRADE, TOUCH...).
     /// Shows a bubble over itself while in reach. One-handed friendly: no precise tapping in the world.
     /// </summary>
     public sealed class Interactable : MonoBehaviour

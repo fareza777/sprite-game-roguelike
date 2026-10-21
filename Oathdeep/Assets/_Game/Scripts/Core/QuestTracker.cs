@@ -24,7 +24,7 @@ namespace Oathdeep.Core
             GameEvents.EncounterUsed += kind =>
             {
                 if (kind == "pilgrim") Bump(QuestTrigger.PilgrimsMet, 1);
-                else if (kind == "shrine") Bump(QuestTrigger.ShrinesPrayed, 1);
+                else if (kind == "sunstone") Bump(QuestTrigger.SunstonesTouched, 1);
                 else if (kind == "dice") Bump(QuestTrigger.DiceRolled, 1);
             };
             GameEvents.ItemFound += _ => Refresh();

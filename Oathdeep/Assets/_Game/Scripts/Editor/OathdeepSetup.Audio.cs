@@ -27,7 +27,7 @@ namespace Oathdeep.EditorTools
             [Sfx.Spawn] = (0.5f, 0.08f, 0.15f), [Sfx.RoomClear] = (0.85f, 0f, 0.5f), [Sfx.UiClick] = (0.6f, 0.05f, 0.03f),
             [Sfx.UiConfirm] = (0.7f, 0f, 0.05f), [Sfx.Crossbow] = (0.7f, 0.08f, 0.05f), [Sfx.Flare] = (0.8f, 0.05f, 0.1f),
             [Sfx.SoulCast] = (0.7f, 0.06f, 0.06f), [Sfx.Toll] = (1f, 0f, 0.3f), [Sfx.Shadowstep] = (0.85f, 0.05f, 0.1f),
-            [Sfx.EnemyShot] = (0.45f, 0.12f, 0.06f), [Sfx.Explosion] = (0.9f, 0.08f, 0.08f), [Sfx.Blessing] = (0.85f, 0f, 0.3f),
+            [Sfx.EnemyShot] = (0.45f, 0.12f, 0.06f), [Sfx.Explosion] = (0.9f, 0.08f, 0.08f), [Sfx.Boon] = (0.85f, 0f, 0.3f),
             [Sfx.QuestComplete] = (0.9f, 0f, 0.5f),
         };
 

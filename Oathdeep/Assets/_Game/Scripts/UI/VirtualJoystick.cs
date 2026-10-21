@@ -7,7 +7,8 @@ using UnityEngine.InputSystem.UI;
 namespace Oathdeep.UI
 {
     /// <summary>
-    /// Floating stick: touch anywhere inside the zone, the base appears under the thumb.
+    /// Floating stick: touch anywhere inside the zone, the base appears under the thumb and follows long drags.
+    /// Fixed stick: the base stays at its rest position.
     /// Knob travel is clamped to radius; small dead zone avoids drift.
     /// A per-frame watchdog releases the stick if its touch ends without a pointer-up event
     /// (cancelled touches, system gestures, focus loss), which otherwise leaves the knight walking on its own.
@@ -58,6 +59,13 @@ namespace Oathdeep.UI
         {
             if (e.pointerId != pointerId) return;
             if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(stickBase, e.position, e.pressEventCamera, out var local)) return;
+            if (floating && local.magnitude > radius)
+            {
+                // The base trails the thumb so a long drag never runs out of stick.
+                var moved = ControlLayout.FollowStick(stickBase.anchoredPosition, local, radius);
+                stickBase.anchoredPosition = ControlLayout.ClampStick(moved, zone.rect.size, stickBase.sizeDelta.x);
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(stickBase, e.position, e.pressEventCamera, out local);
+            }
             var offset = Vector2.ClampMagnitude(local, radius);
             knob.anchoredPosition = offset;
             var value = offset / radius;

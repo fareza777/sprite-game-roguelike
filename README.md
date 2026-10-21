@@ -21,7 +21,7 @@ you descend through ten biomes to silence every verse and raise her.
   - Each floor has 16–20 large procedural rooms and a boss.
 - **Forty creatures** with a Codex that opens as you defeat them, including ten Chorister bosses with multi-phase
   attack patterns.
-- **Peaceful rooms**: Old Tallow's shop, sun shrines with run-long blessings, pilgrims with lore and gifts, campfires,
+- **Peaceful rooms**: Old Tallow's shop, sunstones (veins of buried sunlight) with run-long boons, pilgrims with lore and gifts, campfires,
   and risky events (gambler's dice, sun shards, a weeping statue, a chained chest).
 - **104 items**: 64 bases and 40 legendaries across Weapon, Armor, Charm and Relic slots. Stats are procedurally
   rolled, with 24 affixes and specials (lifesteal, thorns, skill haste, gold find). Includes an equipment screen and an
@@ -32,7 +32,7 @@ you descend through ten biomes to silence every verse and raise her.
   - Twelve side quests that grant permanent bonuses.
 - **Original score and sound**: eleven synthesized music tracks and 34 sound effects, all made offline.
 - **Mobile-first controls**:
-  - Floating or fixed joystick, attack / dodge / skill buttons, a contextual TALK / TRADE / PRAY button.
+  - Floating or fixed joystick, attack / dodge / skill buttons, a contextual TALK / TRADE / TOUCH button.
   - Left-handed layout, auto-aim, haptics, settings, and a one-time tutorial.
 
 ## Building

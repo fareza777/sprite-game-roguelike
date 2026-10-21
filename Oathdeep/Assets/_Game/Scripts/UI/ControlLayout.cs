@@ -37,13 +37,23 @@ namespace Oathdeep.UI
 
         public static ControlLayout Compute(bool leftHanded) => new ControlLayout(leftHanded);
 
-        /// <summary>Keeps a floating stick base (size `stickSize`) fully inside the zone with a margin.</summary>
+        /// <summary>
+        /// Where a floating stick base (size `stickSize`) appears for a touch at `desired`: right under the thumb, kept
+        /// off the screen's outer and bottom edges. It may overhang the zone's inner and top edges; only touches are
+        /// confined to the zone, not the drawing.
+        /// </summary>
         public static Vector2 ClampStick(Vector2 desired, Vector2 zoneSize, float stickSize)
         {
             float r = stickSize / 2f;
             float minX = r + EdgeMargin, minY = r + EdgeMargin;
-            float maxX = Mathf.Max(minX, zoneSize.x - r), maxY = Mathf.Max(minY, zoneSize.y - r);
-            return new Vector2(Mathf.Clamp(desired.x, minX, maxX), Mathf.Clamp(desired.y, minY, maxY));
+            return new Vector2(Mathf.Clamp(desired.x, minX, Mathf.Max(minX, zoneSize.x)), Mathf.Clamp(desired.y, minY, Mathf.Max(minY, zoneSize.y)));
+        }
+
+        /// <summary>A floating stick follows the thumb: once the thumb is `radius` away, the base is dragged along.</summary>
+        public static Vector2 FollowStick(Vector2 basePos, Vector2 thumbFromBase, float radius)
+        {
+            float d = thumbFromBase.magnitude;
+            return d <= radius ? basePos : basePos + thumbFromBase / d * (d - radius);
         }
     }
 }

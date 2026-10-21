@@ -9,10 +9,10 @@ using UnityEngine;
 
 namespace Oathdeep.Dungeon
 {
-    public enum EncounterKind { Merchant, Shrine, Pilgrim, Rest, DiceAltar, SunShard, WeepingStatue, CursedChest }
+    public enum EncounterKind { Merchant, Sunstone, Pilgrim, Rest, DiceAltar, SunShard, WeepingStatue, CursedChest }
 
     /// <summary>
-    /// The peaceful heart of a non-combat room: Old Tallow's shop, a sun shrine, a pilgrim, a campfire or one of the
+    /// The peaceful heart of a non-combat room: Old Tallow's shop, a sunstone, a pilgrim, a campfire or one of the
     /// random events. Each is used once (the shop stays open); results apply to the player's inventory and health.
     /// </summary>
     [RequireComponent(typeof(Interactable))]
@@ -43,7 +43,7 @@ namespace Oathdeep.Dungeon
         static string PromptFor(EncounterKind k) => k switch
         {
             EncounterKind.Merchant => "TRADE",
-            EncounterKind.Shrine => "PRAY",
+            EncounterKind.Sunstone => "TOUCH",
             EncounterKind.Rest => "REST",
             EncounterKind.Pilgrim => "TALK",
             _ => "EXAMINE",
@@ -59,7 +59,7 @@ namespace Oathdeep.Dungeon
             switch (kind)
             {
                 case EncounterKind.Merchant: Merchant(); break;
-                case EncounterKind.Shrine: Shrine(inv, health); break;
+                case EncounterKind.Sunstone: Sunstone(inv, health); break;
                 case EncounterKind.Pilgrim: Pilgrim(inv, health); break;
                 case EncounterKind.Rest: Rest(health); break;
                 case EncounterKind.DiceAltar: DiceAltar(inv); break;
@@ -101,26 +101,26 @@ namespace Oathdeep.Dungeon
             EncounterHost.Dialog(d);
         }
 
-        // ---------------- shrine ----------------
+        // ---------------- sunstone ----------------
 
-        void Shrine(PlayerInventory inv, Health health)
+        void Sunstone(PlayerInventory inv, Health health)
         {
             var d = new EncounterDialog
             {
-                Speaker = "Sun Shrine",
+                Speaker = "Sunstone",
                 Portrait = portrait,
-                Text = "A sliver of her light still burns here. It offers one gift. Choose.",
+                Text = "A vein of buried sunlight, frozen into crystal. Its warmth can be drawn out once. Choose what to take.",
             };
-            foreach (var b in EncounterData.DrawBlessings(rng))
+            foreach (var b in EncounterData.DrawBoons(rng))
             {
-                var blessing = b;
-                d.Choices.Add(new EncounterChoice(blessing.Name.ToUpperInvariant() + ": " + blessing.Text, () =>
+                var boon = b;
+                d.Choices.Add(new EncounterChoice(boon.Name.ToUpperInvariant() + ": " + boon.Text, () =>
                 {
-                    inv.AddRunBonus(blessing.Stats, blessing.Specials);
-                    GameEvents.RaiseEncounterUsed("shrine");
-                    if (blessing.FullHeal) health.Heal(health.Max);
-                    AudioManager.Play(Sfx.Blessing);
-                    GameEvents.RaiseToast("Blessed with " + blessing.Name);
+                    inv.AddRunBonus(boon.Stats, boon.Specials);
+                    GameEvents.RaiseEncounterUsed("sunstone");
+                    if (boon.FullHeal) health.Heal(health.Max);
+                    AudioManager.Play(Sfx.Boon);
+                    GameEvents.RaiseToast("Gained " + boon.Name);
                     Spend();
                 }));
             }

@@ -73,7 +73,7 @@ namespace Oathdeep.Tests
         public void LargeFloors_HaveEverySpecialRoomOnce([ValueSource(nameof(Seeds))] int seed)
         {
             var layout = DungeonLayoutGenerator.Generate(seed, 18);
-            foreach (var type in new[] { RoomType.Merchant, RoomType.Shrine, RoomType.Pilgrim, RoomType.Rest })
+            foreach (var type in new[] { RoomType.Merchant, RoomType.Sunstone, RoomType.Pilgrim, RoomType.Rest })
                 Assert.AreEqual(1, layout.Rooms.Count(r => r.Type == type), type.ToString());
             Assert.GreaterOrEqual(layout.Rooms.Count(r => r.Type == RoomType.Event), 1);
             Assert.GreaterOrEqual(layout.Rooms.Count(r => r.Type == RoomType.Elite), 1);

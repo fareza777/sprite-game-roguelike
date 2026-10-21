@@ -94,7 +94,7 @@ namespace Oathdeep.Tests
             Assert.AreEqual(120, loadout.Total.MaxHealth);
             Assert.AreEqual(0.1f, loadout.Specials.SkillHaste, 1e-5f);
             var swapped = loadout.Equip(Item(EquipSlot.Weapon, 1), out _);
-            Assert.AreEqual(0.1f, swapped.Specials.SkillHaste, 1e-5f, "blessings survive gear changes");
+            Assert.AreEqual(0.1f, swapped.Specials.SkillHaste, 1e-5f, "boons survive gear changes");
         }
 
         [Test]

@@ -1,5 +1,5 @@
 """NPC + room-feature sheet, 32x32 cells, 8 per row (256x64), Apollo palette, feet on row 29.
-Cells: tallow0 tallow1 pilgrim0 pilgrim1 shrine0 shrine1 fire0 fire1 / fire2 fire3 altar fragment0 fragment1 bubble.
+Cells: tallow0 tallow1 pilgrim0 pilgrim1 sunstone0 sunstone1 fire0 fire1 / fire2 fire3 altar fragment0 fragment1 bubble.
 Prints {legend, frames:[["sheet", rows]]} for strip.py / preview.py."""
 import json
 import math
@@ -77,19 +77,21 @@ def pilgrim(c, f):
     fill(c, rect(10, 28, 4, 2), "5"); fill(c, rect(17, 28, 4, 2), "5")
 
 
-def shrine(c, f):
-    """Sun shrine: a stepped stone altar holding a glowing sun disc."""
-    shade(c, rect(5, 22, 22, 7), STONE)
-    shade(c, rect(8, 17, 16, 6), STONE, sep=False)
-    fill(c, rect(5, 28, 22, 1), "w")
-    for x in range(9, 23, 3):
-        put(c, x, 25, "1")
-    r = 5.2 + 0.5 * f
-    for i in range(12):                                              # rays
-        a = i * math.pi / 6 + f * 0.26
-        c.line(16, 10, int(16 + (r + 3) * math.cos(a)), int(10 + (r + 3) * math.sin(a)), "c")
-    shade(c, ellipse(16, 10, r, r), GOLD, sep=False)
-    shade(c, ellipse(15, 9, r * 0.45, r * 0.45), ("c", "d", "H", "H"), sep=False)
+def sunstone(c, f):
+    """Sunstone: a rough rock outcrop with a cluster of amber crystals holding buried sunlight. No altar, no idol."""
+    rock = poly([(3, FEET), (5, 25), (8, 21), (11, 22), (14, 19), (18, 21), (21, 19), (25, 23), (28, 26), (29, FEET)])
+    shade(c, rock, STONE)
+    for x0, y0, x1, y1 in ((9, 26, 12, 23), (17, 25, 21, 22), (13, 28, 16, 25)):
+        c.line(x0, y0, x1, y1, "w")
+    glow = 0.6 * f
+    # crystals: tall centre spire with smaller shards around it
+    for cx, top, w in ((16, 4 - f, 3.2), (11, 10, 2.4), (21, 9 - f, 2.6), (8, 15, 1.8), (24, 14, 1.8)):
+        spire = poly([(cx - w, 20), (cx - w * 0.6, top + 3), (cx, top), (cx + w * 0.6, top + 3), (cx + w, 20)])
+        shade(c, spire, GOLD)
+        c.line(cx - 1, top + 3, cx - 1, 18, "H" if cx == 16 else "d")
+    for i in range(6):   # motes of light
+        a = i * math.pi / 3 + f * 0.5
+        put(c, 16 + (9 + glow) * math.cos(a), 12 + (7 + glow) * math.sin(a), "d" if i % 2 else "c")
 
 
 def fire(c, f):
@@ -137,16 +139,16 @@ def fragment(c, f):
 
 
 def bubble(c, f):
-    """Interaction bubble shown over NPCs and shrines."""
+    """Interaction bubble shown over NPCs and things you can use."""
     shade(c, ellipse(16, 12, 8, 7), ("2", "3", "4", "H"))
     c.line(13, 18, 11, 23, "4"); put(c, 12, 20, "3")
     fill(c, rect(15, 7, 2, 7), "b")
     fill(c, rect(15, 15, 2, 2), "b")
 
 
-CELLS = [(tallow, 0), (tallow, 1), (pilgrim, 0), (pilgrim, 1), (shrine, 0), (shrine, 1), (fire, 0), (fire, 1),
+CELLS = [(tallow, 0), (tallow, 1), (pilgrim, 0), (pilgrim, 1), (sunstone, 0), (sunstone, 1), (fire, 0), (fire, 1),
          (fire, 2), (fire, 3), (altar, 0), (fragment, 0), (fragment, 1), (bubble, 0)]
-NAMES = ["tallow0", "tallow1", "pilgrim0", "pilgrim1", "shrine0", "shrine1", "fire0", "fire1",
+NAMES = ["tallow0", "tallow1", "pilgrim0", "pilgrim1", "sunstone0", "sunstone1", "fire0", "fire1",
          "fire2", "fire3", "altar", "fragment0", "fragment1", "bubble"]
 
 if __name__ == "__main__":

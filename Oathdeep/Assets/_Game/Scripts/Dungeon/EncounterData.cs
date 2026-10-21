@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Oathdeep.Dungeon
 {
-    /// <summary>A shrine blessing: a run-long stat and/or special bonus, optionally with a full heal.</summary>
-    public sealed class Blessing
+    /// <summary>A sunstone boon: a run-long stat and/or special bonus, optionally with a full heal.</summary>
+    public sealed class Boon
     {
         public string Name { get; }
         public string Text { get; }
@@ -14,33 +14,33 @@ namespace Oathdeep.Dungeon
         public ItemSpecials Specials { get; }
         public bool FullHeal { get; }
 
-        public Blessing(string name, string text, StatBlock stats, ItemSpecials specials, bool fullHeal = false)
+        public Boon(string name, string text, StatBlock stats, ItemSpecials specials, bool fullHeal = false)
         {
             Name = name; Text = text; Stats = stats; Specials = specials; FullHeal = fullHeal;
         }
     }
 
-    /// <summary>Static content for the peaceful rooms: shrine blessings, pilgrim words, event wording.</summary>
+    /// <summary>Static content for the peaceful rooms: sunstone boons, pilgrim words, event wording.</summary>
     public static class EncounterData
     {
-        public static readonly IReadOnlyList<Blessing> Blessings = new[]
+        public static readonly IReadOnlyList<Boon> Boons = new[]
         {
-            new Blessing("Warmth", "Her warmth closes every wound.", default, default, true),
-            new Blessing("Radiance", "+3 Attack for the rest of the descent.", new StatBlock(0, 3, 0, 0f, 0f, 0f), default),
-            new Blessing("Fortitude", "+25 Health for the rest of the descent.", new StatBlock(25, 0, 0, 0f, 0f, 0f), default, true),
-            new Blessing("Swiftness", "+0.4 Speed for the rest of the descent.", new StatBlock(0, 0, 0, 0f, 0f, 0.4f), default),
-            new Blessing("Clarity", "+15% Skill haste for the rest of the descent.", default, new ItemSpecials(0f, 0.15f, 0f, 0)),
-            new Blessing("Fortune", "+40% Gold find for the rest of the descent.", default, new ItemSpecials(0f, 0f, 0.4f, 0)),
-            new Blessing("Keen Eye", "+7% Crit chance for the rest of the descent.", new StatBlock(0, 0, 0, 0.07f, 0f, 0f), default),
-            new Blessing("Bulwark", "+3 Defense for the rest of the descent.", new StatBlock(0, 0, 3, 0f, 0f, 0f), default),
-            new Blessing("Thirst", "+4% Lifesteal for the rest of the descent.", default, new ItemSpecials(0.04f, 0f, 0f, 0)),
+            new Boon("Warmth", "Its warmth closes every wound.", default, default, true),
+            new Boon("Radiance", "+3 Attack for the rest of the descent.", new StatBlock(0, 3, 0, 0f, 0f, 0f), default),
+            new Boon("Fortitude", "+25 Health for the rest of the descent.", new StatBlock(25, 0, 0, 0f, 0f, 0f), default, true),
+            new Boon("Swiftness", "+0.4 Speed for the rest of the descent.", new StatBlock(0, 0, 0, 0f, 0f, 0.4f), default),
+            new Boon("Clarity", "+15% Skill haste for the rest of the descent.", default, new ItemSpecials(0f, 0.15f, 0f, 0)),
+            new Boon("Fortune", "+40% Gold find for the rest of the descent.", default, new ItemSpecials(0f, 0f, 0.4f, 0)),
+            new Boon("Keen Eye", "+7% Crit chance for the rest of the descent.", new StatBlock(0, 0, 0, 0.07f, 0f, 0f), default),
+            new Boon("Bulwark", "+3 Defense for the rest of the descent.", new StatBlock(0, 0, 3, 0f, 0f, 0f), default),
+            new Boon("Thirst", "+4% Lifesteal for the rest of the descent.", default, new ItemSpecials(0.04f, 0f, 0f, 0)),
         };
 
-        /// <summary>Three different blessings, seeded.</summary>
-        public static List<Blessing> DrawBlessings(System.Random rng, int count = 3)
+        /// <summary>Three different boons, seeded.</summary>
+        public static List<Boon> DrawBoons(System.Random rng, int count = 3)
         {
-            var pool = new List<Blessing>(Blessings);
-            var picked = new List<Blessing>();
+            var pool = new List<Boon>(Boons);
+            var picked = new List<Boon>();
             while (picked.Count < count && pool.Count > 0)
             {
                 int i = rng.Next(pool.Count);
@@ -63,7 +63,7 @@ namespace Oathdeep.Dungeon
             new[] { "The Pale Matriarch keeps her verse in a silence so deep you can hear your own blood.",
                     "Cold doesn't kill the light. It only hides it." },
             new[] { "Growth is just hunger with patience. The Hierophant taught the roots that.",
-                    "Something sweet blooms near the shrine. Don't eat it." },
+                    "Something sweet blooms near the sunstone. Don't eat it." },
             new[] { "The Horologist counts every second the Sun has been buried. He's proud of the number.",
                     "Listen for the tick that comes late. That is where the doors are." },
             new[] { "The Pharaoh remembers every coin ever buried. He's still counting yours.",

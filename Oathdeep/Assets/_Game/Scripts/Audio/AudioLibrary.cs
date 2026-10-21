@@ -8,7 +8,7 @@ namespace Oathdeep.Audio
         Swing, SwingHeavy, Hit, HitCrit, PlayerHurt, EnemyDeath, SlimeSquish, Dodge, Bash, ArrowShoot, Spike,
         BossSlam, BossCast, BossRoar, Coin, Potion, ItemPickup, ChestOpen, Break, DoorSlam, DoorOpen, Spawn,
         RoomClear, UiClick, UiConfirm,
-        Crossbow, Flare, SoulCast, Toll, Shadowstep, EnemyShot, Explosion, Blessing, QuestComplete,
+        Crossbow, Flare, SoulCast, Toll, Shadowstep, EnemyShot, Explosion, Boon, QuestComplete,
     }
 
     public enum MusicTrack

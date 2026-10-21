@@ -27,7 +27,7 @@ namespace Oathdeep.Dungeon
         [Header("Encounters")]
         public RoomEncounter merchant;
         public RoomEncounter pilgrim;
-        public RoomEncounter shrine;
+        public RoomEncounter sunstone;
         public RoomEncounter campfire;
         public RoomEncounter diceAltar;
         public RoomEncounter sunShard;

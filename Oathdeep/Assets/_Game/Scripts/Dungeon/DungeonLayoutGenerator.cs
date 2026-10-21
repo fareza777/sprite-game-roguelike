@@ -117,7 +117,7 @@ namespace Oathdeep.Dungeon
             int max = rooms.Max(r => r.DistanceFromStart);
             Take(RoomType.Rest, r => -Math.Abs(r.DistanceFromStart - (max - 1)));       // rest before the boss
             Take(RoomType.Merchant, r => -Math.Abs(r.DistanceFromStart - max / 2.0));   // shop mid-floor
-            Take(RoomType.Shrine, r => r.Connections.Count == 1 ? 1 : 0);                // shrines hide in dead ends
+            Take(RoomType.Sunstone, r => r.Connections.Count == 1 ? 1 : 0);              // sunstones hide in dead ends
             Take(RoomType.Pilgrim, r => r.DistanceFromStart <= 2 ? 1 : 0);              // pilgrims near the entrance
             Take(RoomType.Elite, r => r.DistanceFromStart);
             Take(RoomType.Event, r => r.Connections.Count == 1 ? 1 : 0);

@@ -31,7 +31,7 @@ namespace Oathdeep.EditorTools
 
         static readonly string[] NpcNames =
         {
-            "tallow0", "tallow1", "pilgrim0", "pilgrim1", "shrine0", "shrine1", "fire0", "fire1",
+            "tallow0", "tallow1", "pilgrim0", "pilgrim1", "sunstone0", "sunstone1", "fire0", "fire1",
             "fire2", "fire3", "altar", "fragment0", "fragment1", "bubble",
         };
 
@@ -109,7 +109,7 @@ namespace Oathdeep.EditorTools
             var sun = new Color(1f, 0.85f, 0.5f);
             Encounter("Merchant", Seq(NpcPng, "tallow", 2), 3f, "tallow0", new Vector2(1.4f, 0.5f), new Color(1f, 0.8f, 0.5f), 3.5f);
             Encounter("Pilgrim", Seq(NpcPng, "pilgrim", 2), 2.5f, "pilgrim0", new Vector2(0.8f, 0.4f), Color.clear, 0f);
-            Encounter("Shrine", Seq(NpcPng, "shrine", 2), 3f, "shrine0", new Vector2(1.6f, 0.6f), sun, 5f);
+            Encounter("Sunstone", Seq(NpcPng, "sunstone", 2), 3f, "sunstone0", new Vector2(1.6f, 0.6f), sun, 5f);
             Encounter("Campfire", Seq(NpcPng, "fire", 4), 9f, "fire0", new Vector2(1.2f, 0.5f), fire, 6f);
             Encounter("DiceAltar", new[] { Spr(NpcPng, "altar") }, 0f, "altar", new Vector2(1.3f, 0.6f), new Color(0.9f, 0.4f, 0.4f), 2.5f);
             Encounter("SunShard", Seq(NpcPng, "fragment", 2), 3f, "fragment0", new Vector2(0.6f, 0.3f), sun, 4.5f);
@@ -144,7 +144,7 @@ namespace Oathdeep.EditorTools
         {
             set.merchant = EncounterPrefab("Merchant");
             set.pilgrim = EncounterPrefab("Pilgrim");
-            set.shrine = EncounterPrefab("Shrine");
+            set.sunstone = EncounterPrefab("Sunstone");
             set.campfire = EncounterPrefab("Campfire");
             set.diceAltar = EncounterPrefab("DiceAltar");
             set.sunShard = EncounterPrefab("SunShard");

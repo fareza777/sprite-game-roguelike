@@ -58,7 +58,7 @@ namespace Oathdeep.Loot
         {
             // ---- weapons ----
             B("rusted_blade", "Rusted Blade", "sword", W, 1, S(atk: 4), "Notched, but it remembers its oath."),
-            B("pilgrim_sword", "Pilgrim's Sword", "sword", W, 1, S(atk: 5, crit: 0.02f), "Blessed at a roadside shrine, once."),
+            B("pilgrim_sword", "Pilgrim's Sword", "sword", W, 1, S(atk: 5, crit: 0.02f), "Carried down by a hundred travellers before you."),
             B("crypt_longsword", "Crypt Longsword", "longsword", W, 2, S(atk: 6, crit: 0.03f), "Pried from a sarcophagus lid."),
             B("oathsworn_greatsword", "Oathsworn Greatsword", "greatsword", W, 3, S(atk: 9, critMult: 0.2f, move: -0.2f), "Heavy enough to split a crypt door."),
             B("woodcutter_axe", "Woodcutter's Axe", "axe", W, 1, S(atk: 5, critMult: 0.15f), "It has felled worse than trees."),

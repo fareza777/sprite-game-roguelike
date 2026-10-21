@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Oathdeep.Dungeon
 {
     /// <summary>Combat rooms lock until cleared; the special rooms (merchant to event) are peaceful encounters.</summary>
-    public enum RoomType { Start, Combat, Elite, Treasure, Merchant, Shrine, Pilgrim, Rest, Event, Boss }
+    public enum RoomType { Start, Combat, Elite, Treasure, Merchant, Sunstone, Pilgrim, Rest, Event, Boss }
 
     public static class RoomTypes
     {

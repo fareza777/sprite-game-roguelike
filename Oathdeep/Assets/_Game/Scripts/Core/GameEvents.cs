@@ -17,7 +17,7 @@ namespace Oathdeep.Core
         public static event Action EliteKilled;
         public static event Action ChestOpened;
         public static event Action Purchased;
-        public static event Action<string> EncounterUsed;                 // "pilgrim", "shrine", "dice"...
+        public static event Action<string> EncounterUsed;                 // "pilgrim", "sunstone", "dice"...
         public static event Action RoomCleared;
         public static event Action PlayerDied;
         public static event Action BossDefeated;

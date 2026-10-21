@@ -68,7 +68,7 @@ namespace Oathdeep.UI
             Minimap = mapRect.gameObject.AddComponent<MinimapView>();
             Minimap.Build(skin);
 
-            // --- Context button (TALK / TRADE / PRAY...) above the controls, shown near an interactable ---
+            // --- Context button (TALK / TRADE / TOUCH...) above the controls, shown near an interactable ---
             interactRoot = UIFactory.Rect("Interact", safeArea, new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0, 236), new Vector2(132, 40));
             UIFactory.Button(interactRoot, skin, "TALK", 15, () => { if (nearby != null) nearby.Use(); });
             interactLabel = interactRoot.GetComponentInChildren<TextMeshProUGUI>();
@@ -91,8 +91,18 @@ namespace Oathdeep.UI
             bossRoot.gameObject.SetActive(false);
 
             // --- Toast ---
-            var toastRect = UIFactory.Rect("Toast", safeArea, new Vector2(0.5f, 0.68f), new Vector2(0.5f, 0.68f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(320, 24));
-            toast = UIFactory.Text(toastRect, skin, "", 14, TextAlignmentOptions.Center, skin.accentColor);
+            // Wraps onto a second line and shrinks a little rather than cutting long item names off.
+            var toastRect = UIFactory.Rect("Toast", safeArea, new Vector2(0.5f, 0.68f), new Vector2(0.5f, 0.68f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(340, 44));
+            var toastBack = UIFactory.Image(toastRect, skin.white, new Color(0.03f, 0.04f, 0.08f, 0.6f));
+            toastBack.preserveAspect = false;
+            var toastText = UIFactory.Stretch("Text", toastRect);
+            toastText.offsetMin = new Vector2(8, 3);
+            toastText.offsetMax = new Vector2(-8, -3);
+            toast = UIFactory.Text(toastText, skin, "", 14, TextAlignmentOptions.Center, skin.accentColor);
+            toast.textWrappingMode = TextWrappingModes.Normal;
+            toast.enableAutoSizing = true;
+            toast.fontSizeMin = 9;
+            toast.fontSizeMax = 14;
             toastGroup = toastRect.gameObject.AddComponent<CanvasGroup>();
             toastGroup.alpha = 0f;
 
@@ -193,9 +203,11 @@ namespace Oathdeep.UI
         IEnumerator ToastRoutine(string message)
         {
             toast.text = message;
+            toast.ForceMeshUpdate();
             for (float t = 0; t < 0.15f; t += Time.unscaledDeltaTime) { toastGroup.alpha = t / 0.15f; yield return null; }
             toastGroup.alpha = 1f;
-            yield return new WaitForSecondsRealtime(1.6f);
+            // Longer messages stay up longer so they can be read (rich-text tags do not count).
+            yield return new WaitForSecondsRealtime(Mathf.Clamp(1.2f + toast.GetParsedText().Length * 0.03f, 1.6f, 3.2f));
             for (float t = 0; t < 0.4f; t += Time.unscaledDeltaTime) { toastGroup.alpha = 1f - t / 0.4f; yield return null; }
             toastGroup.alpha = 0f;
         }

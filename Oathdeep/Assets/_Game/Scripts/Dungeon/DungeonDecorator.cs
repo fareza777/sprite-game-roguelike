@@ -131,7 +131,7 @@ namespace Oathdeep.Dungeon
             EncounterKind kind = room.Node.Type switch
             {
                 RoomType.Merchant => EncounterKind.Merchant,
-                RoomType.Shrine => EncounterKind.Shrine,
+                RoomType.Sunstone => EncounterKind.Sunstone,
                 RoomType.Pilgrim => EncounterKind.Pilgrim,
                 RoomType.Rest => EncounterKind.Rest,
                 _ => Events[rng.Next(Events.Length)],
@@ -139,7 +139,7 @@ namespace Oathdeep.Dungeon
             var prefab = kind switch
             {
                 EncounterKind.Merchant => props.merchant,
-                EncounterKind.Shrine => props.shrine,
+                EncounterKind.Sunstone => props.sunstone,
                 EncounterKind.Pilgrim => props.pilgrim,
                 EncounterKind.Rest => props.campfire,
                 EncounterKind.DiceAltar => props.diceAltar,
@@ -157,7 +157,7 @@ namespace Oathdeep.Dungeon
 
             switch (room.Node.Type)
             {
-                case RoomType.Shrine:
+                case RoomType.Sunstone:
                     Corners(room, props.brazier, occupied, 2);
                     break;
                 case RoomType.Merchant:

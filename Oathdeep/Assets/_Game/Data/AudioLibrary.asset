@@ -174,7 +174,7 @@ MonoBehaviour:
     PitchJitter: 0.08
     MinInterval: 0.08
   - Id: 32
-    Clip: {fileID: 8300000, guid: 6e03f3da1069ceb499ea9cc05745e1d3, type: 3}
+    Clip: {fileID: 8300000, guid: 7d86908f45e835344a7c9f9982683571, type: 3}
     Volume: 0.85
     PitchJitter: 0
     MinInterval: 0.3

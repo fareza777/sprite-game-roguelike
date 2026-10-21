@@ -10,7 +10,7 @@ in Unity 6. Design doc: `docs/design/2026-10-21-undersun-full-game-design.md`.
 | M2 | Original story, narrated prologue and ending cinematics with offline VO, per-floor narration |
 | M3 | Five heroes (Aldric, Wren, Morrow, Brakka, Sable) with their own stats, combos and skills; Heroes page |
 | M4 | 104 item identities (64 bases + 40 legendaries), 24 affixes, 5 rarities, procedural stats; equipment + compendium |
-| M5 | Ten biomes, a ten-floor descent, bigger rooms (16-20 per floor), merchant / shrine / pilgrim / rest / events / elites |
+| M5 | Ten biomes, a ten-floor descent, bigger rooms (16-20 per floor), merchant / sunstone / pilgrim / rest / events / elites |
 | M6 | Forty creatures (30 regulars, 10 Chorister bosses), new AIs, data-driven pattern bosses, Codex |
 | M7 | Main story chapters, 12 side quests, permanent meta rewards, Quests page |
 | M8 | Nine biome themes + two boss themes, 34 SFX |

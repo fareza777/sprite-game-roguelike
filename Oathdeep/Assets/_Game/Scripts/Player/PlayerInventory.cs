@@ -105,7 +105,7 @@ namespace Oathdeep.Player
             return true;
         }
 
-        /// <summary>A blessing for the rest of the run: stats join the hero's base, specials stack with gear.</summary>
+        /// <summary>A boon for the rest of the run: stats join the hero's base, specials stack with gear.</summary>
         public void AddRunBonus(StatBlock stats, ItemSpecials specials)
         {
             var next = Loadout.WithBase(Loadout.Base + stats);

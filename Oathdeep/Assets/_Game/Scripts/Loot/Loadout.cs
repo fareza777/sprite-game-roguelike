@@ -35,10 +35,10 @@ namespace Oathdeep.Loot
 
         public ItemInstance Get(EquipSlot slot) => slots[(int)slot];
 
-        /// <summary>Same gear on a new base (run-long blessings change the base, not the items).</summary>
+        /// <summary>Same gear on a new base (run-long boons change the base, not the items).</summary>
         public Loadout WithBase(StatBlock newBase) => new Loadout(newBase, (ItemInstance[])slots.Clone(), bonusSpecials);
 
-        /// <summary>Same gear with extra specials that do not come from an item (shrine blessings).</summary>
+        /// <summary>Same gear with extra specials that do not come from an item (sunstone boons).</summary>
         public Loadout WithBonusSpecials(ItemSpecials extra) => new Loadout(Base, (ItemInstance[])slots.Clone(), bonusSpecials + extra);
 
         public Loadout Equip(ItemInstance item, out ItemInstance replaced)

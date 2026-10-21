@@ -44,7 +44,7 @@ MonoBehaviour:
   spawnMarker: {fileID: 1995995648972129915, guid: b8122f3984c16374faa6206ed2eeeb9a, type: 3}
   merchant: {fileID: 6541706047209450683, guid: b8fb6509d5ef79242a27ec258b2440f3, type: 3}
   pilgrim: {fileID: 7839643284888066064, guid: 18caaf0205e36d94bbc242f1faf8e119, type: 3}
-  shrine: {fileID: 1606344168505017368, guid: 6f0705d006c8c884ba668e07e888feac, type: 3}
+  sunstone: {fileID: 3760900091364721627, guid: 664bdfd26b1f9dd42a88f2c7acdd38ea, type: 3}
   campfire: {fileID: 3820006989368318365, guid: d1fb31c9b5acecc46b6c2a9d23b52b1f, type: 3}
   diceAltar: {fileID: 7063912042695245920, guid: 8628bdc5e2300b84a96b23fad552881b, type: 3}
   sunShard: {fileID: 6041535801329230381, guid: 2fdc1fb8bb00a8d4f88dbf51bd4bfda8, type: 3}
