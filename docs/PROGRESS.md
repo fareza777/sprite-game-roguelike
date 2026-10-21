@@ -29,7 +29,11 @@ in Unity 6. Design doc: `docs/design/2026-10-21-undersun-full-game-design.md`.
 ## Rebuilding everything
 1. Art: `python ArtSource/gen/<generator>.py`, then open, validate, save and export through the Aseprite MCP.
    - Heroes: `heroes.py`.
-   - Creatures: `bestiary.py <id>` (`--list` for all).
+   - Creatures: `hand_bestiary.py <id>` (`--list` for all), then `strip.py` to a PNG strip.
+     - Each creature is hand-drawn as pixel-grid parts (`hand_b2.py` .. `hand_b10.py`), posed per frame by the plans
+       in `hand_core.py`. Bosses (`hand_bosses_a.py`, `hand_bosses_b.py`) are drawn at full 64px resolution.
+     - Preview any frames with `hand_preview.py out.png 6 id@0,2,8`.
+     - The old parametric `bestiary.py` only supplies the shared palette legend now.
    - Biome tiles: `biomes.py`.
    - Items, NPCs, FX: `items.py`, `npcs.py`, `hero_fx.py`, `enemy_fx.py`.
 2. Audio:
@@ -39,7 +43,7 @@ in Unity 6. Design doc: `docs/design/2026-10-21-undersun-full-game-design.md`.
    - VO: `tools/audio/vo.py`.
 3. Unity: `bash tools/setup-wait.sh` queues **Oathdeep > Build Everything**. It runs these stages in order: importers and
    slicing, content data, audio library and story, about 97 prefabs, floors and the scene.
-4. Tests: EditMode, 2031 passing (`node tools/unity-mcp.mjs tests-run '{"testMode":"EditMode"}'`; save the scene first).
+4. Tests: EditMode, 2033 passing (`node tools/unity-mcp.mjs tests-run '{"testMode":"EditMode"}'`; save the scene first).
 5. QA: `bash tools/smoke.sh` in play mode runs every floor (teleport to the boss, clear it, take the portal).
 6. APK: `node tools/run-cs.mjs tools/playtest/apk.cs`, then pump the editor; output goes to `Oathdeep/Builds/Android/Undersun.apk`.
 
