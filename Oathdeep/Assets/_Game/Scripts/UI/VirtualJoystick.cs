@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Oathdeep.Player;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -25,6 +26,7 @@ namespace Oathdeep.UI
 
         RectTransform zone;
         Vector2 restPosition;
+        Vector2? restFraction;   // a player-placed rest point, as a fraction of the zone
         int pointerId = -1;
         int touchId = -1;   // -1 = mouse/pen
 
@@ -43,6 +45,23 @@ namespace Oathdeep.UI
         }
 
         void Awake() => zone = (RectTransform)transform;
+
+        /// <summary>Rest the stick at a player-chosen point (fraction of the zone) instead of the built-in spot.</summary>
+        public void UseRestFraction(Vector2 fraction)
+        {
+            restFraction = fraction;
+            PlaceAtRest();
+        }
+
+        Vector2 Rest => restFraction.HasValue && zone != null ? Vector2.Scale(zone.rect.size, restFraction.Value) : restPosition;
+
+        void PlaceAtRest()
+        {
+            if (pointerId == -1 && stickBase != null) stickBase.anchoredPosition = Rest;
+        }
+
+        // The zone only gets its real size once the canvas lays out; keep the resting stick on its spot.
+        void OnRectTransformDimensionsChange() => PlaceAtRest();
 
         public void OnPointerDown(PointerEventData e)
         {
@@ -89,16 +108,13 @@ namespace Oathdeep.UI
 
         bool PointerStillDown()
         {
-            if (touchId >= 0)
-            {
-                var screen = Touchscreen.current;
-                if (screen == null) return false;
+            var touches = new List<(int, bool)>();
+            var screen = Touchscreen.current;
+            if (screen != null)
                 foreach (var t in screen.touches)
-                    if (t.touchId.ReadValue() == touchId && t.press.isPressed) return true;
-                return false;
-            }
+                    touches.Add((t.touchId.ReadValue(), t.press.isPressed));
             var mouse = Mouse.current;
-            return mouse == null || mouse.leftButton.isPressed;   // unknown pointer: trust the event system
+            return PointerHold.StillDown(touchId, touches, mouse != null ? mouse.leftButton.isPressed : (bool?)null);
         }
 
         void Release()
@@ -106,7 +122,7 @@ namespace Oathdeep.UI
             pointerId = -1;
             touchId = -1;
             knob.anchoredPosition = Vector2.zero;
-            if (floating) stickBase.anchoredPosition = restPosition;
+            if (floating) stickBase.anchoredPosition = Rest;
             PlayerInputReader.SetTouchMove(Vector2.zero);
             SetActiveLook(false);
         }

@@ -17,6 +17,9 @@ namespace Oathdeep.Core
         public bool damageNumbers = true;
         public bool fixedJoystick;
         public bool leftHanded;
+        // Player-placed touch controls: centres as fractions of the HUD safe area. Only used when customControls is set.
+        public bool customControls;
+        public Vector2 stickPos, attackPos, dodgePos, skillPos;
     }
 
     [Serializable]

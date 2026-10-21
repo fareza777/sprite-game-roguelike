@@ -10,29 +10,43 @@ namespace Oathdeep.Tests
 
         static Rect Box(ControlLayout.Slot s) => new Rect(s.Position - Vector2.one * s.Size / 2f, Vector2.one * s.Size);
 
-        [Test]
-        public void ActionButtons_DoNotOverlap([Values(false, true)] bool leftHanded)
+        /// <summary>A slot's rectangle on a screen `width` units wide (slots hang off their bottom anchor).</summary>
+        static Rect OnScreen(ControlLayout.Slot s, float width)
         {
-            var l = ControlLayout.Compute(leftHanded);
-            Assert.IsFalse(Box(l.Attack).Overlaps(Box(l.Dodge)));
-            Assert.IsFalse(Box(l.Attack).Overlaps(Box(l.Skill)));
-            Assert.IsFalse(Box(l.Dodge).Overlaps(Box(l.Skill)));
+            var box = Box(s);
+            box.position += new Vector2(s.AnchorX * width, 0f);
+            return box;
         }
 
         // The canvas matches width and height halfway, so a 20:9 phone (1080x2400) is only ~322 units wide.
+        [Test]
+        public void ActionButtons_DoNotOverlap([Values(false, true)] bool leftHanded, [Values(300f, 322f, 360f, 420f)] float width)
+        {
+            var l = ControlLayout.Compute(leftHanded);
+            Assert.IsFalse(OnScreen(l.Attack, width).Overlaps(OnScreen(l.Dodge, width)));
+            Assert.IsFalse(OnScreen(l.Attack, width).Overlaps(OnScreen(l.Skill, width)));
+            Assert.IsFalse(OnScreen(l.Dodge, width).Overlaps(OnScreen(l.Skill, width)));
+        }
+
         [Test]
         public void StickAtRest_ClearsEveryActionButton([Values(false, true)] bool leftHanded, [Values(300f, 322f, 360f, 420f)] float width)
         {
             var l = ControlLayout.Compute(leftHanded);
             var stickCentre = new Vector2(l.MoveZoneMin.x * width, 0f) + ControlLayout.StickRest;
             var stick = new Rect(stickCentre - Vector2.one * ControlLayout.StickSize / 2f, Vector2.one * ControlLayout.StickSize);
-            var corner = new Vector2(leftHanded ? 0f : width, 0f);
             foreach (var (name, slot) in new[] { ("Attack", l.Attack), ("Dodge", l.Dodge), ("Skill", l.Skill) })
-            {
-                var button = Box(slot);
-                button.position += corner;
-                Assert.IsFalse(stick.Overlaps(button), $"{name} overlaps the joystick at width {width}");
-            }
+                Assert.IsFalse(stick.Overlaps(OnScreen(slot, width)), $"{name} overlaps the joystick at width {width}");
+        }
+
+        // Roll sits low in the middle, between the stick and the attack button, where either thumb reaches it.
+        [Test]
+        public void Dodge_SitsBottomCentre_BetweenStickAndAttack([Values(false, true)] bool leftHanded, [Values(300f, 322f, 360f, 420f)] float width)
+        {
+            var l = ControlLayout.Compute(leftHanded);
+            var dodge = OnScreen(l.Dodge, width);
+            Assert.AreEqual(width / 2f, dodge.center.x, 1e-3f);
+            Assert.Less(dodge.yMax, OnScreen(l.Attack, width).center.y);
+            Assert.GreaterOrEqual(dodge.yMin, 6f, "keep clear of the gesture bar at the very bottom");
         }
 
         [Test]

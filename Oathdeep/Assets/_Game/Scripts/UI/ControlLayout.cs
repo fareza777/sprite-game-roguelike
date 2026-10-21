@@ -10,13 +10,14 @@ namespace Oathdeep.UI
     {
         public readonly struct Slot
         {
-            public readonly Vector2 Position;   // offset from the bottom corner on the action side
+            public readonly Vector2 Position;   // offset from its bottom anchor
             public readonly float Size;
-            public Slot(Vector2 position, float size) { Position = position; Size = size; }
+            public readonly float AnchorX;      // where along the bottom edge it hangs: 0 left, 0.5 centre, 1 right
+            public Slot(Vector2 position, float size, float anchorX) { Position = position; Size = size; AnchorX = anchorX; }
         }
 
         public const float EdgeMargin = 14f;        // floating stick never hugs the screen edge
-        public static readonly Vector2 StickRest = new Vector2(92f, 120f);
+        public static readonly Vector2 StickRest = new Vector2(92f, 132f);
         public const float StickSize = 112f;
 
         public readonly Slot Attack, Dodge, Skill;
@@ -27,11 +28,13 @@ namespace Oathdeep.UI
         {
             LeftHanded = leftHanded;
             float s = leftHanded ? 1f : -1f;   // + from the left corner, - from the right corner
-            // Big attack in the corner, skill stacked above it on the outer edge, dodge up and inward of the skill:
-            // an arc around the thumb that stays above the stick, because a 20:9 phone is only ~322 units wide.
-            Attack = new Slot(new Vector2(s * 80f, 104f), 100f);
-            Dodge = new Slot(new Vector2(s * 158f, 222f), 64f);
-            Skill = new Slot(new Vector2(s * 76f, 210f), 64f);
+            // Big attack in the corner with the skill stacked above it on the outer edge. Roll sits low in the bottom
+            // centre, under the gap between stick and attack: a 20:9 phone is only ~322 units wide, so it fits below
+            // their bottom edges rather than between them.
+            float corner = leftHanded ? 0f : 1f;
+            Attack = new Slot(new Vector2(s * 80f, 116f), 100f, corner);
+            Dodge = new Slot(new Vector2(0f, 36f), 56f, 0.5f);
+            Skill = new Slot(new Vector2(s * 76f, 222f), 64f, corner);
             MoveZoneMin = leftHanded ? new Vector2(0.5f, 0f) : Vector2.zero;
             MoveZoneMax = leftHanded ? new Vector2(1f, 0.45f) : new Vector2(0.5f, 0.45f);
         }

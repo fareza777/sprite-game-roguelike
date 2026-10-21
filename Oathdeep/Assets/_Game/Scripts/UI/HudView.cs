@@ -133,7 +133,11 @@ namespace Oathdeep.UI
             controlsRoot = UIFactory.Stretch("Controls", safeArea);
             controlsRoot.SetAsFirstSibling();   // under the HUD readouts, above the world
 
-            var zone = UIFactory.Rect("MoveZone", controlsRoot, layout.MoveZoneMin, layout.MoveZoneMax, Vector2.zero, Vector2.zero, Vector2.zero);
+            // Player-placed controls (Settings > Customize layout) override the built-in spots.
+            bool custom = GameSettings.CustomControls;
+            var placed = GameSettings.ControlPositions;   // stick, attack, dodge, skill
+            var (zoneMin, zoneMax) = custom ? ControlPlacement.MoveZoneFor(placed[0]) : (layout.MoveZoneMin, layout.MoveZoneMax);
+            var zone = UIFactory.Rect("MoveZone", controlsRoot, zoneMin, zoneMax, Vector2.zero, Vector2.zero, Vector2.zero);
             var zoneImg = UIFactory.Image(zone, skin.white, new Color(0, 0, 0, 0), false, true);
             zoneImg.preserveAspect = false;
             var stickBase = UIFactory.Rect("Base", zone, Vector2.zero, Vector2.zero, new Vector2(0.5f, 0.5f), ControlLayout.StickRest, Vector2.one * ControlLayout.StickSize);
@@ -144,17 +148,23 @@ namespace Oathdeep.UI
             group.blocksRaycasts = false;
             var stick = zone.gameObject.AddComponent<VirtualJoystick>();
             stick.Setup(stickBase, knob, group, !GameSettings.FixedJoystick);
+            if (custom) stick.UseRestFraction(ControlPlacement.RestInZone(placed[0], zoneMin, zoneMax));
 
-            var corner = layout.LeftHanded ? Vector2.zero : new Vector2(1, 0);
-            MakeAction(controlsRoot, corner, "Attack", PlayerAction.Attack, skin.iconAttack, layout.Attack, null);
-            MakeAction(controlsRoot, corner, "Dodge", PlayerAction.Dodge, skin.iconDodge, layout.Dodge, () => player != null ? player.DodgeCooldownFraction : 0f);
-            MakeAction(controlsRoot, corner, "Skill", PlayerAction.Skill, skillIcon, layout.Skill, () => player != null ? player.SkillCooldownFraction : 0f);
+            MakeAction(controlsRoot, "Attack", PlayerAction.Attack, skin.iconAttack, layout.Attack, custom ? placed[1] : (Vector2?)null, null);
+            MakeAction(controlsRoot, "Dodge", PlayerAction.Dodge, skin.iconDodge, layout.Dodge, custom ? placed[2] : (Vector2?)null,
+                () => player != null ? player.DodgeCooldownFraction : 0f);
+            MakeAction(controlsRoot, "Skill", PlayerAction.Skill, skillIcon, layout.Skill, custom ? placed[3] : (Vector2?)null,
+                () => player != null ? player.SkillCooldownFraction : 0f);
         }
 
-        void MakeAction(RectTransform parent, Vector2 corner, string name, PlayerAction action, Sprite icon, ControlLayout.Slot slot, System.Func<float> cooldown)
+        /// <param name="placedAt">A player-chosen centre (fraction of the safe area), or null for the slot's built-in spot.</param>
+        void MakeAction(RectTransform parent, string name, PlayerAction action, Sprite icon, ControlLayout.Slot slot, Vector2? placedAt,
+            System.Func<float> cooldown)
         {
             float size = slot.Size;
-            var root = UIFactory.Rect(name, parent, corner, corner, new Vector2(0.5f, 0.5f), slot.Position, new Vector2(size, size));
+            var anchor = placedAt ?? new Vector2(slot.AnchorX, 0f);
+            var offset = placedAt.HasValue ? Vector2.zero : slot.Position;
+            var root = UIFactory.Rect(name, parent, anchor, anchor, new Vector2(0.5f, 0.5f), offset, new Vector2(size, size));
             var bg = UIFactory.Image(root, skin.actionRing, null, false, true);
             bg.color = new Color(1, 1, 1, 0.85f);
             var iconRect = UIFactory.Rect("Icon", root, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(size * 0.55f, size * 0.55f));

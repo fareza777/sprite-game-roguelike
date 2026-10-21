@@ -12,6 +12,7 @@ namespace Oathdeep.UI
         public sealed class SettingsHooks
         {
             public Action ControlsChanged;   // rebuild the HUD so layout options apply immediately
+            public Action CustomizeControls; // opens the drag-to-place control editor
             public Action ReplayIntro;
             public Action ProgressReset;
             public ConfirmDialog Confirm;
@@ -30,7 +31,9 @@ namespace Oathdeep.UI
             UIWidgets.ToggleRow(page.Row("Joystick", 36), skin, "Joystick", () => GameSettings.FixedJoystick,
                 v => { GameSettings.FixedJoystick = v; hooks.ControlsChanged?.Invoke(); }, "FIXED", "FLOATING");
             UIWidgets.ToggleRow(page.Row("LeftHanded", 36), skin, "Left-handed", () => GameSettings.LeftHanded,
-                v => { GameSettings.LeftHanded = v; hooks.ControlsChanged?.Invoke(); });
+                v => { GameSettings.LeftHanded = v; GameSettings.MirrorControlPositions(); hooks.ControlsChanged?.Invoke(); });
+            if (hooks.CustomizeControls != null)
+                UIFactory.Button(page.Row("Layout", 40), skin, "CUSTOMIZE LAYOUT", 14, hooks.CustomizeControls);
             UIWidgets.ToggleRow(page.Row("AutoAim", 36), skin, "Auto-aim", () => GameSettings.AutoAim, v => GameSettings.AutoAim = v);
             UIWidgets.ToggleRow(page.Row("Vibration", 36), skin, "Vibration", () => GameSettings.Vibration, v => GameSettings.Vibration = v);
 

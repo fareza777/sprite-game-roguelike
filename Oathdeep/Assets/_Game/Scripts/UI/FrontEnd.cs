@@ -33,6 +33,7 @@ namespace Oathdeep.UI
         SplashView splash;
         MainMenuView menu;
         PageView settingsPage, aboutPage;
+        ControlLayoutEditor controlEditor;
         HeroesPage heroesPage;
         ItemCompendiumPage itemsPage;
         CodexPage codexPage;
@@ -77,6 +78,7 @@ namespace Oathdeep.UI
             shopPage = ShopPage.Create(SafeArea, skin, () => { var c = shopClosed; shopClosed = null; c?.Invoke(); });
             dialog = EncounterDialogView.Create(SafeArea, skin);
             Confirm = ConfirmDialog.Create(SafeArea, skin);
+            controlEditor = ControlLayoutEditor.Create(SafeArea, skin);
             BuildRunScreens();
             Cinematic = CinematicView.Create(SafeArea, skin, story);
             splash = SplashView.Create(SafeArea, skin, "a game by fareza777");
@@ -167,6 +169,7 @@ namespace Oathdeep.UI
             FrontEndPages.BuildSettings(settingsPage, new FrontEndPages.SettingsHooks
             {
                 ControlsChanged = hooks.ControlsChanged,
+                CustomizeControls = () => controlEditor.Open(hooks.ControlsChanged),
                 ReplayIntro = hooks.ReplayIntro == null ? null : () => { settingsPage.Hide(); hooks.ReplayIntro(); },
                 Confirm = Confirm,
             });
