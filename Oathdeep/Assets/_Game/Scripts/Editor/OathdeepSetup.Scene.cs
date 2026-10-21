@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Oathdeep.Core;
 using Oathdeep.Loot;
 using Oathdeep.Player;
@@ -48,8 +49,7 @@ namespace Oathdeep.EditorTools
 
             var runner = new GameObject("GameRunner").AddComponent<GameRunner>();
             Set(runner,
-                ("hero", knightHero), ("floor", floorOne), ("props", cryptProps),
-                ("playerPrefab", Prefab("Player").GetComponent<PlayerController>()),
+                ("heroes", Heroes.OrderBy(h => h.Key).Select(h => (Object)h.Value).ToArray()), ("floor", floorOne), ("props", cryptProps),
                 ("pickupPrefab", Prefab("Pickup").GetComponent<Pickup>()),
                 ("goldSprite", Spr(PropsPng, "coin0")), ("potionSprite", Spr(PropsPng, "potion")),
                 ("skin", uiSkin), ("audioLibrary", audioLibrary), ("story", storyAssets), ("worldCamera", cam), ("globalLight", global));

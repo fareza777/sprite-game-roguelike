@@ -30,7 +30,7 @@ namespace Oathdeep.EditorTools
             int before = count;
             BuildVfx();
             BuildProjectilesAndPickup();
-            BuildPlayer();
+            BuildPlayers();
             BuildEnemies();
             BuildProps();
             log.Add($"prefabs: {count - before} saved");
@@ -166,6 +166,12 @@ namespace Oathdeep.EditorTools
             Vfx("Spark", Seq(PropsPng, "spark", 3), 24f, OrderFx + 1);
             Vfx("Shards", Seq(PropsPng, "shards", 3), 14f, OrderFx);
             Vfx("Poof", Seq(PropsPng, "poof", 4), 14f, OrderFx);
+            Vfx("Toll", Seq(HeroFxPng, "ring", 4), 10f, OrderFloorFx + 1);
+            Vfx("Shadow", Seq(HeroFxPng, "shadow", 2), 10f, OrderFx);
+            var wisp = new GameObject("Wisp");
+            Flipbook(AddSprite(wisp, "Wisp", Spr(HeroFxPng, "wisp0"), OrderFx, Vector3.zero, true), Seq(HeroFxPng, "wisp", 2), 8f, true);
+            PointLight(wisp, Vector3.zero, new Color(0.55f, 0.85f, 0.9f), 1.6f, 0.6f, false);
+            Save(wisp, "VFX/Wisp");
             var marker = new GameObject("SpawnMarker");
             Flipbook(AddSprite(marker, "SpawnMarker", Spr(PropsPng, "marker0"), OrderFloorFx, Vector3.zero, true),
                      Seq(PropsPng, "marker", 4), 10f, true, 0.75f);
@@ -185,6 +191,9 @@ namespace Oathdeep.EditorTools
         {
             Projectile("Arrow", Spr(PropsPng, "arrow"), false);
             Projectile("BoneShard", Spr(PropsPng, "boneShard"), true);
+            Projectile("Bolt", Spr(HeroFxPng, "bolt"), false);
+            Projectile("Flare", Spr(HeroFxPng, "flare"), true);
+            Projectile("SoulOrb", Spr(HeroFxPng, "orb0"), true);
 
             var go = new GameObject("Pickup");
             var item = AddSprite(go, "Sprite", Spr(PropsPng, "coin0"), 2, new Vector3(0f, 0.08f, 0f));
@@ -213,16 +222,31 @@ namespace Oathdeep.EditorTools
 
         // ---------------- player ----------------
 
-        static void BuildPlayer()
+        static void BuildPlayers()
         {
-            var go = new GameObject("Player");
+            var heroAse = new Dictionary<HeroId, string>
+            {
+                { HeroId.Aldric, KnightAse }, { HeroId.Wren, WrenAse }, { HeroId.Morrow, MorrowAse },
+                { HeroId.Brakka, BrakkaAse }, { HeroId.Sable, SableAse },
+            };
+            foreach (var pair in heroAse)
+            {
+                var prefab = BuildPlayer(pair.Key, pair.Value);
+                Set(Heroes[pair.Key], ("playerPrefab", prefab));
+                EditorUtility.SetDirty(Heroes[pair.Key]);
+            }
+        }
+
+        static GameObject BuildPlayer(HeroId id, string ase)
+        {
+            var go = new GameObject("Player_" + id);
             var rb = Body(go, RigidbodyType2D.Dynamic);
             rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
             var col = go.AddComponent<CircleCollider2D>();
             col.radius = 0.3f;
             col.offset = new Vector2(0f, 0.25f);
             Shadow(go, 1.1f);
-            var (animator, renderer, flash) = Model(go, KnightAse);
+            var (animator, renderer, flash) = Model(go, ase);
             PointLight(go, new Vector3(0f, 0.8f, 0f), new Color(1f, 0.9f, 0.75f), 3.6f, 0.55f, false);
 
             Set(go.AddComponent<Health>(), ("team", Team.Player), ("invulnerableAfterHit", 0.45f));
@@ -230,9 +254,13 @@ namespace Oathdeep.EditorTools
             var input = go.AddComponent<PlayerInputReader>();
             var driver = Driver(go, animator, renderer);
             go.AddComponent<PlayerInventory>();
-            Set(go.AddComponent<PlayerController>(), ("input", input), ("anim", driver), ("flash", flash),
-                ("slashVfx", Prefab("VFX/Slash")), ("dodgeDustVfx", Prefab("VFX/Dust")), ("bashVfx", Prefab("VFX/Bash")));
-            Save(go, "Player");
+            Set(go.AddComponent<PlayerController>(), ("heroId", id), ("input", input), ("anim", driver), ("flash", flash),
+                ("slashVfx", Prefab("VFX/Slash")), ("dodgeDustVfx", Prefab("VFX/Dust")), ("bashVfx", Prefab("VFX/Bash")),
+                ("boltPrefab", Prefab("Projectiles/Bolt").GetComponent<Projectile>()),
+                ("flarePrefab", Prefab("Projectiles/Flare").GetComponent<Projectile>()),
+                ("orbPrefab", Prefab("Projectiles/SoulOrb").GetComponent<Projectile>()),
+                ("wispPrefab", Prefab("VFX/Wisp")), ("tollVfx", Prefab("VFX/Toll")), ("shadowVfx", Prefab("VFX/Shadow")));
+            return Save(go, "Heroes/Player_" + id);
         }
 
         // ---------------- enemies ----------------

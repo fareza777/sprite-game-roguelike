@@ -12,14 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de5febb97fcc854db0859c8bf6af613, type: 3}
   m_Name: Hero_Knight
   m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Data.HeroData
-  displayName: Knight
-  description: An oathbound knight. Sword, shield and stubbornness.
+  id: 0
+  displayName: Aldric
+  title: The Oathknight
+  description: He swore to guard a sun he has never seen. Sword, shield, and a stubbornness
+    older than the dusk.
   baseStats:
-    maxHealth: 100
+    maxHealth: 110
     attack: 12
-    defense: 4
+    defense: 5
     critChance: 0.08
     critMultiplier: 1.75
     moveSpeed: 4.2
   skillCooldown: 5
   dodgeCooldown: 0.45
+  skillName: Shield Bash
+  skillDescription: Charge behind your shield, slamming and stunning everything in
+    your path. Untouchable while charging.
+  skillIcon: {fileID: 1658395501, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  idleFrames:
+  - {fileID: 5785711979613571302, guid: 68692a7f75ad45240921058deb59ef9b, type: 3}
+  - {fileID: 1319098542178843522, guid: 68692a7f75ad45240921058deb59ef9b, type: 3}
+  - {fileID: 8737996306405255340, guid: 68692a7f75ad45240921058deb59ef9b, type: 3}
+  - {fileID: -1682344282824272528, guid: 68692a7f75ad45240921058deb59ef9b, type: 3}
+  playerPrefab: {fileID: 4178393363555964219, guid: 4956ee7b07dbd804f8a7419ff7b98e1f, type: 3}

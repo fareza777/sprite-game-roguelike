@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7de5febb97fcc854db0859c8bf6af613, type: 3}
+  m_Name: Hero_Sable
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Data.HeroData
+  id: 4
+  displayName: Sable
+  title: The Duskblade
+  description: Born in the dusk, raised by it, paid by it. Sable cut throats for
+    the Choir's wardens, and knows exactly where their hymns are thin.
+  baseStats:
+    maxHealth: 90
+    attack: 10
+    defense: 3
+    critChance: 0.18
+    critMultiplier: 2
+    moveSpeed: 5
+  skillCooldown: 5
+  dodgeCooldown: 0.35
+  skillName: Shadowstep
+  skillDescription: Melt into shadow and reappear behind the nearest foe with a devastating
+    strike.
+  skillIcon: {fileID: 825445696, guid: 5e49e45f0301f8b47b43e2fcf9949509, type: 3}
+  idleFrames:
+  - {fileID: -7117250638166702569, guid: baa7c89f4d5bd8e4a8d05e9229323253, type: 3}
+  - {fileID: 3777768661917698970, guid: baa7c89f4d5bd8e4a8d05e9229323253, type: 3}
+  - {fileID: 3963949643722904164, guid: baa7c89f4d5bd8e4a8d05e9229323253, type: 3}
+  - {fileID: -7590885645594478495, guid: baa7c89f4d5bd8e4a8d05e9229323253, type: 3}
+  playerPrefab: {fileID: 5672261031940191208, guid: bbdcc53fcb4ab114196b923cfea7fd40, type: 3}

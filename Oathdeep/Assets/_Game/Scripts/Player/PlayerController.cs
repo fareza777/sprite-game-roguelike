@@ -1,33 +1,37 @@
 using System.Collections.Generic;
+using Oathdeep.Audio;
 using Oathdeep.Combat;
 using Oathdeep.Core;
+using Oathdeep.Data;
 using UnityEngine;
-using Oathdeep.Audio;
 
 namespace Oathdeep.Player
 {
-    /// <summary>Knight movement + combat state machine: move, 3-hit combo, dodge roll, shield bash, hurt, death.</summary>
+    /// <summary>Hero movement + combat state machine: move, 3-hit combo (melee or ranged), dodge roll, hero skill, hurt, death.
+    /// The hero's feel comes from its <see cref="HeroMoves"/>; skills live in PlayerController.Skills.cs.</summary>
     [RequireComponent(typeof(Rigidbody2D), typeof(Health), typeof(CombatStats))]
-    public sealed class PlayerController : MonoBehaviour
+    public sealed partial class PlayerController : MonoBehaviour
     {
-        enum State { Move, Attack, Dodge, Bash, Hurt, Dead }
+        enum State { Move, Attack, Dodge, Skill, Hurt, Dead }
 
+        [SerializeField] HeroId heroId;
         [SerializeField] PlayerInputReader input;
         [SerializeField] AnimDriver anim;
         [SerializeField] HitFlash flash;
         [SerializeField] GameObject slashVfx;
         [SerializeField] GameObject dodgeDustVfx;
-        [SerializeField] GameObject bashVfx;
         [SerializeField] float acceleration = 60f;
 
         Rigidbody2D body;
         Health health;
         CombatStats stats;
+        HeroMoves moves;
         State state;
         float stateTime;
         int comboIndex;
         float comboResetAt;
         bool chainQueued;
+        bool shotFired;
         Vector2 aim = Vector2.down;
         Vector2 dashDir;
         float dodgeReadyAt;
@@ -37,6 +41,7 @@ namespace Oathdeep.Player
         readonly HashSet<Health> hitThisSwing = new HashSet<Health>();
         Vector2 knockVelocity;
 
+        public HeroId Hero => heroId;
         public Vector2 Aim => aim;
         public bool IsDead => state == State.Dead;
         /// <summary>Raised when an attack, dodge or skill actually starts (used by onboarding and quests).</summary>
@@ -49,6 +54,7 @@ namespace Oathdeep.Player
             body = GetComponent<Rigidbody2D>();
             health = GetComponent<Health>();
             stats = GetComponent<CombatStats>();
+            moves = HeroMoves.For(heroId);
             if (input == null) input = GetComponent<PlayerInputReader>();
             if (anim == null) anim = GetComponentInChildren<AnimDriver>();
             if (flash == null) flash = GetComponentInChildren<HitFlash>();
@@ -66,10 +72,13 @@ namespace Oathdeep.Player
             health.Died -= OnDied;
         }
 
-        public void SetCooldowns(float dodge, float skill)
+        /// <summary>Applies the hero's cooldowns and move set. Called once when the run starts.</summary>
+        public void Configure(HeroData hero)
         {
-            dodgeCooldown = dodge;
-            skillCooldown = skill;
+            heroId = hero.Id;
+            moves = hero.Moves;
+            dodgeCooldown = hero.DodgeCooldown;
+            skillCooldown = hero.SkillCooldown;
         }
 
         void Update()
@@ -84,9 +93,9 @@ namespace Oathdeep.Player
             {
                 case State.Move: UpdateMove(move); break;
                 case State.Attack: UpdateAttack(); break;
-                case State.Dodge: if (stateTime >= KnightMoves.DodgeDuration) EndDodge(); break;
-                case State.Bash: UpdateBash(); break;
-                case State.Hurt: if (stateTime >= KnightMoves.HurtStagger) Enter(State.Move); break;
+                case State.Dodge: if (stateTime >= moves.DodgeDuration) EndDodge(); break;
+                case State.Skill: UpdateSkill(); break;
+                case State.Hurt: if (stateTime >= HeroMoves.HurtStagger) Enter(State.Move); break;
             }
         }
 
@@ -101,21 +110,21 @@ namespace Oathdeep.Player
                     target = input.Move * stats.Stats.MoveSpeed;
                     break;
                 case State.Attack:
-                    var mv = KnightMoves.Combo[comboIndex];
+                    var mv = moves.Combo[comboIndex];
                     target = stateTime < mv.ActiveStart + 0.02f ? aim * mv.LungeSpeed : Vector2.zero;
                     break;
                 case State.Dodge:
-                    float t = stateTime / KnightMoves.DodgeDuration;
-                    target = dashDir * KnightMoves.DodgeSpeed * Mathf.Lerp(1.15f, 0.35f, t);
+                    float t = stateTime / moves.DodgeDuration;
+                    target = dashDir * moves.DodgeSpeed * Mathf.Lerp(1.15f, 0.35f, t);
                     break;
-                case State.Bash:
-                    target = dashDir * KnightMoves.BashSpeed * (stateTime < KnightMoves.BashDuration * 0.6f ? 1f : 0.2f);
+                case State.Skill:
+                    target = SkillVelocity();
                     break;
             }
 
             knockVelocity = Vector2.MoveTowards(knockVelocity, Vector2.zero, 40f * Time.fixedDeltaTime);
             Vector2 desired = target + knockVelocity;
-            bool instant = state == State.Dodge || state == State.Bash;
+            bool instant = state == State.Dodge || state == State.Skill;
             body.linearVelocity = instant ? desired : Vector2.MoveTowards(body.linearVelocity, desired, acceleration * Time.fixedDeltaTime);
         }
 
@@ -125,7 +134,7 @@ namespace Oathdeep.Player
             anim.Play(move.sqrMagnitude > 0.01f ? "run" : "idle");
 
             if (input.Consume(PlayerAction.Dodge) && Time.time >= dodgeReadyAt) { StartDodge(); return; }
-            if (input.Consume(PlayerAction.Skill) && Time.time >= skillReadyAt) { StartBash(); return; }
+            if (input.Consume(PlayerAction.Skill) && Time.time >= skillReadyAt) { StartSkill(); return; }
             if (input.Consume(PlayerAction.Attack))
             {
                 if (Time.time > comboResetAt) comboIndex = 0;
@@ -137,45 +146,59 @@ namespace Oathdeep.Player
         {
             comboIndex = index;
             chainQueued = false;
+            shotFired = false;
             hitThisSwing.Clear();
             AutoAim();
             Enter(State.Attack);
             anim.Face(aim.x);
-            anim.Play(KnightMoves.Combo[index].Anim, true);
+            var mv = moves.Combo[index];
+            anim.Play(mv.Anim, true);
             Performed?.Invoke(PlayerAction.Attack);
-            if (slashVfx != null)
+            if (mv.IsRanged) return;   // ranged hits make their sound when they fire
+
+            if (slashVfx != null && moves.SlashScale > 0f)
             {
                 var angle = Mathf.Atan2(aim.y, aim.x) * Mathf.Rad2Deg;
                 var vfx = Pool.Spawn(slashVfx, (Vector2)transform.position + aim * 0.6f, Quaternion.Euler(0, 0, angle));
-                vfx.transform.localScale = new Vector3(1f, index == 1 ? -1f : 1f, 1f) * (index == 2 ? 1.25f : 1f);
+                vfx.transform.localScale = new Vector3(1f, index == 1 ? -1f : 1f, 1f) * (index == 2 ? 1.25f : 1f) * moves.SlashScale;
             }
             AudioManager.Play(index == 2 ? Sfx.SwingHeavy : Sfx.Swing);
         }
 
         void UpdateAttack()
         {
-            var mv = KnightMoves.Combo[comboIndex];
+            var mv = moves.Combo[comboIndex];
 
-            if (stateTime >= mv.ActiveStart && stateTime <= mv.ActiveEnd)
+            if (mv.IsRanged)
+            {
+                if (!shotFired && stateTime >= mv.ActiveStart)
+                {
+                    shotFired = true;
+                    AutoAim();
+                    anim.Face(aim.x);
+                    FireVolley(mv.Shot, mv.ShotCount, mv.SpreadDegrees, mv.ShotSpeed, mv.Homing, mv.Spec);
+                }
+            }
+            else if (stateTime >= mv.ActiveStart && stateTime <= mv.ActiveEnd)
             {
                 Vector2 center = (Vector2)transform.position + aim * mv.Reach;
                 float angle = Mathf.Atan2(aim.y, aim.x) * Mathf.Rad2Deg;
                 HitQuery.StrikeBox(stats, center, new Vector2(mv.Reach * 1.3f, mv.Width), angle, mv.Spec, hitThisSwing);
             }
 
-            if (stateTime >= mv.Duration * KnightMoves.ChainFromFraction && input.Consume(PlayerAction.Attack)) chainQueued = true;
+            if (stateTime >= mv.Duration * HeroMoves.ChainFromFraction && input.Consume(PlayerAction.Attack)) chainQueued = true;
 
             // Recovery can be cancelled into dodge or skill for responsiveness.
             if (stateTime > mv.ActiveEnd)
             {
                 if (input.IsBuffered(PlayerAction.Dodge) && Time.time >= dodgeReadyAt) { input.Consume(PlayerAction.Dodge); StartDodge(); return; }
-                if (input.IsBuffered(PlayerAction.Skill) && Time.time >= skillReadyAt) { input.Consume(PlayerAction.Skill); StartBash(); return; }
+                if (input.IsBuffered(PlayerAction.Skill) && Time.time >= skillReadyAt) { input.Consume(PlayerAction.Skill); StartSkill(); return; }
             }
 
             if (stateTime >= mv.Duration)
             {
-                comboResetAt = Time.time + KnightMoves.ComboResetSeconds;
-                if (chainQueued && comboIndex < KnightMoves.Combo.Length - 1)
+                comboResetAt = Time.time + HeroMoves.ComboResetSeconds;
+                if (chainQueued && comboIndex < moves.Combo.Length - 1)
                 {
                     if (input.Move.sqrMagnitude > 0.01f) aim = input.Move.normalized;
                     StartAttack(comboIndex + 1);
@@ -183,17 +206,32 @@ namespace Oathdeep.Player
                 else
                 {
                     // A tap shortly after recovery continues the combo; after the finisher it wraps to hit 1.
-                    comboIndex = (comboIndex + 1) % KnightMoves.Combo.Length;
+                    comboIndex = (comboIndex + 1) % moves.Combo.Length;
                     Enter(State.Move);
                 }
             }
+        }
+
+        /// <summary>Fires <paramref name="count"/> shots fanned evenly across <paramref name="spread"/> degrees around the aim.</summary>
+        void FireVolley(ShotKind kind, int count, float spread, float speed, float homing, AttackSpec spec)
+        {
+            var prefab = ShotPrefab(kind);
+            if (prefab == null) return;
+            Vector2 muzzle = (Vector2)transform.position + Vector2.up * 0.45f + aim * 0.45f;
+            for (int i = 0; i < count; i++)
+            {
+                float offset = count == 1 ? 0f : Mathf.Lerp(-spread * 0.5f, spread * 0.5f, i / (float)(count - 1));
+                Vector2 dir = Quaternion.Euler(0, 0, offset) * aim;
+                Pool.Spawn(prefab, muzzle, Quaternion.identity).Launch(stats, dir, speed, spec, homing);
+            }
+            AudioManager.Play(kind == ShotKind.Orb ? Sfx.BossCast : Sfx.ArrowShoot);
         }
 
         void StartDodge()
         {
             dashDir = input.Move.sqrMagnitude > 0.01f ? input.Move.normalized : aim;
             aim = dashDir;
-            dodgeReadyAt = Time.time + dodgeCooldown + KnightMoves.DodgeDuration;
+            dodgeReadyAt = Time.time + dodgeCooldown + moves.DodgeDuration;
             health.PushInvulnerable();
             Enter(State.Dodge);
             anim.Face(dashDir.x);
@@ -210,40 +248,10 @@ namespace Oathdeep.Player
             Enter(State.Move);
         }
 
-        void StartBash()
-        {
-            AutoAim();
-            dashDir = aim;
-            skillReadyAt = Time.time + skillCooldown;
-            hitThisSwing.Clear();
-            health.PushInvulnerable();
-            Enter(State.Bash);
-            anim.Face(aim.x);
-            anim.Play("bash", true);
-            Performed?.Invoke(PlayerAction.Skill);
-            if (bashVfx != null) Pool.Spawn(bashVfx, transform.position, Quaternion.Euler(0, 0, Mathf.Atan2(aim.y, aim.x) * Mathf.Rad2Deg));
-            AudioManager.Play(Sfx.Bash);
-            Haptics.Pulse(25);
-        }
-
-        void UpdateBash()
-        {
-            if (stateTime <= KnightMoves.BashDuration * 0.7f)
-            {
-                int hits = HitQuery.StrikeCircle(stats, (Vector2)transform.position + dashDir * 0.55f, KnightMoves.BashRadius, KnightMoves.Bash, hitThisSwing);
-                if (hits > 0) Haptics.Pulse(40);
-            }
-            if (stateTime >= KnightMoves.BashDuration)
-            {
-                health.PopInvulnerable();
-                Enter(State.Move);
-            }
-        }
-
         void AutoAim()
         {
             if (!GameSettings.AutoAim) return;
-            var target = TargetRegistry.Nearest(transform.position, KnightMoves.AutoAimRange);
+            var target = TargetRegistry.Nearest(transform.position, moves.AutoAimRange);
             if (target != null) aim = ((Vector2)(target.transform.position - transform.position)).normalized;
         }
 
@@ -263,6 +271,7 @@ namespace Oathdeep.Player
 
         void OnDied()
         {
+            if (state == State.Skill) EndSkillEffects();
             Enter(State.Dead);
             anim.Play("death", true);
             body.linearVelocity = Vector2.zero;
@@ -279,6 +288,7 @@ namespace Oathdeep.Player
         /// <summary>Called when a run restarts or the player enters a new floor.</summary>
         public void ResetState()
         {
+            if (state == State.Skill) EndSkillEffects();
             state = State.Move;
             stateTime = 0f;
             comboIndex = 0;

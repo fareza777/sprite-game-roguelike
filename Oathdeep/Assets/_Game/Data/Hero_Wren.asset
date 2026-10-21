@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7de5febb97fcc854db0859c8bf6af613, type: 3}
+  m_Name: Hero_Wren
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Data.HeroData
+  id: 1
+  displayName: Wren
+  title: The Lamplighter
+  description: The last lamplighter of Hollowmere kept every wick burning through
+    forty winters of dusk. When the oil ran out she took her crossbow and her lantern
+    and went down to fetch the real thing.
+  baseStats:
+    maxHealth: 80
+    attack: 9
+    defense: 2
+    critChance: 0.12
+    critMultiplier: 1.75
+    moveSpeed: 4.8
+  skillCooldown: 6
+  dodgeCooldown: 0.4
+  skillName: Flare Volley
+  skillDescription: Hop back and loose five burning bolts in a wide fan. Bolts reach
+    far - keep your distance.
+  skillIcon: {fileID: 937725249, guid: 5e49e45f0301f8b47b43e2fcf9949509, type: 3}
+  idleFrames:
+  - {fileID: -6867676691373221881, guid: 84f96ae958692cd459738b24a0941627, type: 3}
+  - {fileID: -6160775878162644433, guid: 84f96ae958692cd459738b24a0941627, type: 3}
+  - {fileID: 4225030751238151646, guid: 84f96ae958692cd459738b24a0941627, type: 3}
+  - {fileID: -298220204994297849, guid: 84f96ae958692cd459738b24a0941627, type: 3}
+  playerPrefab: {fileID: 6208158471224656216, guid: d4e2bc2d83fd57340b8dc7a1d05a21bf, type: 3}

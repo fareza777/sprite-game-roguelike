@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using Oathdeep.Audio;
 using Oathdeep.Core;
+using Oathdeep.Data;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
@@ -21,7 +23,7 @@ namespace Oathdeep.UI
             public Action AbandonRun;
             public Action ControlsChanged;
             public Action ReplayIntro;        // null until the prologue exists
-            public Action OpenHeroes, OpenCodex, OpenQuests;   // null hides the menu button
+            public Action OpenCodex, OpenQuests;   // null hides the menu button
         }
 
         public const string Version = "UNDERSUN  v0.2.0";
@@ -31,6 +33,7 @@ namespace Oathdeep.UI
         SplashView splash;
         MainMenuView menu;
         PageView settingsPage, aboutPage;
+        HeroesPage heroesPage;
         ScreenView pauseScreen, fallenScreen, victoryScreen;
 
         public RectTransform CanvasRoot { get; private set; }
@@ -39,7 +42,7 @@ namespace Oathdeep.UI
 
         public CinematicView Cinematic { get; private set; }
 
-        public void Build(UISkin uiSkin, Hooks runHooks, StoryAssets story)
+        public void Build(UISkin uiSkin, Hooks runHooks, StoryAssets story, IReadOnlyList<HeroData> heroes)
         {
             skin = uiSkin;
             hooks = runHooks;
@@ -47,7 +50,7 @@ namespace Oathdeep.UI
             menu = MainMenuView.Create(SafeArea, skin, new MainMenuView.Actions
             {
                 Descend = hooks.StartRun,
-                Heroes = hooks.OpenHeroes,
+                Heroes = heroes != null && heroes.Count > 0 ? () => heroesPage.Show() : (Action)null,
                 Codex = hooks.OpenCodex,
                 Quests = hooks.OpenQuests,
                 Settings = () => OpenSettings(),
@@ -57,6 +60,7 @@ namespace Oathdeep.UI
             }, Version);
             aboutPage = PageView.Create("About", SafeArea, skin, "ABOUT", null);
             FrontEndPages.BuildAbout(aboutPage, Version);
+            if (heroes != null && heroes.Count > 0) heroesPage = HeroesPage.Create(SafeArea, skin, heroes);
             Confirm = ConfirmDialog.Create(SafeArea, skin);
             BuildRunScreens();
             Cinematic = CinematicView.Create(SafeArea, skin, story);

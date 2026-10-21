@@ -10,3 +10,5 @@ Oathdeep/*.csproj
 Oathdeep/*.sln
 Oathdeep/.env
 *.log
+__pycache__/
+*.pyc

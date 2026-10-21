@@ -20,10 +20,9 @@ namespace Oathdeep.Core
         enum Phase { Boot, Menu, Playing, Paused, Ended }
 
         [Header("Content")]
-        [SerializeField] HeroData hero;
+        [SerializeField] HeroData[] heroes;
         [SerializeField] FloorConfig floor;
         [SerializeField] PropSet props;
-        [SerializeField] PlayerController playerPrefab;
         [SerializeField] Pickup pickupPrefab;
         [SerializeField] Sprite goldSprite;
         [SerializeField] Sprite potionSprite;
@@ -56,7 +55,7 @@ namespace Oathdeep.Core
                 AbandonRun = ToMenu,
                 ControlsChanged = () => { if (hud != null) hud.RebuildControls(); },
                 ReplayIntro = () => PlayPrologue(ShowMenuAfterCinematic),
-            }, story);
+            }, story, heroes);
             if (worldCamera != null && worldCamera.GetComponent<CameraRig>() == null) worldCamera.gameObject.AddComponent<CameraRig>();
             if (FindFirstObjectByType<HitStop>() == null) new GameObject("HitStop").AddComponent<HitStop>();
             LootDropper.Configure(pickupPrefab, goldSprite, potionSprite);
@@ -93,10 +92,11 @@ namespace Oathdeep.Core
             stats = new RunStats();
             SaveSystem.Current.runs++;
 
-            player = Instantiate(playerPrefab);
+            var hero = HeroesPage.Selected(heroes);
+            player = Instantiate(hero.PlayerPrefab).GetComponent<PlayerController>();
             var inventory = player.GetComponent<PlayerInventory>();
             if (player.GetComponent<PlayerInputReader>() == null) player.gameObject.AddComponent<PlayerInputReader>();
-            player.SetCooldowns(hero.DodgeCooldown, hero.SkillCooldown);
+            player.Configure(hero);
 
             var dungeonGo = new GameObject("Dungeon");
             dungeon = dungeonGo.AddComponent<DungeonBuilder>();
@@ -112,7 +112,7 @@ namespace Oathdeep.Core
             var hudRoot = UIFactory.Stretch("HUD", frontEnd.SafeArea);
             hudRoot.SetAsFirstSibling();   // below menus/pages so they draw on top
             hud = hudRoot.gameObject.AddComponent<HudView>();
-            hud.Build(skin, hudRoot, player, Pause);
+            hud.Build(skin, hudRoot, player, Pause, hero.SkillIcon);
             hud.SetFloor(floor.FloorNumber, floor.Biome != null ? floor.Biome.DisplayName : "The Deep");
             hud.Minimap.Show(dungeon.Geometry.Rooms);
             GameEvents.RoomEntered += hud.Minimap.Enter;

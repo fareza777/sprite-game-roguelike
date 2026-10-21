@@ -13,6 +13,11 @@ namespace Oathdeep.EditorTools
     {
         const string ArtDir = Root + "/Art";
         const string KnightAse = ArtDir + "/Characters/knight.aseprite";
+        const string WrenAse = ArtDir + "/Characters/wren.aseprite";
+        const string MorrowAse = ArtDir + "/Characters/morrow.aseprite";
+        const string BrakkaAse = ArtDir + "/Characters/brakka.aseprite";
+        const string SableAse = ArtDir + "/Characters/sable.aseprite";
+        const string HeroFxPng = ArtDir + "/VFX/hero_fx.png";
         const string SkeletonAse = ArtDir + "/Enemies/skeleton.aseprite";
         const string ArcherAse = ArtDir + "/Enemies/archer.aseprite";
         const string SlimeAse = ArtDir + "/Enemies/slime.aseprite";
@@ -41,7 +46,8 @@ namespace Oathdeep.EditorTools
         static void ConfigureArt(List<string> log)
         {
             // Pivot = feet row measured from each sprite's first frame (canvas space).
-            ConfigureAseprite(KnightAse, new Vector2(0.5f, 6f / 48f));
+            foreach (var hero in new[] { KnightAse, WrenAse, MorrowAse, BrakkaAse, SableAse })
+                ConfigureAseprite(hero, new Vector2(0.5f, 6f / 48f));
             ConfigureAseprite(SkeletonAse, new Vector2(0.5f, 1f / 32f));
             ConfigureAseprite(ArcherAse, new Vector2(0.5f, 1f / 32f));
             ConfigureAseprite(SlimeAse, new Vector2(0.5f, 3f / 32f));
@@ -50,13 +56,14 @@ namespace Oathdeep.EditorTools
             Slice(TilesPng, TileCells(), WorldPpu, SpriteMeshType.FullRect);
             Slice(PropsPng, PropCells(), WorldPpu, SpriteMeshType.FullRect);
             Slice(VfxPng, VfxCells(), WorldPpu, SpriteMeshType.FullRect);
+            Slice(HeroFxPng, HeroFxCells(), WorldPpu, SpriteMeshType.FullRect);
             Slice(UiPng, UiCells(), UiPpu, SpriteMeshType.FullRect);
             WriteWhiteSprite();
             Slice(MenuIconsPng, MenuIconNames.Select((n, i) => G(n, i, 0, Centre)).ToList(), UiPpu, SpriteMeshType.FullRect);
             SingleSprite(LogoPng, UiPpu);
             SingleSprite(MenuBgPng, UiPpu);
             SpriteCache.Clear();
-            log.Add("art: 5 aseprite importers, 4 sliced sheets");
+            log.Add("art: 9 aseprite importers, 5 sliced sheets");
         }
 
         static void ConfigureAseprite(string path, Vector2 pivot)
@@ -174,6 +181,17 @@ namespace Oathdeep.EditorTools
             c.Add(new Cell("telegraph", 0, 32, 16, 16, Centre, new Vector4(5, 5, 5, 5)));
             c.Add(new Cell("shadow", 16, 32, 16, 16, Centre));
             c.Add(new Cell("glow", 32, 32, 16, 16, Centre));
+            return c;
+        }
+
+        static List<Cell> HeroFxCells()
+        {
+            var c = new List<Cell>();
+            string[] small = { "bolt", "flare", "orb0", "orb1", "wisp0", "wisp1", "shadow0", "shadow1" };
+            for (int i = 0; i < small.Length; i++) c.Add(G(small[i], i, 0, Centre));
+            for (int i = 0; i < 4; i++) c.Add(new Cell("ring" + i, 32 * i, 16, 32, 32, Centre));
+            string[] icons = { "iconFlare", "iconRequiem", "iconToll", "iconShadowstep" };
+            for (int i = 0; i < icons.Length; i++) c.Add(G(icons[i], i, 3, Centre));
             return c;
         }
 

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7de5febb97fcc854db0859c8bf6af613, type: 3}
+  m_Name: Hero_Brakka
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Data.HeroData
+  id: 3
+  displayName: Brakka
+  title: The Bellbreaker
+  description: A bell-founder from the mountain halls who heard the Choir's great
+    bell ring the Sun down. He has come to break it, and brought a smaller bell to
+    do the breaking.
+  baseStats:
+    maxHealth: 150
+    attack: 15
+    defense: 8
+    critChance: 0.05
+    critMultiplier: 1.6
+    moveSpeed: 3.5
+  skillCooldown: 7
+  dodgeCooldown: 0.6
+  skillName: Toll
+  skillDescription: Ring the bell-hammer into the floor. The shockwave hits and stuns
+    every foe around you.
+  skillIcon: {fileID: -785310681, guid: 5e49e45f0301f8b47b43e2fcf9949509, type: 3}
+  idleFrames:
+  - {fileID: -5942441035346054287, guid: d23cc16bf9c43aa44a6587bbc3b51c5f, type: 3}
+  - {fileID: 6593248397347396234, guid: d23cc16bf9c43aa44a6587bbc3b51c5f, type: 3}
+  - {fileID: -4073455801399074969, guid: d23cc16bf9c43aa44a6587bbc3b51c5f, type: 3}
+  - {fileID: 7768466930355870511, guid: d23cc16bf9c43aa44a6587bbc3b51c5f, type: 3}
+  playerPrefab: {fileID: 282104022268570747, guid: 4eaff5ac07d9b0144928c1e21b3cf09a, type: 3}

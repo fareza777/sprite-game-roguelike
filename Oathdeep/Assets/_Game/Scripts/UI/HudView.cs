@@ -24,12 +24,14 @@ namespace Oathdeep.UI
         CanvasGroup toastGroup;
         Coroutine toastRoutine;
         float hpTarget = 1f;
+        Sprite skillIcon;
 
         public MinimapView Minimap { get; private set; }
 
-        public void Build(UISkin uiSkin, RectTransform safeArea, PlayerController player, System.Action onPause)
+        public void Build(UISkin uiSkin, RectTransform safeArea, PlayerController player, System.Action onPause, Sprite heroSkillIcon = null)
         {
             skin = uiSkin;
+            skillIcon = heroSkillIcon != null ? heroSkillIcon : skin.iconSkill;
 
             // --- Top-left: health ---
             var hpFrame = UIFactory.Rect("HP", safeArea, new Vector2(0, 1), new Vector2(0, 1), new Vector2(0, 1), new Vector2(10, -10), new Vector2(150, 18));
@@ -120,7 +122,7 @@ namespace Oathdeep.UI
             var corner = layout.LeftHanded ? Vector2.zero : new Vector2(1, 0);
             MakeAction(controlsRoot, corner, "Attack", PlayerAction.Attack, skin.iconAttack, layout.Attack, null);
             MakeAction(controlsRoot, corner, "Dodge", PlayerAction.Dodge, skin.iconDodge, layout.Dodge, () => player != null ? player.DodgeCooldownFraction : 0f);
-            MakeAction(controlsRoot, corner, "Skill", PlayerAction.Skill, skin.iconSkill, layout.Skill, () => player != null ? player.SkillCooldownFraction : 0f);
+            MakeAction(controlsRoot, corner, "Skill", PlayerAction.Skill, skillIcon, layout.Skill, () => player != null ? player.SkillCooldownFraction : 0f);
         }
 
         void MakeAction(RectTransform parent, Vector2 corner, string name, PlayerAction action, Sprite icon, ControlLayout.Slot slot, System.Func<float> cooldown)

@@ -21,7 +21,7 @@ namespace Oathdeep.UI
         public static PageView Create(string name, RectTransform parent, UISkin skin, string title, Action onBack)
         {
             var root = UIFactory.Stretch(name, parent);
-            var dim = UIFactory.Image(root, skin.white, new Color(0.035f, 0.04f, 0.08f, 0.9f), false, true);
+            var dim = UIFactory.Image(root, skin.white, new Color(0.035f, 0.04f, 0.08f, 0.97f), false, true);
             dim.preserveAspect = false;
             var page = root.gameObject.AddComponent<PageView>();
             page.Skin = skin;
