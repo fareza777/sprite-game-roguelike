@@ -31,7 +31,8 @@ namespace Oathdeep.UI
 
         public static OnboardingCoach Begin(RectTransform parent, UISkin skin, HudView hud, PlayerController player)
         {
-            var root = UIFactory.Rect("Onboarding", parent, new Vector2(0.5f, 0.74f), new Vector2(0.5f, 0.74f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(300, 78));
+            // Under the minimap/bag column (top 170 units), stretching with the screen.
+            var root = UIFactory.Rect("Onboarding", parent, new Vector2(0.04f, 1f), new Vector2(0.96f, 1f), new Vector2(0.5f, 1f), new Vector2(0, -176), new Vector2(0, 78));
             UIFactory.Image(root, skin.panel, new Color(1, 1, 1, 0.92f), true, false);
             var coach = root.gameObject.AddComponent<OnboardingCoach>();
             coach.skin = skin;

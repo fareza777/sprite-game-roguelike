@@ -18,7 +18,9 @@ namespace Oathdeep.UI
 
         public static NarrationBanner Create(RectTransform parent, UISkin skin)
         {
-            var root = UIFactory.Rect("Narration", parent, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(320, 110));
+            // Below the health bar and left of the minimap/bag column, stretching with the screen, so it never covers
+            // them on a narrow 20:9 phone. The first-run coach sits under the bag at the same time.
+            var root = UIFactory.Rect("Narration", parent, new Vector2(0.03f, 1f), new Vector2(0.7f, 1f), new Vector2(0.5f, 1f), new Vector2(0, -64), new Vector2(0, 110));
             var banner = root.gameObject.AddComponent<NarrationBanner>();
             banner.skin = skin;
             banner.group = root.gameObject.AddComponent<CanvasGroup>();
