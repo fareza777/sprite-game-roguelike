@@ -50,7 +50,9 @@ namespace Oathdeep.Core
 
             hud.SetFloor(config.FloorNumber, config.Biome != null ? config.Biome.DisplayName : "The Deep");
             hud.Minimap.Show(dungeon.Geometry.Rooms);
-            AudioManager.PlayMusic(MusicTrack.Crypt);
+            AudioManager.FloorTrack = config.Biome != null ? config.Biome.Music : MusicTrack.Crypt;
+            AudioManager.BossTrack = config.Biome != null ? config.Biome.BossMusic : MusicTrack.Boss;
+            AudioManager.PlayMusic(AudioManager.FloorTrack);
             SaveSystem.Current.bestFloor = Mathf.Max(SaveSystem.Current.bestFloor, config.FloorNumber);
             QuestTracker.FloorReached(config.FloorNumber, HeroesPage.IdOf(HeroesPage.Selected(heroes)));
             StartCoroutine(nameof(IntroduceFloor));

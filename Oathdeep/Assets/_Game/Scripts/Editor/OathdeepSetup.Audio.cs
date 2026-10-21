@@ -25,7 +25,18 @@ namespace Oathdeep.EditorTools
             [Sfx.Potion] = (0.8f, 0f, 0.2f), [Sfx.ItemPickup] = (0.9f, 0f, 0.2f), [Sfx.ChestOpen] = (0.9f, 0f, 0.2f),
             [Sfx.Break] = (0.7f, 0.12f, 0.04f), [Sfx.DoorSlam] = (0.85f, 0.05f, 0.2f), [Sfx.DoorOpen] = (0.6f, 0.05f, 0.2f),
             [Sfx.Spawn] = (0.5f, 0.08f, 0.15f), [Sfx.RoomClear] = (0.85f, 0f, 0.5f), [Sfx.UiClick] = (0.6f, 0.05f, 0.03f),
-            [Sfx.UiConfirm] = (0.7f, 0f, 0.05f),
+            [Sfx.UiConfirm] = (0.7f, 0f, 0.05f), [Sfx.Crossbow] = (0.7f, 0.08f, 0.05f), [Sfx.Flare] = (0.8f, 0.05f, 0.1f),
+            [Sfx.SoulCast] = (0.7f, 0.06f, 0.06f), [Sfx.Toll] = (1f, 0f, 0.3f), [Sfx.Shadowstep] = (0.85f, 0.05f, 0.1f),
+            [Sfx.EnemyShot] = (0.45f, 0.12f, 0.06f), [Sfx.Explosion] = (0.9f, 0.08f, 0.08f), [Sfx.Blessing] = (0.85f, 0f, 0.3f),
+            [Sfx.QuestComplete] = (0.9f, 0f, 0.5f),
+        };
+
+        static readonly Dictionary<MusicTrack, string> BiomeMusicNames = new Dictionary<MusicTrack, string>
+        {
+            [MusicTrack.Hollow] = "music_hollow", [MusicTrack.Cistern] = "music_cistern", [MusicTrack.Forge] = "music_forge",
+            [MusicTrack.Frost] = "music_frost", [MusicTrack.Thornwild] = "music_thornwild", [MusicTrack.Clockwork] = "music_clockwork",
+            [MusicTrack.Necropolis] = "music_necropolis", [MusicTrack.Glass] = "music_glass", [MusicTrack.Dusk] = "music_dusk",
+            [MusicTrack.BossDeep] = "music_boss_deep", [MusicTrack.BossFinal] = "music_boss_final",
         };
 
         static void BuildAudio(List<string> log)
@@ -51,8 +62,9 @@ namespace Oathdeep.EditorTools
             audioLibrary.musicEnding = Music("music_ending", false);
             audioLibrary.stingVictory = Music("sting_victory", false);
             audioLibrary.stingGameOver = Music("sting_gameover", false);
+            audioLibrary.biomeMusic = BiomeMusicNames.Select(kv => new AudioLibrary.MusicEntry { Track = kv.Key, Clip = Music(kv.Value, true) }).ToArray();
             EditorUtility.SetDirty(audioLibrary);
-            log.Add($"audio: {entries.Count} sfx, 5 music tracks, 2 stingers");
+            log.Add($"audio: {entries.Count} sfx, {5 + audioLibrary.biomeMusic.Length} music tracks, 2 stingers");
             BuildStory(log);
         }
 

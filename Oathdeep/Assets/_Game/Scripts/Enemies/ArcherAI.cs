@@ -21,6 +21,7 @@ namespace Oathdeep.Enemies
         [SerializeField] int shots = 1;
         [SerializeField] float spread = 0f;
         [SerializeField] bool stationary;
+        [SerializeField] Sfx shotSfx = Sfx.ArrowShoot;
 
         S state;
         Vector2 aimDir;
@@ -90,7 +91,7 @@ namespace Oathdeep.Enemies
                 var p = Pool.Spawn(arrowPrefab, (Vector2)transform.position + Vector2.up * 0.4f + dir * 0.5f, Quaternion.identity);
                 p.Launch(Stats, dir, arrowSpeed, arrow);
             }
-            AudioManager.Play(Sfx.ArrowShoot, transform.position);
+            AudioManager.Play(shotSfx, transform.position);
         }
 
         protected override Vector2 DesiredVelocity()

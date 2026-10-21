@@ -47,7 +47,7 @@ namespace Oathdeep.Enemies
             if (owner != null) HitQuery.StrikeCircle(owner, transform.position, radius, spec, hit);
             if (burstVfx != null)
                 Pool.Spawn(burstVfx, transform.position, Quaternion.identity).transform.localScale = Vector3.one * radius * 0.9f;
-            AudioManager.Play(Sfx.BossSlam, transform.position, 0.6f);
+            AudioManager.Play(Sfx.Explosion, transform.position, 0.6f);
             CameraRig.Shake(0.12f);
             Pool.Despawn(gameObject);
         }

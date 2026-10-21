@@ -63,7 +63,7 @@ namespace Oathdeep.Core
 
         static void Announce(SideQuest q)
         {
-            AudioManager.Play(Sfx.UiConfirm);
+            AudioManager.Play(Sfx.QuestComplete);
             GameEvents.RaiseToast($"Quest complete: {q.Title}!");
         }
 

@@ -59,7 +59,7 @@ namespace Oathdeep.Enemies
             telegraph?.Hide();
             HitQuery.StrikeCircle(Stats, transform.position, radius, burst, null);
             if (burstVfx != null) Pool.Spawn(burstVfx, transform.position, Quaternion.identity).transform.localScale = Vector3.one * radius * 0.9f;
-            AudioManager.Play(Sfx.BossSlam, transform.position, 0.7f);
+            AudioManager.Play(Sfx.Explosion, transform.position, 0.8f);
             CameraRig.Shake(0.25f);
             // The blast consumes the bomber; it still counts as a kill and drops loot.
             Health.TryTakeDamage(new DamageInfo(99999, false, transform.position, 0f, 0f, Team.Hazard));

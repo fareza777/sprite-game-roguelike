@@ -589,6 +589,7 @@ MonoBehaviour:
   shots: 3
   spread: 36
   stationary: 0
+  shotSfx: 30
 --- !u!1 &8693299028314412445
 GameObject:
   m_ObjectHideFlags: 0

@@ -229,6 +229,63 @@ def ui_confirm():
     return lowpass(notes([(81, 0.06), (88, 0.14)], lambda f, d: square(f, d, 0.25), env=(0.001, 0.03, 0.5, 0.08)), 7000)
 
 
+
+# ---------------- heroes ----------------
+
+def crossbow():
+    clack = burst(0.03, 1500, 6000, 0.006) * 0.9
+    twang = partials([310, 620, 935], 0.25, [0.08, 0.05, 0.03], [0.6, 0.3, 0.15])
+    return mix(0.28, (0, clack), (0, twang), (0.008, whoosh(0.16, 2500, 7000, 0.1, 0.6)))
+
+
+def flare():
+    hiss = bandpass(noise(0.45), 1200, 6000) * adsr(n_of(0.45), 0.01, 0.1, 0.5, 0.25)
+    pop = thump(400, 120, 0.12, 0.03)
+    return mix(0.45, (0, hiss * 0.8), (0, pop))
+
+
+def soul_cast():
+    dur = 0.5
+    n = n_of(dur)
+    tone = sum(sine(midi_hz(m) * (1 + 0.01 * np.sin(2 * np.pi * 9 * np.arange(n) / RATE)), dur) for m in (74, 81, 86))
+    return trim_silence(reverb(tone * adsr(n, 0.02, 0.1, 0.5, 0.3) * 0.35, size=0.7, mix=0.35, tail=0.6))
+
+
+def toll():
+    bell = partials([196, 392, 467, 588, 784, 1175], 2.0, [1.2, 0.9, 0.7, 0.5, 0.35, 0.2], [0.8, 0.5, 0.45, 0.3, 0.2, 0.1])
+    impact = thump(120, 40, 0.4, 0.12)
+    return trim_silence(reverb(mix(2.0, (0, bell), (0, impact)), size=0.9, mix=0.3, tail=1.2))
+
+
+def shadowstep():
+    out = whoosh(0.22, 6000, 800, attack=0.1, level=0.9)
+    sub = thump(200, 60, 0.2, 0.06) * 0.6
+    return mix(0.25, (0, out), (0.1, sub))
+
+
+# ---------------- enemies & world ----------------
+
+def enemy_shot():
+    return mix(0.2, (0, thump(900, 300, 0.12, 0.03) * 0.7), (0, burst(0.05, 2000, 6000, 0.01) * 0.4))
+
+
+def explosion():
+    boom = thump(120, 30, 0.8, 0.25)
+    crack = burst(0.1, 400, 7000, 0.03)
+    rumble = lowpass(noise(0.7), 300) * decay(n_of(0.7), 0.2)
+    return trim_silence(drive(mix(0.9, (0, boom), (0, crack), (0, rumble)), 1.8))
+
+
+def blessing():
+    arp = notes([(74, 0.09), (78, 0.09), (81, 0.09), (86, 0.4)], lambda f, d: sine(f, d) + 0.3 * triangle(f * 2, d), env=(0.002, 0.08, 0.6, 0.3))
+    return trim_silence(reverb(arp * 0.6, size=0.8, mix=0.4, tail=0.8))
+
+
+def quest_complete():
+    fan = notes([(72, 0.1), (76, 0.1), (79, 0.1), (84, 0.45)], lambda f, d: square(f, d, 0.25), env=(0.001, 0.05, 0.55, 0.2))
+    return lowpass(fan, 6000)
+
+
 # name: (builder, peak dBFS) — peak sets the relative loudness of each sound in the mix
 SFX = {
     "swing": (swing, -4), "swing_heavy": (swing_heavy, -3), "hit": (hit, -2), "hit_crit": (hit_crit, -1),
@@ -238,6 +295,9 @@ SFX = {
     "coin": (coin, -11), "potion": (potion, -4), "item_pickup": (item_pickup, -6), "chest_open": (chest_open, -3),
     "break": (breakable, -4), "door_slam": (door_slam, -2), "door_open": (door_open, -5), "spawn": (spawn, -7),
     "room_clear": (room_clear, -3), "ui_click": (ui_click, -9), "ui_confirm": (ui_confirm, -7),
+    "crossbow": (crossbow, -5), "flare": (flare, -4), "soul_cast": (soul_cast, -6), "toll": (toll, -1),
+    "shadowstep": (shadowstep, -4), "enemy_shot": (enemy_shot, -8), "explosion": (explosion, -2),
+    "blessing": (blessing, -5), "quest_complete": (quest_complete, -6),
 }
 
 if __name__ == "__main__":

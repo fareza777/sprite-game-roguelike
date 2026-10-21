@@ -119,7 +119,7 @@ namespace Oathdeep.Dungeon
                     inv.AddRunBonus(blessing.Stats, blessing.Specials);
                     GameEvents.RaiseEncounterUsed("shrine");
                     if (blessing.FullHeal) health.Heal(health.Max);
-                    AudioManager.Play(Sfx.UiConfirm);
+                    AudioManager.Play(Sfx.Blessing);
                     GameEvents.RaiseToast("Blessed with " + blessing.Name);
                     Spend();
                 }));

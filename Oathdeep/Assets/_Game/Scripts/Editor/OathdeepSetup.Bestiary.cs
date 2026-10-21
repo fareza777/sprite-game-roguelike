@@ -224,12 +224,12 @@ namespace Oathdeep.EditorTools
                         ("slash", new AttackSpec(1.4f, 9f, 0.2f, 0.07f, 0.25f))));
                     break;
                 case Archetype.Shooter:
-                    Enemy<ArcherAI>(spec, ai => Set(ai, ("arrowPrefab", shot), ("arrowSpeed", e.Id == "shard_sprite" ? 11f : 8f),
+                    Enemy<ArcherAI>(spec, ai => Set(ai, ("arrowPrefab", shot), ("shotSfx", Oathdeep.Audio.Sfx.EnemyShot), ("arrowSpeed", e.Id == "shard_sprite" ? 11f : 8f),
                         ("shots", e.Id == "thorn_dryad" || e.Id == "mummified_priest" ? 3 : 1),
                         ("spread", e.Id == "thorn_dryad" ? 24f : e.Id == "mummified_priest" ? 36f : 0f)));
                     break;
                 case Archetype.Turret:
-                    Enemy<ArcherAI>(spec, ai => Set(ai, ("arrowPrefab", shot), ("stationary", true), ("preferredMin", 0f), ("preferredMax", 99f),
+                    Enemy<ArcherAI>(spec, ai => Set(ai, ("arrowPrefab", shot), ("shotSfx", Oathdeep.Audio.Sfx.EnemyShot), ("stationary", true), ("preferredMin", 0f), ("preferredMax", 99f),
                         ("drawTime", 0.9f), ("arrowSpeed", 8.5f), ("shots", e.Id == "prism_eye" ? 5 : 3), ("spread", e.Id == "prism_eye" ? 50f : 20f)));
                     break;
                 case Archetype.Charger:

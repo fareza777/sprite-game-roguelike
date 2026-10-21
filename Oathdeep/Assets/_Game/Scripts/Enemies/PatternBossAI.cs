@@ -208,6 +208,7 @@ namespace Oathdeep.Enemies
             if (shot == null) return;
             var p = Pool.Spawn(shot, (Vector2)transform.position + Vector2.up * 0.8f + dir * 0.8f, Quaternion.identity);
             p.Launch(Stats, dir, speed, shotSpec);
+            AudioManager.Play(Sfx.EnemyShot, transform.position, 0.5f);
         }
 
         protected override Vector2 DesiredVelocity()

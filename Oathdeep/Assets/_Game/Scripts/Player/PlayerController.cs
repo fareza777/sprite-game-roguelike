@@ -224,7 +224,7 @@ namespace Oathdeep.Player
                 Vector2 dir = Quaternion.Euler(0, 0, offset) * aim;
                 Pool.Spawn(prefab, muzzle, Quaternion.identity).Launch(stats, dir, speed, spec, homing);
             }
-            AudioManager.Play(kind == ShotKind.Orb ? Sfx.BossCast : Sfx.ArrowShoot);
+            AudioManager.Play(kind == ShotKind.Orb ? Sfx.SoulCast : kind == ShotKind.Flare ? Sfx.Flare : Sfx.Crossbow);
         }
 
         void StartDodge()

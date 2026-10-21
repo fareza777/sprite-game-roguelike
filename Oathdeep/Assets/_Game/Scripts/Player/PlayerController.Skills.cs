@@ -59,11 +59,10 @@ namespace Oathdeep.Player
                     stepTarget = FindStepTarget();
                     if (shadowVfx != null) Pool.Spawn(shadowVfx, transform.position + Vector3.up * 0.4f, Quaternion.identity);
                     if (flash != null) flash.Flash(new Color(0.3f, 0.2f, 0.5f), moves.SkillImpact);
-                    AudioManager.Play(Sfx.Dodge);
+                    AudioManager.Play(Sfx.Shadowstep);
                     break;
-                case SkillKind.Toll:
                 case SkillKind.Requiem:
-                    AudioManager.Play(Sfx.BossCast);
+                    AudioManager.Play(Sfx.SoulCast);
                     break;
             }
         }
@@ -121,7 +120,7 @@ namespace Oathdeep.Player
                         Pool.Spawn(tollVfx, transform.position, Quaternion.identity).transform.localScale = Vector3.one * moves.SkillRadius * 0.95f;
                     HitQuery.StrikeCircle(stats, transform.position, moves.SkillRadius, moves.SkillSpec, hitThisSwing);
                     CameraRig.Shake(0.55f);
-                    AudioManager.Play(Sfx.BossSlam);
+                    AudioManager.Play(Sfx.Toll);
                     Haptics.Pulse(60);
                     break;
 

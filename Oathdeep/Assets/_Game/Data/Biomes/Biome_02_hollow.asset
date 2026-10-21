@@ -69,3 +69,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 021858280724c984f9a4a6fe22a9173c, type: 2}
   ambientLight: {r: 0.62, g: 0.45, b: 0.75, a: 1}
   ambientIntensity: 0.45
+  music: 6
+  bossMusic: 3

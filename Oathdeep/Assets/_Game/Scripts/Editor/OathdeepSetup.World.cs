@@ -35,6 +35,14 @@ namespace Oathdeep.EditorTools
             "fire2", "fire3", "altar", "fragment0", "fragment1", "bubble",
         };
 
+        static readonly Oathdeep.Audio.MusicTrack[] BiomeTracks =
+        {
+            Oathdeep.Audio.MusicTrack.Crypt, Oathdeep.Audio.MusicTrack.Hollow, Oathdeep.Audio.MusicTrack.Cistern,
+            Oathdeep.Audio.MusicTrack.Forge, Oathdeep.Audio.MusicTrack.Frost, Oathdeep.Audio.MusicTrack.Thornwild,
+            Oathdeep.Audio.MusicTrack.Clockwork, Oathdeep.Audio.MusicTrack.Necropolis, Oathdeep.Audio.MusicTrack.Glass,
+            Oathdeep.Audio.MusicTrack.Dusk,
+        };
+
         static string BiomePng(string id) => $"{ArtDir}/Tiles/{id}_tiles.png";
 
         static readonly Dictionary<string, BiomeTiles> Biomes = new Dictionary<string, BiomeTiles>();
@@ -85,7 +93,9 @@ namespace Oathdeep.EditorTools
                                "decalRubble", "decalScratch", "decalBiome0", "decalBiome1", "decalBiome2",
                                "decalBiome0", "decalBiome1", "decalBiome2"),
                     BiomeTileSet(id, none, "cobwebTL", "cobwebTR"));
-                Set(biome, ("displayName", name), ("rareFloorChance", 0.06f), ("ambientLight", light), ("ambientIntensity", intensity));
+                Set(biome, ("displayName", name), ("rareFloorChance", 0.06f), ("ambientLight", light), ("ambientIntensity", intensity),
+                    ("music", BiomeTracks[i]), ("bossMusic", i < 4 ? Oathdeep.Audio.MusicTrack.Boss : i < 9 ? Oathdeep.Audio.MusicTrack.BossDeep
+                                                                                                    : Oathdeep.Audio.MusicTrack.BossFinal));
                 EditorUtility.SetDirty(biome);
                 Biomes[id] = biome;
             }

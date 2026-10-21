@@ -138,6 +138,74 @@ MonoBehaviour:
     Volume: 0.7
     PitchJitter: 0
     MinInterval: 0.05
+  - Id: 25
+    Clip: {fileID: 8300000, guid: daa11df8508c2c74f82b573dc8fb2372, type: 3}
+    Volume: 0.7
+    PitchJitter: 0.08
+    MinInterval: 0.05
+  - Id: 26
+    Clip: {fileID: 8300000, guid: 4304b53202c0b564aa857e5615d9cfc6, type: 3}
+    Volume: 0.8
+    PitchJitter: 0.05
+    MinInterval: 0.1
+  - Id: 27
+    Clip: {fileID: 8300000, guid: 679711bd4847f374b98437eab4366b3c, type: 3}
+    Volume: 0.7
+    PitchJitter: 0.06
+    MinInterval: 0.06
+  - Id: 28
+    Clip: {fileID: 8300000, guid: 3dc561a47a273b549ba53908cf89f6c4, type: 3}
+    Volume: 1
+    PitchJitter: 0
+    MinInterval: 0.3
+  - Id: 29
+    Clip: {fileID: 8300000, guid: 9a5c6c356de3d1945bcea6ab3331b590, type: 3}
+    Volume: 0.85
+    PitchJitter: 0.05
+    MinInterval: 0.1
+  - Id: 30
+    Clip: {fileID: 8300000, guid: ef2ef7ebda772d74fb7d1c217e8ef10a, type: 3}
+    Volume: 0.45
+    PitchJitter: 0.12
+    MinInterval: 0.06
+  - Id: 31
+    Clip: {fileID: 8300000, guid: 2bf4aab59b823da41a9adc4437c086cd, type: 3}
+    Volume: 0.9
+    PitchJitter: 0.08
+    MinInterval: 0.08
+  - Id: 32
+    Clip: {fileID: 8300000, guid: 6e03f3da1069ceb499ea9cc05745e1d3, type: 3}
+    Volume: 0.85
+    PitchJitter: 0
+    MinInterval: 0.3
+  - Id: 33
+    Clip: {fileID: 8300000, guid: eb33c68a6e18c894b9669616b179e061, type: 3}
+    Volume: 0.9
+    PitchJitter: 0
+    MinInterval: 0.5
+  biomeMusic:
+  - Track: 6
+    Clip: {fileID: 8300000, guid: da3c7bd59b1013941aa54742d5f2d35b, type: 3}
+  - Track: 7
+    Clip: {fileID: 8300000, guid: 6295491f85a65d14d87c1848aca8d640, type: 3}
+  - Track: 8
+    Clip: {fileID: 8300000, guid: 4a8c60fafbe78454d92cff65eb6c3204, type: 3}
+  - Track: 9
+    Clip: {fileID: 8300000, guid: 9e67b2150ac50be44991c601c118459b, type: 3}
+  - Track: 10
+    Clip: {fileID: 8300000, guid: 02ebeb0da2013b04eb839c4a9ae7b256, type: 3}
+  - Track: 11
+    Clip: {fileID: 8300000, guid: b1a55e7f159cfae4f89e912e062d08eb, type: 3}
+  - Track: 12
+    Clip: {fileID: 8300000, guid: cbc9b7bf01a450340bce634ebb272183, type: 3}
+  - Track: 13
+    Clip: {fileID: 8300000, guid: 15d45bb6bfff2a94a8feabf4df529da5, type: 3}
+  - Track: 14
+    Clip: {fileID: 8300000, guid: 50e1c788bd7b7544f97190b887a21c38, type: 3}
+  - Track: 15
+    Clip: {fileID: 8300000, guid: 9e2cd5edcedb44145b888ec8c8f03578, type: 3}
+  - Track: 16
+    Clip: {fileID: 8300000, guid: d1a97931e9b868948ae58ac624c872bd, type: 3}
   musicTitle: {fileID: 8300000, guid: 420fc7243d5358548b93c3a3fa429937, type: 3}
   musicCrypt: {fileID: 8300000, guid: c7f00313b50c3e940a6b30964cf9586b, type: 3}
   musicBoss: {fileID: 8300000, guid: b94fa93c83f5dde459aa24ecc547dd90, type: 3}

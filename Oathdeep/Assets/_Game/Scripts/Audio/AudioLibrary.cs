@@ -8,9 +8,14 @@ namespace Oathdeep.Audio
         Swing, SwingHeavy, Hit, HitCrit, PlayerHurt, EnemyDeath, SlimeSquish, Dodge, Bash, ArrowShoot, Spike,
         BossSlam, BossCast, BossRoar, Coin, Potion, ItemPickup, ChestOpen, Break, DoorSlam, DoorOpen, Spawn,
         RoomClear, UiClick, UiConfirm,
+        Crossbow, Flare, SoulCast, Toll, Shadowstep, EnemyShot, Explosion, Blessing, QuestComplete,
     }
 
-    public enum MusicTrack { None, Title, Crypt, Boss, Prologue, Ending }
+    public enum MusicTrack
+    {
+        None, Title, Crypt, Boss, Prologue, Ending,
+        Hollow, Cistern, Forge, Frost, Thornwild, Clockwork, Necropolis, Glass, Dusk, BossDeep, BossFinal,
+    }
 
     /// <summary>Every clip the game plays, with per-sound mix settings. One asset, edited in one place.</summary>
     [CreateAssetMenu(menuName = "Oathdeep/Audio Library", fileName = "AudioLibrary")]
@@ -26,7 +31,11 @@ namespace Oathdeep.Audio
             [Min(0f)] public float MinInterval;            // seconds between plays of the same sound
         }
 
+        [Serializable]
+        public struct MusicEntry { public MusicTrack Track; public AudioClip Clip; }
+
         public Entry[] sfx;
+        public MusicEntry[] biomeMusic;
         public AudioClip musicTitle;
         public AudioClip musicCrypt;
         public AudioClip musicBoss;
@@ -42,7 +51,13 @@ namespace Oathdeep.Audio
             MusicTrack.Boss => musicBoss,
             MusicTrack.Prologue => musicPrologue,
             MusicTrack.Ending => musicEnding,
-            _ => null,
+            _ => Find(track),
         };
+
+        AudioClip Find(MusicTrack track)
+        {
+            if (biomeMusic != null) foreach (var m in biomeMusic) if (m.Track == track) return m.Clip;
+            return null;
+        }
     }
 }

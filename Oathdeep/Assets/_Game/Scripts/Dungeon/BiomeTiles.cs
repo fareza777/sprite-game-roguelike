@@ -20,12 +20,16 @@ namespace Oathdeep.Dungeon
         [SerializeField] TileBase[] cornerDecals;                 // cobwebs
         [SerializeField] Color ambientLight = new Color(0.45f, 0.5f, 0.7f);
         [SerializeField, Range(0f, 1f)] float ambientIntensity = 0.35f;
+        [SerializeField] Audio.MusicTrack music = Audio.MusicTrack.Crypt;
+        [SerializeField] Audio.MusicTrack bossMusic = Audio.MusicTrack.Boss;
 
         public string DisplayName => displayName;
         public TileBase[] Decals => decals;
         public TileBase[] CornerDecals => cornerDecals;
         public Color AmbientLight => ambientLight;
         public float AmbientIntensity => ambientIntensity;
+        public Audio.MusicTrack Music => music;
+        public Audio.MusicTrack BossMusic => bossMusic;
 
         public TileBase Floor(System.Random rng)
         {

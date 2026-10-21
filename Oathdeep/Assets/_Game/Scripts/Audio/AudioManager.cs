@@ -125,6 +125,10 @@ namespace Oathdeep.Audio
 
         public static void PlayMusic(MusicTrack track) { if (instance != null) instance.PlayMusicInternal(track); }
 
+        /// <summary>The current floor's theme and the boss theme it switches to; set when a floor begins.</summary>
+        public static MusicTrack FloorTrack { get; set; } = MusicTrack.Crypt;
+        public static MusicTrack BossTrack { get; set; } = MusicTrack.Boss;
+
         public static void PlayStinger(bool victory)
         {
             if (instance == null) return;
@@ -186,8 +190,8 @@ namespace Oathdeep.Audio
             GameEvents.ItemEquipped += _ => Play(Sfx.ItemPickup);
             GameEvents.RoomCleared += () => Play(Sfx.RoomClear);
             GameEvents.PlayerDied += () => Play(Sfx.PlayerHurt);
-            GameEvents.BossEncountered += _ => { Play(Sfx.BossRoar); PlayMusic(MusicTrack.Boss); };
-            GameEvents.BossDefeated += () => PlayMusic(MusicTrack.Crypt);
+            GameEvents.BossEncountered += _ => { Play(Sfx.BossRoar); PlayMusic(BossTrack); };
+            GameEvents.BossDefeated += () => PlayMusic(FloorTrack);
         }
 
         void OnDamage(DamageInfo info, Vector3 at)
