@@ -23,7 +23,6 @@ namespace Oathdeep.UI
             public Action AbandonRun;
             public Action ControlsChanged;
             public Action ReplayIntro;        // null until the prologue exists
-            public Action OpenQuests;   // null hides the menu button
             public Action OpenInventory;
         }
 
@@ -37,6 +36,7 @@ namespace Oathdeep.UI
         HeroesPage heroesPage;
         ItemCompendiumPage itemsPage;
         CodexPage codexPage;
+        QuestPage questPage;
         InventoryPage inventoryPage;
         Action inventoryClosed;
         EncounterDialogView dialog;
@@ -61,7 +61,7 @@ namespace Oathdeep.UI
                 Heroes = heroes != null && heroes.Count > 0 ? () => heroesPage.Show() : (Action)null,
                 Items = () => itemsPage.Show(),
                 Codex = codex != null && codex.Count > 0 ? () => codexPage.Show() : (Action)null,
-                Quests = hooks.OpenQuests,
+                Quests = () => questPage.Show(),
                 Settings = () => OpenSettings(),
                 About = () => aboutPage.Show(),
                 Share = () => AppLinks.Share("I'm descending into UNDERSUN. The sun was buried - come help me raise it."),
@@ -72,6 +72,7 @@ namespace Oathdeep.UI
             if (heroes != null && heroes.Count > 0) heroesPage = HeroesPage.Create(SafeArea, skin, heroes);
             itemsPage = ItemCompendiumPage.Create(SafeArea, skin);
             if (codex != null && codex.Count > 0) codexPage = CodexPage.Create(SafeArea, skin, codex);
+            questPage = QuestPage.Create(SafeArea, skin);
             inventoryPage = InventoryPage.Create(SafeArea, skin, () => inventoryClosed?.Invoke());
             shopPage = ShopPage.Create(SafeArea, skin, () => { var c = shopClosed; shopClosed = null; c?.Invoke(); });
             dialog = EncounterDialogView.Create(SafeArea, skin);

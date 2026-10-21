@@ -14,6 +14,10 @@ namespace Oathdeep.Core
         public static event Action<ItemInstance> ItemEquipped;
         public static event Action<ItemInstance> ItemFound;
         public static event Action<string> Toast;
+        public static event Action EliteKilled;
+        public static event Action ChestOpened;
+        public static event Action Purchased;
+        public static event Action<string> EncounterUsed;                 // "pilgrim", "shrine", "dice"...
         public static event Action RoomCleared;
         public static event Action PlayerDied;
         public static event Action BossDefeated;
@@ -27,6 +31,10 @@ namespace Oathdeep.Core
         public static void RaiseItemEquipped(ItemInstance item) => ItemEquipped?.Invoke(item);
         public static void RaiseItemFound(ItemInstance item) => ItemFound?.Invoke(item);
         public static void RaiseToast(string message) => Toast?.Invoke(message);
+        public static void RaiseEliteKilled() => EliteKilled?.Invoke();
+        public static void RaiseChestOpened() => ChestOpened?.Invoke();
+        public static void RaisePurchased() => Purchased?.Invoke();
+        public static void RaiseEncounterUsed(string kind) => EncounterUsed?.Invoke(kind);
         public static void RaiseRoomCleared() => RoomCleared?.Invoke();
         public static void RaisePlayerDied() => PlayerDied?.Invoke();
         public static void RaiseBossDefeated() => BossDefeated?.Invoke();
@@ -37,6 +45,7 @@ namespace Oathdeep.Core
         public static void ClearAll()
         {
             DamageDealt = null; EnemyKilled = null; GoldChanged = null; ItemEquipped = null; ItemFound = null; Toast = null;
+            EliteKilled = null; ChestOpened = null; Purchased = null; EncounterUsed = null;
             RoomCleared = null; PlayerDied = null; BossDefeated = null; BossHealthChanged = null; BossEncountered = null; RoomEntered = null;
         }
     }

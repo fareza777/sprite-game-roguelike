@@ -29,6 +29,19 @@ namespace Oathdeep.Core
     }
 
     /// <summary>Everything that survives between runs. Plain fields so JsonUtility can serialize it.</summary>
+    /// <summary>Permanent bonuses bought with side-quest rewards. Applied to every hero at the start of a run.</summary>
+    [Serializable]
+    public sealed class MetaBonuses
+    {
+        public int health;
+        public int attack;
+        public int defense;
+        public int startGold;
+        public float crit;
+        public float goldFind;
+        public float skillHaste;
+    }
+
     [Serializable]
     public sealed class SaveData
     {
@@ -45,6 +58,8 @@ namespace Oathdeep.Core
         public int totalKills;
         public string lastHero = "aldric";
         public List<string> items = new List<string>();   // item identities ever found (compendium)
+        public List<string> heroesAtB3 = new List<string>();
+        public MetaBonuses meta = new MetaBonuses();
 
         /// <summary>Returns true only the first time an item identity is found.</summary>
         public bool DiscoverItem(string id)
@@ -79,6 +94,8 @@ namespace Oathdeep.Core
             codex ??= new List<string>();
             quests ??= new List<QuestProgress>();
             items ??= new List<string>();
+            heroesAtB3 ??= new List<string>();
+            meta ??= new MetaBonuses();
             if (string.IsNullOrEmpty(lastHero)) lastHero = "aldric";
             return this;
         }

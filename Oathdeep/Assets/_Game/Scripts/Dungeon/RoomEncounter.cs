@@ -117,6 +117,7 @@ namespace Oathdeep.Dungeon
                 d.Choices.Add(new EncounterChoice(blessing.Name.ToUpperInvariant() + ": " + blessing.Text, () =>
                 {
                     inv.AddRunBonus(blessing.Stats, blessing.Specials);
+                    GameEvents.RaiseEncounterUsed("shrine");
                     if (blessing.FullHeal) health.Heal(health.Max);
                     AudioManager.Play(Sfx.UiConfirm);
                     GameEvents.RaiseToast("Blessed with " + blessing.Name);
@@ -147,6 +148,7 @@ namespace Oathdeep.Dungeon
                 Text = "\"" + EncounterData.PilgrimLine(floor, rng) + "\"\n\n" + gift,
             };
             d.Choices.Add(new EncounterChoice("THANK THEM", null));
+            GameEvents.RaiseEncounterUsed("pilgrim");
             EncounterHost.Dialog(d);
             Spend();
         }
@@ -186,6 +188,7 @@ namespace Oathdeep.Dungeon
             d.Choices.Add(new EncounterChoice($"ROLL ({stake} gold)", () =>
             {
                 if (!inv.SpendGold(stake)) return;
+                GameEvents.RaiseEncounterUsed("dice");
                 if (rng.NextDouble() < 0.5)
                 {
                     inv.AddGold(stake * 2);

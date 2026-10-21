@@ -110,6 +110,7 @@ namespace Oathdeep.UI
                 health.Heal(Mathf.CeilToInt(health.Max * DraughtHeal));
             }
             selected.Sold = true;
+            GameEvents.RaisePurchased();
             selected = null;
             AudioManager.Play(Sfx.Coin);
             Rebuild();

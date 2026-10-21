@@ -52,6 +52,7 @@ namespace Oathdeep.Core
             hud.Minimap.Show(dungeon.Geometry.Rooms);
             AudioManager.PlayMusic(MusicTrack.Crypt);
             SaveSystem.Current.bestFloor = Mathf.Max(SaveSystem.Current.bestFloor, config.FloorNumber);
+            QuestTracker.FloorReached(config.FloorNumber, HeroesPage.IdOf(HeroesPage.Selected(heroes)));
             StartCoroutine(nameof(IntroduceFloor));
         }
 

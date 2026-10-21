@@ -35,6 +35,7 @@ namespace Oathdeep.Dungeon
         IEnumerator Open()
         {
             opened = true;
+            GameEvents.RaiseChestOpened();
             AudioManager.Play(Sfx.ChestOpen, transform.position);
             if (openSprite != null) spriteRenderer.sprite = openSprite;
             if (openVfx != null) Pool.Spawn(openVfx, transform.position + Vector3.up * 0.3f, Quaternion.identity);

@@ -91,6 +91,7 @@ namespace Oathdeep.Core
             frontEnd.HideRunScreens();
             GameEvents.ClearAll();
             AudioManager.BindRunEvents();
+            QuestTracker.BindRunEvents();
             ExitPortal.ClearListeners();
             TargetRegistry.Clear();
             Pool.Clear();
@@ -113,7 +114,13 @@ namespace Oathdeep.Core
             numbers = new GameObject("DamageNumbers").AddComponent<DamageNumbers>();
             numbers.Init(skin);
 
-            player.GetComponent<PlayerInventory>().BeginRun(hero); // after HUD subscribed so the bars initialise
+            var inventory = player.GetComponent<PlayerInventory>();
+            inventory.BeginRun(hero); // after HUD subscribed so the bars initialise
+            var (metaStats, metaSpecials, startGold) = QuestTracker.MetaBonus(SaveSystem.Current);
+            inventory.AddRunBonus(metaStats, metaSpecials);
+            var health = player.GetComponent<Health>();
+            health.Heal(health.Max);
+            if (startGold > 0) inventory.AddGold(startGold);
             CameraRig.Follow(player.transform);
 
             stats.Begin();
