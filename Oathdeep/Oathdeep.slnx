@@ -1,0 +1,5 @@
+﻿<Solution>
+  <Project Path="Oathdeep.Runtime.csproj" />
+  <Project Path="Oathdeep.Tests.EditMode.csproj" />
+  <Project Path="Oathdeep.Editor.csproj" />
+</Solution>

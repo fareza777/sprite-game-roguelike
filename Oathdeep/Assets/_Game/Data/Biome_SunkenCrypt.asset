@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e13ce3e2dd726443a86e1e55c6ff466, type: 3}
+  m_Name: Biome_SunkenCrypt
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Dungeon.BiomeTiles
+  displayName: Sunken Crypt
+  floors:
+  - {fileID: 11400000, guid: 3e39ce11fe0513c4fbe6234c59732042, type: 2}
+  - {fileID: 11400000, guid: e14caf2c8d540d144a827f79ecca33a9, type: 2}
+  - {fileID: 11400000, guid: 80b16cc7425a78f498914812a45f3101, type: 2}
+  - {fileID: 11400000, guid: 431468eabe21185479e771757614fa6b, type: 2}
+  rareFloors:
+  - {fileID: 11400000, guid: 9b7ae85f3de36104e8d426b65ed3bcca, type: 2}
+  - {fileID: 11400000, guid: d769e09814974b04daaab6111295edef, type: 2}
+  - {fileID: 11400000, guid: d10033d493cf56846a34937f3e0d8a39, type: 2}
+  - {fileID: 11400000, guid: 4a1c1a1e53953e649af91e015098c5a5, type: 2}
+  rareFloorChance: 0.06
+  wallFaces:
+  - {fileID: 11400000, guid: 6e562c49fd539194280302ef7c574848, type: 2}
+  - {fileID: 11400000, guid: 490fb50a18d27ba418f1cd0739bf742f, type: 2}
+  - {fileID: 11400000, guid: 991278d9028f3174a81a1025019636cc, type: 2}
+  - {fileID: 11400000, guid: 5d38007a9c258c14e8da185d90747a3b, type: 2}
+  wallCaps:
+  - {fileID: 11400000, guid: 482d1cffdb7937f4eb67590a48298acc, type: 2}
+  - {fileID: 11400000, guid: 51c958fb9a180464a9e73698b2a1aaf4, type: 2}
+  - {fileID: 11400000, guid: 2e490f258bcab484c8b226ea95633b19, type: 2}
+  - {fileID: 11400000, guid: 76c7db0f73a71e141b0bba9942ec1003, type: 2}
+  - {fileID: 11400000, guid: 63fb9a64f5bd1b74abff54375f77fd15, type: 2}
+  - {fileID: 11400000, guid: 7f15f4f7df9488f4b95f143587ef2cb4, type: 2}
+  - {fileID: 11400000, guid: abf95d0894cef024780082fe41ad42f1, type: 2}
+  - {fileID: 11400000, guid: cbcb311e65b120a4b816c82e4f4c3d95, type: 2}
+  - {fileID: 11400000, guid: 4e03e43d350565e418da47499504d493, type: 2}
+  - {fileID: 11400000, guid: a4e9634ec1bf5204b9fd0d8292a99f47, type: 2}
+  - {fileID: 11400000, guid: 81c1578d88b662d45ad5c0dfe99dd448, type: 2}
+  - {fileID: 11400000, guid: 13fea467363951141a555ce436879ca8, type: 2}
+  - {fileID: 11400000, guid: e535d5a30c522d745bde2cd015ce4371, type: 2}
+  - {fileID: 11400000, guid: 7dc3680978a5879409e2c58c770fc074, type: 2}
+  - {fileID: 11400000, guid: 76b7c5ac2674af24aaa9da48bac9277c, type: 2}
+  - {fileID: 11400000, guid: e59fbe47a4181f045b47275010e83134, type: 2}
+  shadowTop: {fileID: 11400000, guid: 757758f1eef4dea419ab1161b0cdc628, type: 2}
+  shadowLeft: {fileID: 11400000, guid: aa91d2023152b434c90d1254bb23c7d2, type: 2}
+  shadowCorner: {fileID: 11400000, guid: a83518f54c981aa4ebd5fc2dca333748, type: 2}
+  ambientLight: {r: 0.42, g: 0.46, b: 0.66, a: 1}
+  ambientIntensity: 0.42

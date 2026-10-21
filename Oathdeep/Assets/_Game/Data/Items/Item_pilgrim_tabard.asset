@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac15261e231cb70408d3d9e65572d966, type: 3}
+  m_Name: Item_pilgrim_tabard
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Loot.ItemData
+  id: pilgrim_tabard
+  displayName: Pilgrim's Tabard
+  description: Light cloth for long descents.
+  icon: {fileID: -1570411756, guid: 7bcbab3a54a8790408f5766d40657470, type: 3}
+  rarity: 0
+  slot: 1
+  bonus:
+    maxHealth: 15
+    attack: 0
+    defense: 2
+    critChance: 0
+    critMultiplier: 0
+    moveSpeed: 0.2

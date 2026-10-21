@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d45e69c846b26b94283d82268639d7fd, type: 3}
+  m_Name: Props_Crypt
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Dungeon.PropSet
+  torch: {fileID: 9169534187501938214, guid: a40a49a880dcfc04ebadcff6e3c6aa1d, type: 3}
+  wallDecor:
+  - {fileID: 4458847564615936972, guid: 9cc7f28021c8d2b4b957dc91336ed36a, type: 3}
+  - {fileID: 4712958079696510035, guid: a0230542b4b707b40b463b22c02e8b45, type: 3}
+  - {fileID: 2718079439247926160, guid: 5f5c5e22059bb6445b3bfb0ee438339d, type: 3}
+  decals:
+  - {fileID: 11400000, guid: eba1df66d6e6c30459a2cffc17727fae, type: 2}
+  - {fileID: 11400000, guid: c10ca55537105da4b9a97884b01c853e, type: 2}
+  - {fileID: 11400000, guid: ecdcd20fde266f245995bb3df517e6a8, type: 2}
+  - {fileID: 11400000, guid: b0489ab7440cb5e4783d89a4fef9d44f, type: 2}
+  - {fileID: 11400000, guid: 95e5a9b5b65f905438d80f0841bc11d5, type: 2}
+  - {fileID: 11400000, guid: 739269f7158597847bbd3076f421d5a3, type: 2}
+  - {fileID: 11400000, guid: dc847cbbb3e9f254091471dce380af43, type: 2}
+  - {fileID: 11400000, guid: 6c737c13f1d805a4cb7fac272d90e3f8, type: 2}
+  cornerDecals:
+  - {fileID: 11400000, guid: d1e183ce18adf0243a821f95131681e6, type: 2}
+  - {fileID: 11400000, guid: bbf7bc7e4044a564eb949d255e33d998, type: 2}
+  breakables:
+  - {fileID: 5052160602477471068, guid: 9fe9b1fa785b0a945a24b0fb212159bf, type: 3}
+  - {fileID: 5415097174092774761, guid: 2d7eb87959216d0489bf87cc3d392b22, type: 3}
+  - {fileID: 5546982337079693066, guid: 8b087a317b585ee46ae516843b480c3f, type: 3}
+  statue: {fileID: 8276655743433440094, guid: 5aea3d272f28e84408d41bb960695a24, type: 3}
+  brazier: {fileID: 5903960873770326186, guid: 58b39777533e3f34d8f230c4ddef9da1, type: 3}
+  candles: {fileID: 6339970089803818686, guid: 8e2cd16687d04e14d83dfad58cff1ae8, type: 3}
+  chest: {fileID: 3607830328043422046, guid: d557265a586c2104788247b38c5a1c55, type: 3}
+  bigChest: {fileID: 7462523433108714345, guid: ccc7c1c5c2cac3a40bef3ada732b6af1, type: 3}
+  spikeTrap: {fileID: 7374276658751870215, guid: 998ab5688d63ab84890680a1ca7b6c3e, type: 3}
+  door: {fileID: 3337763409088593906, guid: 8bc1068c452d2584aa8ce8a141392dad, type: 3}
+  exitPortal: {fileID: 577427242152170395, guid: eb2f46c74e48b2545b83818b6b731766, type: 3}
+  spawnMarker: {fileID: 1995995648972129915, guid: b8122f3984c16374faa6206ed2eeeb9a, type: 3}

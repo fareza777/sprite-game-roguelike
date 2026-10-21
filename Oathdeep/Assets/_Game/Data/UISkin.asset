@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b69058787d11b6445b398c4a71f2cf4b, type: 3}
+  m_Name: UISkin
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.UI.UISkin
+  font: {fileID: 11400000, guid: d9502771a0023e74ca6b8c98cf0e2443, type: 2}
+  panel: {fileID: -720980862, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  button: {fileID: -2029817765, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  buttonPressed: {fileID: -79223028, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  barFrame: {fileID: -1787427408, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  barFillHealth: {fileID: 1578588705, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  barFillBoss: {fileID: -1860115408, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  iconGold: {fileID: 1478690489, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  iconPotion: {fileID: 552486563, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  iconAttack: {fileID: 1648129211, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  iconDodge: {fileID: 693071702, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  iconSkill: {fileID: 1658395501, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  iconPause: {fileID: -1258095414, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  actionRing: {fileID: -98426126, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  joystickBase: {fileID: -1109237345, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  joystickKnob: {fileID: 2113832593, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  logo: {fileID: -1723964884, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  white: {fileID: 21300000, guid: 5f769760c3f0e4c4da67c78ff2f4979a, type: 3}
+  textColor: {r: 0.92156863, g: 0.92941177, b: 0.9137255, a: 1}
+  accentColor: {r: 0.87058824, g: 0.61960787, b: 0.25490198, a: 1}
+  dangerColor: {r: 0.8117647, g: 0.34117648, b: 0.23529412, a: 1}
+  critColor: {r: 0.9098039, g: 0.75686276, b: 0.4392157, a: 1}

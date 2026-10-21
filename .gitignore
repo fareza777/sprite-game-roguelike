@@ -1,0 +1,12 @@
+Oathdeep/[Ll]ibrary/
+Oathdeep/[Tt]emp/
+Oathdeep/[Oo]bj/
+Oathdeep/[Bb]uild/
+Oathdeep/[Bb]uilds/
+Oathdeep/[Ll]ogs/
+Oathdeep/[Uu]ser[Ss]ettings/
+Oathdeep/.vs/
+Oathdeep/*.csproj
+Oathdeep/*.sln
+Oathdeep/.env
+*.log

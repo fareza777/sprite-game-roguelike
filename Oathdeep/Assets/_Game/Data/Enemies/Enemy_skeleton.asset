@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f04203fffb60a49a6653198d141e42, type: 3}
+  m_Name: Enemy_skeleton
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Data.EnemyData
+  displayName: Skeleton
+  stats:
+    maxHealth: 34
+    attack: 7
+    defense: 2
+    critChance: 0.03
+    critMultiplier: 1.5
+    moveSpeed: 2.4
+  aggroRange: 8
+  attackRange: 1.3
+  goldDrop: {x: 1, y: 4}
+  itemDropChance: 0.06
+  potionDropChance: 0.06
+  lootTable:
+  - {fileID: 11400000, guid: 744fa3f4530b501468ba2b1d97b8187f, type: 2}
+  - {fileID: 11400000, guid: f31aa86c5d072fa4790833b205b22997, type: 2}
+  - {fileID: 11400000, guid: 1ceeb43365aeb13479f5c2e3f13f8af2, type: 2}
+  isBoss: 0
