@@ -1,0 +1,2 @@
+using UnityEngine;
+public class Script { public static string Main() { var s = Oathdeep.Core.SaveSystem.Current; var cine = Object.FindFirstObjectByType<Oathdeep.UI.CinematicView>(FindObjectsInactive.Include); return "introSeen=" + s.introSeen + " onboarding=" + s.onboardingDone + " runs=" + s.runs + " cinematicActive=" + (cine != null && cine.gameObject.activeSelf) + " path=" + Application.persistentDataPath; } }

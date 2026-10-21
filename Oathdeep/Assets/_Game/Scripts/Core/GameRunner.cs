@@ -29,6 +29,8 @@ namespace Oathdeep.Core
         [SerializeField] Sprite potionSprite;
         [SerializeField] UISkin skin;
         [SerializeField] AudioLibrary audioLibrary;
+        [SerializeField] StoryAssets story;
+        [SerializeField] int finalFloor = 10;
         [Header("Scene")]
         [SerializeField] Camera worldCamera;
         [SerializeField] Light2D globalLight;
@@ -38,6 +40,7 @@ namespace Oathdeep.Core
         DungeonBuilder dungeon;
         PlayerController player;
         HudView hud;
+        NarrationBanner narration;
         DamageNumbers numbers;
         RunStats stats;
 
@@ -52,7 +55,8 @@ namespace Oathdeep.Core
                 ResumeRun = Resume,
                 AbandonRun = ToMenu,
                 ControlsChanged = () => { if (hud != null) hud.RebuildControls(); },
-            });
+                ReplayIntro = () => PlayPrologue(ShowMenuAfterCinematic),
+            }, story);
             if (worldCamera != null && worldCamera.GetComponent<CameraRig>() == null) worldCamera.gameObject.AddComponent<CameraRig>();
             if (FindFirstObjectByType<HitStop>() == null) new GameObject("HitStop").AddComponent<HitStop>();
             LootDropper.Configure(pickupPrefab, goldSprite, potionSprite);
@@ -61,7 +65,11 @@ namespace Oathdeep.Core
         void Start()
         {
             phase = Phase.Boot;
-            frontEnd.PlaySplash(ToMenu);
+            frontEnd.PlaySplash(() =>
+            {
+                if (SaveSystem.Current.introSeen) ToMenu();
+                else PlayPrologue(ShowMenuAfterCinematic);
+            });
         }
 
         // ---------------- Run lifecycle ----------------
@@ -121,9 +129,52 @@ namespace Oathdeep.Core
             ExitPortal.Reached += () => StartCoroutine(EndAfter(0.4f, true));
 
             phase = Phase.Playing;
-            GameEvents.RaiseToast(floor.Biome != null ? floor.Biome.DisplayName : "The Deep");
-            if (!SaveSystem.Current.onboardingDone) OnboardingCoach.Begin(hudRoot, skin, hud, player);
+            narration = NarrationBanner.Create(hudRoot, skin);
+            var floorStory = story != null ? story.Data.Floor(floor.FloorNumber) : null;
+            GameEvents.BossEncountered += _ => narration.ShowBoss(floorStory);
+            StartCoroutine(IntroduceFloor(floorStory, hudRoot));
         }
+
+        /// <summary>The Sun names the floor first; first-time players get the tutorial once she has spoken.</summary>
+        IEnumerator IntroduceFloor(FloorStory floorStory, RectTransform hudRoot)
+        {
+            float wait = 0f;
+            if (floorStory != null)
+            {
+                var clip = story.VoiceFor(floorStory.id);
+                narration.ShowFloor(floorStory, clip);
+                wait = Mathf.Max(5.5f, clip != null ? clip.length + 0.5f : 0f) + 1.3f;
+            }
+            if (SaveSystem.Current.onboardingDone) yield break;
+            yield return new WaitForSecondsRealtime(wait);
+            if (hud != null && player != null) OnboardingCoach.Begin(hudRoot, skin, hud, player);
+        }
+
+        // ---------------- Cinematics ----------------
+
+        void PlayPrologue(System.Action then)
+        {
+            phase = Phase.Menu;
+            frontEnd.HideMenu();
+            frontEnd.Cinematic.Play(story.Data.prologue, MusicTrack.Prologue, () =>
+            {
+                SaveSystem.Current.introSeen = true;
+                SaveSystem.Save();
+                then?.Invoke();
+            });
+        }
+
+        void ShowMenuAfterCinematic() => ToMenu();
+
+        void PlayEnding()
+        {
+            TeardownRun();
+            Time.timeScale = 1f;
+            frontEnd.HideRunScreens();
+            frontEnd.Cinematic.Play(story.Data.ending, MusicTrack.Ending, () => frontEnd.ShowEnd(true, lastSummary));
+        }
+
+        string lastSummary = "";
 
         void TeardownRun()
         {
@@ -156,6 +207,8 @@ namespace Oathdeep.Core
                 $"Gold            {stats.Gold}\n" +
                 $"Highest hit     {stats.HighestHit}\n" +
                 $"Time            {RunStats.FormatTime(stats.Duration)}";
+            lastSummary = summary;
+            if (victory && floor.FloorNumber >= finalFloor && story != null) { PlayEnding(); yield break; }
             AudioManager.PlayStinger(victory);
             frontEnd.ShowEnd(victory, summary);
             Time.timeScale = victory ? 1f : 0.25f;

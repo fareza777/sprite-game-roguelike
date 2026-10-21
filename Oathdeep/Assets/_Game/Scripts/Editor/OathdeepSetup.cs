@@ -33,6 +33,26 @@ namespace Oathdeep.EditorTools
             return report;
         }
 
+        const string SetupReportPath = "Logs/setup-report.txt";
+
+        /// <summary>Runs Build Everything on an idle editor tick (long imports outlive remote-call timeouts).</summary>
+        public static string QueueBuildEverything()
+        {
+            Directory.CreateDirectory("Logs");
+            File.WriteAllText(SetupReportPath, "queued" + System.Environment.NewLine);
+            EditorApplication.update -= BuildWhenEditorIdle;
+            EditorApplication.update += BuildWhenEditorIdle;
+            return "Build Everything queued; watch " + SetupReportPath;
+        }
+
+        static void BuildWhenEditorIdle()
+        {
+            if (EditorApplication.isCompiling || EditorApplication.isUpdating || EditorApplication.isPlayingOrWillChangePlaymode) return;
+            EditorApplication.update -= BuildWhenEditorIdle;
+            try { File.WriteAllText(SetupReportPath, "done" + System.Environment.NewLine + BuildEverything()); }
+            catch (System.Exception e) { File.WriteAllText(SetupReportPath, "failed" + System.Environment.NewLine + e); }
+        }
+
         // ---------------- asset helpers ----------------
 
         static void EnsureFolder(string path)

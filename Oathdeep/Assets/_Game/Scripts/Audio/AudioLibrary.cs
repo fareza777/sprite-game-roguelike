@@ -10,7 +10,7 @@ namespace Oathdeep.Audio
         RoomClear, UiClick, UiConfirm,
     }
 
-    public enum MusicTrack { None, Title, Crypt, Boss }
+    public enum MusicTrack { None, Title, Crypt, Boss, Prologue, Ending }
 
     /// <summary>Every clip the game plays, with per-sound mix settings. One asset, edited in one place.</summary>
     [CreateAssetMenu(menuName = "Oathdeep/Audio Library", fileName = "AudioLibrary")]
@@ -30,6 +30,8 @@ namespace Oathdeep.Audio
         public AudioClip musicTitle;
         public AudioClip musicCrypt;
         public AudioClip musicBoss;
+        public AudioClip musicPrologue;
+        public AudioClip musicEnding;
         public AudioClip stingVictory;
         public AudioClip stingGameOver;
 
@@ -38,6 +40,8 @@ namespace Oathdeep.Audio
             MusicTrack.Title => musicTitle,
             MusicTrack.Crypt => musicCrypt,
             MusicTrack.Boss => musicBoss,
+            MusicTrack.Prologue => musicPrologue,
+            MusicTrack.Ending => musicEnding,
             _ => null,
         };
     }

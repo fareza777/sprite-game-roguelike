@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49dffdfe60a8ee148907b2ef8e233cdf, type: 3}
+  m_Name: StoryAssets
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Core.StoryAssets
+  script: {fileID: 4900000, guid: d08f4e21be1185f44b9e716afda2f13d, type: 3}
+  panels:
+  - Id: pro_1
+    Sprite: {fileID: -1248820159, guid: 7dd0355592a98ab4396ab644423aa2c9, type: 3}
+  - Id: pro_2
+    Sprite: {fileID: 1852653678, guid: 7dd0355592a98ab4396ab644423aa2c9, type: 3}
+  - Id: pro_3
+    Sprite: {fileID: 1506442805, guid: 7dd0355592a98ab4396ab644423aa2c9, type: 3}
+  - Id: pro_4
+    Sprite: {fileID: -1949839601, guid: 7dd0355592a98ab4396ab644423aa2c9, type: 3}
+  - Id: pro_5
+    Sprite: {fileID: -1492633711, guid: 7dd0355592a98ab4396ab644423aa2c9, type: 3}
+  - Id: pro_6
+    Sprite: {fileID: -2014905091, guid: 7dd0355592a98ab4396ab644423aa2c9, type: 3}
+  - Id: end_1
+    Sprite: {fileID: -1345353906, guid: 7dd0355592a98ab4396ab644423aa2c9, type: 3}
+  - Id: end_2
+    Sprite: {fileID: -325517335, guid: 7dd0355592a98ab4396ab644423aa2c9, type: 3}
+  - Id: end_3
+    Sprite: {fileID: -118692017, guid: 7dd0355592a98ab4396ab644423aa2c9, type: 3}
+  - Id: end_4
+    Sprite: {fileID: 330218063, guid: 7dd0355592a98ab4396ab644423aa2c9, type: 3}
+  voices:
+  - Id: pro_1
+    Clip: {fileID: 8300000, guid: 41dd1eb6e1d450a40a896b46fe75d8bf, type: 3}
+  - Id: pro_2
+    Clip: {fileID: 8300000, guid: 109396b0abb5fd846a7316b2e8189d58, type: 3}
+  - Id: pro_3
+    Clip: {fileID: 8300000, guid: 1c002b66b5efe8746927c4945bbd5841, type: 3}
+  - Id: pro_4
+    Clip: {fileID: 8300000, guid: f50d3b498329d6e4aa6060b090dbc39f, type: 3}
+  - Id: pro_5
+    Clip: {fileID: 8300000, guid: be2aa68567a0315409dfc46069158b62, type: 3}
+  - Id: pro_6
+    Clip: {fileID: 8300000, guid: 5e0324ad96b9c0047a89ec537ba92c17, type: 3}
+  - Id: end_1
+    Clip: {fileID: 8300000, guid: 5689dad4297d17a48be4bca091e19ef9, type: 3}
+  - Id: end_2
+    Clip: {fileID: 8300000, guid: 544e13ea2ad238643b6bf721705e799e, type: 3}
+  - Id: end_3
+    Clip: {fileID: 8300000, guid: eb7f881b9ded3ad4e8e6264af916cf44, type: 3}
+  - Id: end_4
+    Clip: {fileID: 8300000, guid: ba47d2a4f6f429d439780d1cab7b231f, type: 3}
+  - Id: floor_1
+    Clip: {fileID: 8300000, guid: ea9bde29820a86944aa94223b4d8436b, type: 3}
+  - Id: floor_2
+    Clip: {fileID: 8300000, guid: fee49c80fc196304db966daf077a214b, type: 3}
+  - Id: floor_3
+    Clip: {fileID: 8300000, guid: 890675df5821698449fb085e876e43a5, type: 3}
+  - Id: floor_4
+    Clip: {fileID: 8300000, guid: 649d268d7240f264083e21f50cd3d5c4, type: 3}
+  - Id: floor_5
+    Clip: {fileID: 8300000, guid: ecccb3f798a977b44a94e30492f7b8be, type: 3}
+  - Id: floor_6
+    Clip: {fileID: 8300000, guid: 2aa7111a4e638c14f9adf5799a105644, type: 3}
+  - Id: floor_7
+    Clip: {fileID: 8300000, guid: 4f62620f80250ea4e83542cd2b2cbec4, type: 3}
+  - Id: floor_8
+    Clip: {fileID: 8300000, guid: d62d2aadd78c1f64ab961045e2280161, type: 3}
+  - Id: floor_9
+    Clip: {fileID: 8300000, guid: 79548fa785a30fb469640f29a90d4dfd, type: 3}
+  - Id: floor_10
+    Clip: {fileID: 8300000, guid: e358601f5e3497e4b8ee1fd0d0201e80, type: 3}

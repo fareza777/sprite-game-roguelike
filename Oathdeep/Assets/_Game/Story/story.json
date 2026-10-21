@@ -1,0 +1,48 @@
+{
+  "prologue": [
+    { "id": "pro_1", "text": "Nine hundred years ago, a Hunger crept across the sky... and began to eat the light." },
+    { "id": "pro_2", "text": "To save me, the Choir of Dawn sang. Ten voices. And they sang me down... into the earth." },
+    { "id": "pro_3", "text": "They sealed me beneath ten vaults. Ten Choristers stayed below, each one holding a single verse of the hymn." },
+    { "id": "pro_4", "text": "Above, the world forgot the day. The last city, Emberwick, lives on rationed flame. And now its lanterns are failing." },
+    { "id": "pro_5", "text": "So I sing. I call for the Unsung... those whose names no hymn remembers." },
+    { "id": "pro_6", "text": "Descend. Silence the verses. Raise me... raise the Undersun." }
+  ],
+  "ending": [
+    { "id": "end_1", "text": "The last verse breaks. Listen... the hymn is over." },
+    { "id": "end_2", "text": "I rise. Through bone and rot, through tide and flame and frost... I rise." },
+    { "id": "end_3", "text": "Emberwick sees the dawn for the first time in nine hundred years. They will sing your name now." },
+    { "id": "end_4", "text": "Thank you, little light. I remember everything. Who buried me... and how hungry I have become." }
+  ],
+  "floors": [
+    { "floor": 1, "id": "floor_1", "biome": "Sunken Crypt", "verse": "Bone", "boss": "The Bone Warden",
+      "entry": "The Verse of Bone. Osric still counts his dead down here. Every single one.",
+      "bossLine": "Osric, Chorister of Bone. He guarded the first vault so long his flesh forgot him." },
+    { "floor": 2, "id": "floor_2", "biome": "Mycelial Hollow", "verse": "Rot", "boss": "Mother Morel",
+      "entry": "Smell that? Sister Morel sang of rot. And the rot listened.",
+      "bossLine": "Mother Morel, Chorister of Rot. Everything she touches becomes her congregation." },
+    { "floor": 3, "id": "floor_3", "biome": "Drowned Cistern", "verse": "Tide", "boss": "The Tidecaller",
+      "entry": "The Tidecaller flooded this vault to keep her verse from drying out. Hold your breath, little light.",
+      "bossLine": "Neris, the Tidecaller. She drowned her own voice to make it last forever." },
+    { "floor": 4, "id": "floor_4", "biome": "Ember Forge", "verse": "Flame", "boss": "The Furnace Saint",
+      "entry": "The Furnace Saint stole my warmth to feed his forge. Take it back.",
+      "bossLine": "Brother Cinder, the Furnace Saint. He prays with hammers now." },
+    { "floor": 5, "id": "floor_5", "biome": "Frostbone Caverns", "verse": "Silence", "boss": "The Pale Matriarch",
+      "entry": "The Pale Matriarch sings of silence. Down here, even your heartbeat is too loud.",
+      "bossLine": "Ysolde, the Pale Matriarch. She froze the echo of every voice that ever reached her." },
+    { "floor": 6, "id": "floor_6", "biome": "Thornwild Ruins", "verse": "Growth", "boss": "The Verdant Hierophant",
+      "entry": "Without me, the Hierophant taught his roots to grow toward hunger instead of light.",
+      "bossLine": "Thal, the Verdant Hierophant. His temple grew a heart. It beats for him alone." },
+    { "floor": 7, "id": "floor_7", "biome": "Clockwork Ossuary", "verse": "Measure", "boss": "The Horologist",
+      "entry": "The Horologist has measured my absence in heartbeats. Nine hundred years of them.",
+      "bossLine": "Master Quill, the Horologist. He wound his own bones into the clock." },
+    { "floor": 8, "id": "floor_8", "biome": "Sandsunk Necropolis", "verse": "Memory", "boss": "The Dune Pharaoh",
+      "entry": "Everything here remembers. The Pharaoh remembers me. Do not let him remember you.",
+      "bossLine": "Ankaret, the Dune Pharaoh. She buried a kingdom to keep one memory safe." },
+    { "floor": 9, "id": "floor_9", "biome": "Glass Abyss", "verse": "Reflection", "boss": "The Mirrored Choir",
+      "entry": "The Mirrored Choir sings two verses at once. Do not trust what looks back at you.",
+      "bossLine": "Vey and Veil, the Mirrored Choir. One of them is lying. Both of them are singing." },
+    { "floor": 10, "id": "floor_10", "biome": "Heart of Dusk", "verse": "Hunger", "boss": "The Cantor",
+      "entry": "You can hear me clearly now. I am so close. The Cantor stands between us... and he is afraid.",
+      "bossLine": "The Cantor. He wrote the hymn. He begs you not to finish it." }
+  ]
+}

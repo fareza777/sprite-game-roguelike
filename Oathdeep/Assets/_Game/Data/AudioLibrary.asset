@@ -141,5 +141,7 @@ MonoBehaviour:
   musicTitle: {fileID: 8300000, guid: 420fc7243d5358548b93c3a3fa429937, type: 3}
   musicCrypt: {fileID: 8300000, guid: c7f00313b50c3e940a6b30964cf9586b, type: 3}
   musicBoss: {fileID: 8300000, guid: b94fa93c83f5dde459aa24ecc547dd90, type: 3}
+  musicPrologue: {fileID: 8300000, guid: 2737c2a267f37d74b93bd31be775d04a, type: 3}
+  musicEnding: {fileID: 8300000, guid: bb64848da1be2c541b595b72c283da93, type: 3}
   stingVictory: {fileID: 8300000, guid: 2d5902f3b9cb02a429b422f57a1600e6, type: 3}
   stingGameOver: {fileID: 8300000, guid: e204b75ecf9cbcb4293f03d6a356303f, type: 3}

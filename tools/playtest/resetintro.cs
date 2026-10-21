@@ -1,0 +1,1 @@
+public class Script { public static string Main() { Oathdeep.Core.SaveSystem.Current.introSeen = false; Oathdeep.Core.SaveSystem.Current.onboardingDone = false; Oathdeep.Core.SaveSystem.Save(); return "intro + onboarding reset"; } }

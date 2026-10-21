@@ -21,6 +21,7 @@ namespace Oathdeep.Audio
         AudioSource[] voices;
         AudioSource[] decks;
         AudioSource stinger;
+        AudioSource voice;
         int nextVoice, activeDeck;
         float[] lastPlayed;
         AudioLibrary.Entry?[] byId;
@@ -49,6 +50,7 @@ namespace Oathdeep.Audio
             for (int i = 0; i < Voices; i++) voices[i] = NewSource(false);
             decks = new[] { NewSource(true), NewSource(true) };
             stinger = NewSource(false);
+            voice = NewSource(false);
         }
 
         AudioSource NewSource(bool loop)
@@ -93,6 +95,30 @@ namespace Oathdeep.Audio
             src.pitch = 1f + Random.Range(-entry.PitchJitter, entry.PitchJitter);
             src.panStereo = pan;
             src.PlayOneShot(entry.Clip, v);
+        }
+
+        // ---------------- narration ----------------
+
+        /// <summary>Plays a narration line over the music (ducked while it speaks). Returns its length in seconds.</summary>
+        public static float PlayVoice(AudioClip clip)
+        {
+            if (instance == null || clip == null) return 0f;
+            instance.voice.Stop();
+            instance.voice.clip = clip;
+            instance.voice.volume = Mathf.Max(0.0001f, GameSettings.SfxVolume);
+            instance.voice.Play();
+            return clip.length;
+        }
+
+        public static void StopVoice() { if (instance != null) instance.voice.Stop(); }
+
+        void LateUpdate()
+        {
+            // duck the music under narration
+            if (decks == null) return;
+            float target = GameSettings.MusicVolume * (voice != null && voice.isPlaying ? 0.45f : 1f);
+            var deck = decks[activeDeck];
+            if (fadeRoutine == null && deck.isPlaying) deck.volume = Mathf.MoveTowards(deck.volume, target, Time.unscaledDeltaTime * 1.5f);
         }
 
         // ---------------- music ----------------
@@ -144,6 +170,7 @@ namespace Oathdeep.Audio
             }
             from.Stop();
             to.volume = GameSettings.MusicVolume;
+            fadeRoutine = null;
         }
 
         // ---------------- run-wide reactions ----------------

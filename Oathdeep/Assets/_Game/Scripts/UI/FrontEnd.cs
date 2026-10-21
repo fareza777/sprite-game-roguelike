@@ -37,7 +37,9 @@ namespace Oathdeep.UI
         public RectTransform SafeArea { get; private set; }
         public ConfirmDialog Confirm { get; private set; }
 
-        public void Build(UISkin uiSkin, Hooks runHooks)
+        public CinematicView Cinematic { get; private set; }
+
+        public void Build(UISkin uiSkin, Hooks runHooks, StoryAssets story)
         {
             skin = uiSkin;
             hooks = runHooks;
@@ -57,6 +59,7 @@ namespace Oathdeep.UI
             FrontEndPages.BuildAbout(aboutPage, Version);
             Confirm = ConfirmDialog.Create(SafeArea, skin);
             BuildRunScreens();
+            Cinematic = CinematicView.Create(SafeArea, skin, story);
             splash = SplashView.Create(SafeArea, skin, "a game by fareza777");
         }
 
@@ -97,7 +100,7 @@ namespace Oathdeep.UI
             FrontEndPages.BuildSettings(settingsPage, new FrontEndPages.SettingsHooks
             {
                 ControlsChanged = hooks.ControlsChanged,
-                ReplayIntro = hooks.ReplayIntro,
+                ReplayIntro = hooks.ReplayIntro == null ? null : () => { settingsPage.Hide(); hooks.ReplayIntro(); },
                 Confirm = Confirm,
             });
             settingsPage.Show();

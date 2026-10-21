@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Oathdeep.Audio;
+using Oathdeep.Core;
 using UnityEditor;
 using UnityEngine;
 
@@ -46,10 +47,44 @@ namespace Oathdeep.EditorTools
             audioLibrary.musicTitle = Music("music_title", true);
             audioLibrary.musicCrypt = Music("music_crypt", true);
             audioLibrary.musicBoss = Music("music_boss", true);
+            audioLibrary.musicPrologue = Music("music_prologue", true);
+            audioLibrary.musicEnding = Music("music_ending", false);
             audioLibrary.stingVictory = Music("sting_victory", false);
             audioLibrary.stingGameOver = Music("sting_gameover", false);
             EditorUtility.SetDirty(audioLibrary);
-            log.Add($"audio: {entries.Count} sfx, 3 music loops, 2 stingers");
+            log.Add($"audio: {entries.Count} sfx, 5 music tracks, 2 stingers");
+            BuildStory(log);
+        }
+
+        // ---------------- story: script, panels, narration ----------------
+
+        const string StoryJson = Root + "/Story/story.json";
+        const string PanelsPng = ArtDir + "/UI/cinematic_panels.png";
+        static StoryAssets storyAssets;
+
+        static void BuildStory(List<string> log)
+        {
+            var script = Load<TextAsset>(StoryJson);
+            var data = StoryData.Parse(script.text);
+            var ids = data.prologue.Select(l => l.id).Concat(data.ending.Select(l => l.id)).ToList();
+            Slice(PanelsPng, ids.Select((id, i) => new Cell(id, i * 160, 0, 160, 120, Centre)).ToList(), UiPpu, SpriteMeshType.FullRect);
+            SpriteCache.Remove(PanelsPng);
+
+            var voiceIds = ids.Concat(data.floors.Select(f => f.id)).ToList();
+            var voices = new List<StoryAssets.Voice>();
+            foreach (var id in voiceIds)
+            {
+                string path = $"{AudioDir}/VO/vo_{id}.wav";
+                ConfigureClip(path, AudioClipLoadType.CompressedInMemory, AudioCompressionFormat.Vorbis, mono: true, quality: 0.6f);
+                voices.Add(new StoryAssets.Voice { Id = id, Clip = Load<AudioClip>(path) });
+            }
+
+            storyAssets = LoadOrCreate<StoryAssets>(DataDir + "/StoryAssets.asset");
+            storyAssets.script = script;
+            storyAssets.panels = ids.Select(id => new StoryAssets.Panel { Id = id, Sprite = Spr(PanelsPng, id) }).ToArray();
+            storyAssets.voices = voices.ToArray();
+            EditorUtility.SetDirty(storyAssets);
+            log.Add($"story: {ids.Count} panels, {voices.Count} narration lines");
         }
 
         static AudioClip Music(string name, bool loop)

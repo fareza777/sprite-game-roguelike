@@ -52,7 +52,7 @@ namespace Oathdeep.EditorTools
                 ("playerPrefab", Prefab("Player").GetComponent<PlayerController>()),
                 ("pickupPrefab", Prefab("Pickup").GetComponent<Pickup>()),
                 ("goldSprite", Spr(PropsPng, "coin0")), ("potionSprite", Spr(PropsPng, "potion")),
-                ("skin", uiSkin), ("audioLibrary", audioLibrary), ("worldCamera", cam), ("globalLight", global));
+                ("skin", uiSkin), ("audioLibrary", audioLibrary), ("story", storyAssets), ("worldCamera", cam), ("globalLight", global));
 
             EditorSceneManager.SaveScene(scene, ScenePath);
             EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };

@@ -284,7 +284,70 @@ def game_over():
     return finish(L, R, 5.0, False, 1.0, 0.4, peak=-3.0)
 
 
-TRACKS = {"music_crypt": crypt, "music_boss": boss, "music_title": title, "sting_victory": victory, "sting_gameover": game_over}
+def choir_voice(notes, dur, vowel=(700, 1150)):
+    """Wordless 'aah' choir: detuned saw stacks through two formant bands, slow swell."""
+    n = int((dur + 1.2) * RATE)
+    t = np.arange(n) / RATE
+    x = np.zeros(n)
+    for m in notes:
+        for d in (-0.006, 0.0, 0.006):
+            vib = 1 + 0.004 * np.sin(2 * np.pi * (5.0 + d * 50) * t)
+            x += saw(midi_hz(m) * (1 + d) * vib, n / RATE)
+    from synth import bandpass
+    f = bandpass(x, vowel[0] * 0.7, vowel[0] * 1.3) + 0.6 * bandpass(x, vowel[1] * 0.75, vowel[1] * 1.25)
+    return f * adsr(n, 0.9, 0.4, 0.8, 1.2, hold=dur) / (3 * len(notes))
+
+
+def bell_toll(note, level=1.0):
+    dur = 4.0
+    f = midi_hz(note)
+    n = int(dur * RATE)
+    parts = [(1.0, 1.0, 1.6), (2.0, 0.5, 1.0), (2.76, 0.35, 0.7), (5.4, 0.15, 0.35), (0.5, 0.4, 2.2)]
+    x = sum(a * sine(f * r, dur) * decay(n, tau) for r, a, tau in parts)
+    return x * level
+
+
+def prologue():
+    bpm, bars = 60, 16
+    spb = 60 / bpm
+    length = bars * 4 * spb
+    prog = ["Dm", "Bb", "Gm", "A", "Dm", "Bb", "C", "A"] * 2
+    choir, pad, bells, bass = (Track(length) for _ in range(4))
+    for b, ch in enumerate(prog):
+        notes = CHORDS[ch]
+        t0 = b * 4 * spb
+        pad.add(t0, pad_voice(notes, 4 * spb, 1100), 0.8)
+        bass.add(t0, bass_voice(notes[0] - 12, 3.8 * spb, 300), 0.35)
+        if b >= 2:
+            choir.add(t0, choir_voice([n + 12 for n in notes], 4 * spb, (650, 1100) if b % 2 else (500, 900)), 1.2)
+        if b % 4 == 0:
+            bells.add(t0, bell_toll(notes[0] - 12, 0.5))
+    L, R = stereo([choir.buf, pad.buf, bells.buf, bass.buf], [0.1, -0.2, 0.0, 0.0])
+    return finish(L, R, length, True, 1.2, 0.5, peak=-3.0)
+
+
+def ending():
+    bpm, bars = 66, 12
+    spb = 60 / bpm
+    length = bars * 4 * spb
+    prog = ["Dm", "Bb", "C", "A", "Bb", "C", "D", "D", "Gm", "A", "D", "D"]
+    choir, pad, lead, bells = (Track(length) for _ in range(4))
+    for b, ch in enumerate(prog):
+        notes = CHORDS[ch]
+        t0 = b * 4 * spb
+        pad.add(t0, pad_voice(notes, 4 * spb, 1600 + b * 150), 0.8)
+        choir.add(t0, choir_voice([n + 12 for n in notes], 4 * spb), 0.9 + b * 0.05)
+        if b >= 6:
+            for i, k in enumerate((0, 1, 2, 1)):
+                bells.add(t0 + i * spb, bell_voice(notes[k] + 24, spb), 0.1)
+    phrase = [[(0, 2, 74), (2, 2, 78)], [(0, 3, 81)], [(0, 1, 79), (1, 1, 78), (2, 2, 76)], [(0, 4, 74)]]
+    for i, p in enumerate(phrase):
+        melody(lead, spb, 6 + i, p, lambda n, d: lead_voice(n, d, bright=True), 0.25)
+    L, R = stereo([choir.buf, pad.buf, lead.buf, bells.buf], [-0.1, 0.2, 0.0, 0.3])
+    return finish(L, R, length, False, 1.1, 0.45, peak=-3.0)
+
+
+TRACKS = {"music_prologue": prologue, "music_ending": ending, "music_crypt": crypt, "music_boss": boss, "music_title": title, "sting_victory": victory, "sting_gameover": game_over}
 
 if __name__ == "__main__":
     out = Path(sys.argv[1])
