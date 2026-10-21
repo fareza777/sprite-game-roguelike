@@ -42,3 +42,11 @@ MonoBehaviour:
   door: {fileID: 3337763409088593906, guid: 8bc1068c452d2584aa8ce8a141392dad, type: 3}
   exitPortal: {fileID: 577427242152170395, guid: eb2f46c74e48b2545b83818b6b731766, type: 3}
   spawnMarker: {fileID: 1995995648972129915, guid: b8122f3984c16374faa6206ed2eeeb9a, type: 3}
+  merchant: {fileID: 6541706047209450683, guid: b8fb6509d5ef79242a27ec258b2440f3, type: 3}
+  pilgrim: {fileID: 7839643284888066064, guid: 18caaf0205e36d94bbc242f1faf8e119, type: 3}
+  shrine: {fileID: 1606344168505017368, guid: 6f0705d006c8c884ba668e07e888feac, type: 3}
+  campfire: {fileID: 3820006989368318365, guid: d1fb31c9b5acecc46b6c2a9d23b52b1f, type: 3}
+  diceAltar: {fileID: 7063912042695245920, guid: 8628bdc5e2300b84a96b23fad552881b, type: 3}
+  sunShard: {fileID: 6041535801329230381, guid: 2fdc1fb8bb00a8d4f88dbf51bd4bfda8, type: 3}
+  weepingStatue: {fileID: 3936904023023389151, guid: 509aa20b6117e984884524e825d2f5d5, type: 3}
+  cursedChest: {fileID: 712150521126073692, guid: 2a359c86c7cc29d47b1bf2aaa06a46e3, type: 3}

@@ -29,7 +29,7 @@ namespace Oathdeep.Dungeon
             this.rng = rng;
         }
 
-        public void Decorate(RoomGeometry room, DungeonGeometry geo, FloorConfig config)
+        public void Decorate(RoomGeometry room, DungeonGeometry geo, FloorConfig config, RoomController controller)
         {
             if (props == null) return;
             currentGeo = geo;
@@ -37,7 +37,13 @@ namespace Oathdeep.Dungeon
             ReserveLanes(room, occupied);
 
             WallMounts(room, geo);
-            Decals(room, geo);
+            Decals(room, geo, config.Biome);
+
+            if (RoomTypes.IsEncounter(room.Node.Type))
+            {
+                DecorateEncounter(room, geo, config, controller, occupied);
+                return;
+            }
 
             switch (room.Node.Type)
             {
@@ -96,22 +102,75 @@ namespace Oathdeep.Dungeon
                     Spawn(props.torch, new Vector3(p.x + 1f, p.y + 0.55f, 0f));
         }
 
-        void Decals(RoomGeometry room, DungeonGeometry geo)
+        void Decals(RoomGeometry room, DungeonGeometry geo, BiomeTiles biome)
         {
             var r = room.Interior;
-            if (props.decals != null && props.decals.Length > 0)
+            var floorDecals = biome != null && biome.Decals != null && biome.Decals.Length > 0 ? biome.Decals : props.decals;
+            var corners = biome != null && biome.CornerDecals != null && biome.CornerDecals.Length > 0 ? biome.CornerDecals : props.cornerDecals;
+            if (floorDecals != null && floorDecals.Length > 0)
                 for (int x = r.xMin; x < r.xMax; x++)
                     for (int y = r.yMin; y < r.yMax; y++)
                     {
                         var c = new Vector2Int(x, y);
                         if (geo.IsFloor(c) && rng.NextDouble() < DecalChance)
-                            decals.SetTile(new Vector3Int(x, y, 0), props.decals[rng.Next(props.decals.Length)]);
+                            decals.SetTile(new Vector3Int(x, y, 0), floorDecals[rng.Next(floorDecals.Length)]);
                     }
 
-            if (props.cornerDecals != null && props.cornerDecals.Length > 0)
+            if (corners != null && corners.Length > 0)
             {
-                decals.SetTile(new Vector3Int(r.xMin, r.yMax - 1, 0), props.cornerDecals[0]);
-                decals.SetTile(new Vector3Int(r.xMax - 1, r.yMax - 1, 0), props.cornerDecals[props.cornerDecals.Length > 1 ? 1 : 0]);
+                decals.SetTile(new Vector3Int(r.xMin, r.yMax - 1, 0), corners[0]);
+                decals.SetTile(new Vector3Int(r.xMax - 1, r.yMax - 1, 0), corners[corners.Length > 1 ? 1 : 0]);
+            }
+        }
+
+        static readonly EncounterKind[] Events = { EncounterKind.DiceAltar, EncounterKind.SunShard, EncounterKind.WeepingStatue, EncounterKind.CursedChest };
+
+        /// <summary>Peaceful rooms: the encounter in the upper middle, dressed with light and a little clutter.</summary>
+        void DecorateEncounter(RoomGeometry room, DungeonGeometry geo, FloorConfig config, RoomController controller, HashSet<Vector2Int> occupied)
+        {
+            EncounterKind kind = room.Node.Type switch
+            {
+                RoomType.Merchant => EncounterKind.Merchant,
+                RoomType.Shrine => EncounterKind.Shrine,
+                RoomType.Pilgrim => EncounterKind.Pilgrim,
+                RoomType.Rest => EncounterKind.Rest,
+                _ => Events[rng.Next(Events.Length)],
+            };
+            var prefab = kind switch
+            {
+                EncounterKind.Merchant => props.merchant,
+                EncounterKind.Shrine => props.shrine,
+                EncounterKind.Pilgrim => props.pilgrim,
+                EncounterKind.Rest => props.campfire,
+                EncounterKind.DiceAltar => props.diceAltar,
+                EncounterKind.SunShard => props.sunShard,
+                EncounterKind.WeepingStatue => props.weepingStatue,
+                _ => props.cursedChest,
+            };
+            if (prefab != null)
+            {
+                // Off the centre cross so it never blocks the way through the room.
+                var cell = room.Centre + new Vector2Int(4, 3);
+                var go = Place(prefab.gameObject, cell, occupied);
+                if (go != null) go.GetComponent<RoomEncounter>().Init(kind, config.FloorNumber, rng, controller);
+            }
+
+            switch (room.Node.Type)
+            {
+                case RoomType.Shrine:
+                    Corners(room, props.brazier, occupied, 2);
+                    break;
+                case RoomType.Merchant:
+                    Corners(room, props.candles, occupied, 1);
+                    Breakables(room, geo, occupied, 2);
+                    break;
+                case RoomType.Rest:
+                    Breakables(room, geo, occupied, 1);
+                    break;
+                default:
+                    Corners(room, props.candles, occupied, 2);
+                    Breakables(room, geo, occupied, 1);
+                    break;
             }
         }
 

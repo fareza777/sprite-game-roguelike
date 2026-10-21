@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e13ce3e2dd726443a86e1e55c6ff466, type: 3}
+  m_Name: Biome_08_necropolis
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Dungeon.BiomeTiles
+  displayName: Sandsunk Necropolis
+  floors:
+  - {fileID: 11400000, guid: e2496e62380ae39418b3cd8897e61a35, type: 2}
+  - {fileID: 11400000, guid: 7430fa3dbf17ecf4e9b0c361f6f81175, type: 2}
+  - {fileID: 11400000, guid: e52424ca1ebe51445b72e6a875ca8987, type: 2}
+  - {fileID: 11400000, guid: 8983fa2679eb8274584abc6d88fddbba, type: 2}
+  rareFloors:
+  - {fileID: 11400000, guid: 713e39241ceb8b34082be74233426aeb, type: 2}
+  - {fileID: 11400000, guid: cd4a62d1cff067b4aa55f07b3cb4dcc6, type: 2}
+  - {fileID: 11400000, guid: f5292af41536c83439b550619c998959, type: 2}
+  - {fileID: 11400000, guid: 5376f0aa57d31744e9da0a17a66610d9, type: 2}
+  rareFloorChance: 0.06
+  wallFaces:
+  - {fileID: 11400000, guid: bde736f0e49b39744a8268d2391f6150, type: 2}
+  - {fileID: 11400000, guid: 15dc5b0d3edc51744bbba63c6017479b, type: 2}
+  - {fileID: 11400000, guid: f4a767d6d15fd3e4fb3cffcb4e617e30, type: 2}
+  - {fileID: 11400000, guid: 7d66c3c3b23e63a4a92d6d8e2b20119f, type: 2}
+  wallCaps:
+  - {fileID: 11400000, guid: d626e358d03ed6c47b1780c400bb1f36, type: 2}
+  - {fileID: 11400000, guid: eaf1e17afcd9a1442b6a62fe19970dbb, type: 2}
+  - {fileID: 11400000, guid: ca4f1ecf1bb9893469419d1ecc6e2c2e, type: 2}
+  - {fileID: 11400000, guid: d3975888b71982b4b98764caae207fb7, type: 2}
+  - {fileID: 11400000, guid: b368c245138bef94db5fd0b1faef6b21, type: 2}
+  - {fileID: 11400000, guid: 88875584733158d479de8514db3d777c, type: 2}
+  - {fileID: 11400000, guid: d7295fb80d55e2a4e805c8ea94fee21c, type: 2}
+  - {fileID: 11400000, guid: 258bacfd0f3a3c84db0f5baa60ee128d, type: 2}
+  - {fileID: 11400000, guid: 43d5a6a3f42923d4a8b6ac9296164a45, type: 2}
+  - {fileID: 11400000, guid: 9158de4872e50e6479b166fc0c0f6b8b, type: 2}
+  - {fileID: 11400000, guid: 0de8deb43fcd9dd4db11470ceeaa34f1, type: 2}
+  - {fileID: 11400000, guid: 28ee868189cf14844aacde86959b6c2a, type: 2}
+  - {fileID: 11400000, guid: 12c4d120761918c4aac1341fc48069c5, type: 2}
+  - {fileID: 11400000, guid: 3c642228f63c45f4180160bea8d41b77, type: 2}
+  - {fileID: 11400000, guid: 0a6baf4a88d6c6a4097fa88b82d6890e, type: 2}
+  - {fileID: 11400000, guid: d8a4d2831295e8a419ee03bf5e6d2551, type: 2}
+  shadowTop: {fileID: 11400000, guid: e8256b4b838af9745a9509afb6e3ec1f, type: 2}
+  shadowLeft: {fileID: 11400000, guid: 6d45e5bf319482840a58b8b0bdcacd6c, type: 2}
+  shadowCorner: {fileID: 11400000, guid: 2a8f0e54e83530c4183404b49ee2bf0b, type: 2}
+  decals:
+  - {fileID: 11400000, guid: 2b9a3d31c9180824189a7fe72c2751ad, type: 2}
+  - {fileID: 11400000, guid: d356c6e805cab0746b6be00b34d0a55e, type: 2}
+  - {fileID: 11400000, guid: d33ae0b9d39d6b2499af2ac0eb49a0e9, type: 2}
+  - {fileID: 11400000, guid: d0426f029b55d0d418415373fd18f745, type: 2}
+  - {fileID: 11400000, guid: 5b52f26f71e15f74582a07c7f3f5b996, type: 2}
+  - {fileID: 11400000, guid: 3ca179c722f2a6f43b5f0ff0d4436b19, type: 2}
+  - {fileID: 11400000, guid: c262f104f52e4804f9ea2847c55bfa5f, type: 2}
+  - {fileID: 11400000, guid: dc0c247cf83cd2f4eac3a0e0422a04ea, type: 2}
+  - {fileID: 11400000, guid: f9996853ed6d39e4eaa4b9dea725f313, type: 2}
+  - {fileID: 11400000, guid: f17e73323030f864e952af543c66b358, type: 2}
+  - {fileID: 11400000, guid: b9c3ccfde6fb03e448e92cf4f078f761, type: 2}
+  - {fileID: 11400000, guid: f9996853ed6d39e4eaa4b9dea725f313, type: 2}
+  - {fileID: 11400000, guid: f17e73323030f864e952af543c66b358, type: 2}
+  - {fileID: 11400000, guid: b9c3ccfde6fb03e448e92cf4f078f761, type: 2}
+  cornerDecals:
+  - {fileID: 11400000, guid: 964c48782fcecb94bbb05d20861e876f, type: 2}
+  - {fileID: 11400000, guid: 93fbe68275aca304cb20b86bcc9116f2, type: 2}
+  ambientLight: {r: 0.95, g: 0.8, b: 0.55, a: 1}
+  ambientIntensity: 0.52

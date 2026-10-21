@@ -65,6 +65,8 @@ namespace Oathdeep.Player
             return true;
         }
 
+        public bool CanTake(ItemInstance item) => item != null && (Loadout.Get(item.Slot) == null || bag.Count < BagSize);
+
         /// <summary>A picked-up item fills an empty slot, otherwise goes to the bag. Full bag leaves it on the floor.</summary>
         public TakeResult Take(ItemInstance item)
         {
@@ -101,6 +103,14 @@ namespace Oathdeep.Player
             bag.Add(removed);
             Changed?.Invoke();
             return true;
+        }
+
+        /// <summary>A blessing for the rest of the run: stats join the hero's base, specials stack with gear.</summary>
+        public void AddRunBonus(StatBlock stats, ItemSpecials specials)
+        {
+            var next = Loadout.WithBase(Loadout.Base + stats);
+            if (!specials.IsEmpty) next = next.WithBonusSpecials(specials);
+            Apply(next);
         }
 
         /// <summary>Breaks a bag item down into gold.</summary>

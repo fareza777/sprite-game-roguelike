@@ -63,7 +63,7 @@ namespace Oathdeep.Dungeon
             enemyRoot = new GameObject("Enemies").transform;
             enemyRoot.SetParent(transform, false);
 
-            cleared = room.Node.Type == RoomType.Start || room.Node.Type == RoomType.Treasure;
+            cleared = !RoomTypes.IsFight(room.Node.Type);
         }
 
         /// <summary>
@@ -92,6 +92,7 @@ namespace Oathdeep.Dungeon
             visited = true;
 
             if (room.Node.Type == RoomType.Treasure) SpawnTreasure();
+            if (room.Node.Type == RoomType.Elite) GameEvents.RaiseToast("Something strong waits here...");
             if (!cleared && !fighting) StartCoroutine(room.Node.Type == RoomType.Boss ? RunBoss() : RunWaves());
         }
 
@@ -99,15 +100,45 @@ namespace Oathdeep.Dungeon
         {
             fighting = true;
             SetDoors(true);
-            int waves = rng.Next(config.WavesPerRoom.x, config.WavesPerRoom.y + 1);
+            bool elite = room.Node.Type == RoomType.Elite;
+            int waves = rng.Next(config.WavesPerRoom.x, config.WavesPerRoom.y + 1) + (elite ? 1 : 0);
             for (int w = 0; w < waves; w++)
             {
                 int count = rng.Next(config.EnemiesPerWave.x, config.EnemiesPerWave.y + 1);
-                yield return SpawnWave(count);
+                yield return SpawnWave(count, elite ? 0.45f : config.EliteChance);
                 yield return WaitUntilClear();
                 if (w < waves - 1) yield return new WaitForSeconds(0.6f);
             }
             Clear();
+            if (elite) Reward(1.4f, "The elite falls. Spoils!");
+        }
+
+        /// <summary>A cursed chest or similar trap turns a peaceful room into a sealed elite fight.</summary>
+        public void StartAmbush()
+        {
+            if (fighting) return;
+            StartCoroutine(RunAmbush());
+        }
+
+        IEnumerator RunAmbush()
+        {
+            fighting = true;
+            SetDoors(true);
+            for (int w = 0; w < 2; w++)
+            {
+                yield return SpawnWave(rng.Next(config.EnemiesPerWave.x, config.EnemiesPerWave.y + 1), 0.6f);
+                yield return WaitUntilClear();
+            }
+            Clear();
+            Reward(2f, "You survived the ambush.");
+        }
+
+        void Reward(float luck, string toast)
+        {
+            var at = (Vector2)room.Interior.center;
+            LootDropper.SpawnItem(ItemGenerator.Roll(rng, config.FloorNumber, luck), at);
+            LootDropper.SpawnGold(10 + config.FloorNumber * 8, at);
+            GameEvents.RaiseToast(toast);
         }
 
         IEnumerator RunBoss()
@@ -126,7 +157,7 @@ namespace Oathdeep.Dungeon
             spawnExit?.Invoke((Vector2)room.Interior.center);
         }
 
-        IEnumerator SpawnWave(int count)
+        IEnumerator SpawnWave(int count, float eliteChance)
         {
             var positions = PickSpawnPositions(count);
             foreach (var p in positions) if (spawnMarkerPrefab != null) Pool.Spawn(spawnMarkerPrefab, p, Quaternion.identity);
@@ -135,7 +166,7 @@ namespace Oathdeep.Dungeon
             foreach (var p in positions)
             {
                 var prefab = config.PickEnemy(rng);
-                if (prefab != null) SpawnEnemy(prefab, p, rng.NextDouble() < config.EliteChance);
+                if (prefab != null) SpawnEnemy(prefab, p, rng.NextDouble() < eliteChance);
             }
         }
 

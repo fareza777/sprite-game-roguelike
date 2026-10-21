@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e13ce3e2dd726443a86e1e55c6ff466, type: 3}
+  m_Name: Biome_01_crypt
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Dungeon.BiomeTiles
+  displayName: Sunken Crypt
+  floors:
+  - {fileID: 11400000, guid: 927df060a10d22b49b273088499a62d9, type: 2}
+  - {fileID: 11400000, guid: ccfb1c989ed9d3646af9a099f4fe29e3, type: 2}
+  - {fileID: 11400000, guid: 6c443e208877b4044b3a7273fac6a41d, type: 2}
+  - {fileID: 11400000, guid: 1cebf04fd9a1ff14da42f3677196d9e5, type: 2}
+  rareFloors:
+  - {fileID: 11400000, guid: 6f5b4cee6df30f44385980d83afd7aea, type: 2}
+  - {fileID: 11400000, guid: 9f1eaf81a3a9c8f47ada6dd1972d2dac, type: 2}
+  - {fileID: 11400000, guid: c68af2f6a5ea057469752e95c8f1406b, type: 2}
+  - {fileID: 11400000, guid: cf4e5d67b4659944fb30371859c6f751, type: 2}
+  rareFloorChance: 0.06
+  wallFaces:
+  - {fileID: 11400000, guid: 204f7abed35d78943a1cb758b860345e, type: 2}
+  - {fileID: 11400000, guid: e607698a862a52c468e3736d403f90d4, type: 2}
+  - {fileID: 11400000, guid: 7b622a9ae83c85940951dadb0a515c02, type: 2}
+  - {fileID: 11400000, guid: 7be594ccb969767469e7d0a9f620d13e, type: 2}
+  wallCaps:
+  - {fileID: 11400000, guid: 8f4521b18fa7cbd4791035e88754ef2f, type: 2}
+  - {fileID: 11400000, guid: b4d2d11962c68da40a96c16c0e1d3387, type: 2}
+  - {fileID: 11400000, guid: cb4cc0aa30fedb641ba4074851bfa9b1, type: 2}
+  - {fileID: 11400000, guid: b0638b681fa8e5c44917fa506c16e237, type: 2}
+  - {fileID: 11400000, guid: c7770f6364045ee4ba3dc61a9f47f2fb, type: 2}
+  - {fileID: 11400000, guid: f4dec9ba8cc9b4948be571366b25981c, type: 2}
+  - {fileID: 11400000, guid: 6ba066f77eba8144b9806e986aa23c61, type: 2}
+  - {fileID: 11400000, guid: 782db27ae6dd8734688ffeb8f550be66, type: 2}
+  - {fileID: 11400000, guid: e1334ec90cb76eb46a5ed5a26dfc2cb2, type: 2}
+  - {fileID: 11400000, guid: dbcc214f3591012418c7d0e8ba84838a, type: 2}
+  - {fileID: 11400000, guid: b68ed3e58ed63a14683ce84ad8af2346, type: 2}
+  - {fileID: 11400000, guid: c1d9c9917a2212e4e9d83046ba583aaa, type: 2}
+  - {fileID: 11400000, guid: dbfceee25da78614da63f93b0e145759, type: 2}
+  - {fileID: 11400000, guid: 0e7238720dda0be468669c99040b0fb2, type: 2}
+  - {fileID: 11400000, guid: 8f955719119f4f840ae2ef4c2b800111, type: 2}
+  - {fileID: 11400000, guid: e96a22810c8c3404c88597844e0f6436, type: 2}
+  shadowTop: {fileID: 11400000, guid: ef75c5df655c3a04e97ccbd1285b0c19, type: 2}
+  shadowLeft: {fileID: 11400000, guid: 7f48f1cff5af34c4ca899cfb71a49392, type: 2}
+  shadowCorner: {fileID: 11400000, guid: e3d87663549995b468618cffee18e401, type: 2}
+  decals:
+  - {fileID: 11400000, guid: 33ede77893f80bf4ab663bc1b0579575, type: 2}
+  - {fileID: 11400000, guid: 2ea62def4e3a781498d716acdf13f864, type: 2}
+  - {fileID: 11400000, guid: 15858ff9a1db73c4784b1fa2e176a3b4, type: 2}
+  - {fileID: 11400000, guid: 389d8b938921258479723050b861fe7c, type: 2}
+  - {fileID: 11400000, guid: 294f85791b9000e43b45c256cf43ec8a, type: 2}
+  - {fileID: 11400000, guid: 46ab1c4786095fe4ca82453f031bd662, type: 2}
+  - {fileID: 11400000, guid: 36d2d484d31d1be4dbdf24a4de74123d, type: 2}
+  - {fileID: 11400000, guid: e670e4f0d44d0c444bfd8f388ed4a74f, type: 2}
+  - {fileID: 11400000, guid: 53a4209372c9c67429cfdaaa1b70e596, type: 2}
+  - {fileID: 11400000, guid: 85ccf10ddeb16a144a1137dbe4c8d5ae, type: 2}
+  - {fileID: 11400000, guid: 75a68409ca2d63e43aed96d5d70542b7, type: 2}
+  - {fileID: 11400000, guid: 53a4209372c9c67429cfdaaa1b70e596, type: 2}
+  - {fileID: 11400000, guid: 85ccf10ddeb16a144a1137dbe4c8d5ae, type: 2}
+  - {fileID: 11400000, guid: 75a68409ca2d63e43aed96d5d70542b7, type: 2}
+  cornerDecals:
+  - {fileID: 11400000, guid: ecb8a717d51dc404aacfc5e82cd3ec09, type: 2}
+  - {fileID: 11400000, guid: 7d8167c638bd7b443968838cb9364962, type: 2}
+  ambientLight: {r: 0.42, g: 0.46, b: 0.66, a: 1}
+  ambientIntensity: 0.42

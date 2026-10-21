@@ -84,6 +84,20 @@ namespace Oathdeep.Tests
         }
 
         [Test]
+        public void WithBase_KeepsGearAndBonusSpecials()
+        {
+            var sword = Item(EquipSlot.Weapon, 5);
+            var loadout = new Loadout(Base).Equip(sword, out _)
+                .WithBonusSpecials(new ItemSpecials(0f, 0.1f, 0f, 0))
+                .WithBase(Base + new StatBlock(20, 2, 0, 0f, 0f, 0f));
+            Assert.AreEqual(17, loadout.Total.Attack);
+            Assert.AreEqual(120, loadout.Total.MaxHealth);
+            Assert.AreEqual(0.1f, loadout.Specials.SkillHaste, 1e-5f);
+            var swapped = loadout.Equip(Item(EquipSlot.Weapon, 1), out _);
+            Assert.AreEqual(0.1f, swapped.Specials.SkillHaste, 1e-5f, "blessings survive gear changes");
+        }
+
+        [Test]
         public void Equip_Null_Throws()
         {
             Assert.Throws<System.ArgumentNullException>(() => new Loadout(Base).Equip(null, out _));

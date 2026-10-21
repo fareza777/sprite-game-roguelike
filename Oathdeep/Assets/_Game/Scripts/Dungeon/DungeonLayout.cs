@@ -3,7 +3,14 @@ using UnityEngine;
 
 namespace Oathdeep.Dungeon
 {
-    public enum RoomType { Start, Combat, Treasure, Boss }
+    /// <summary>Combat rooms lock until cleared; the special rooms (merchant to event) are peaceful encounters.</summary>
+    public enum RoomType { Start, Combat, Elite, Treasure, Merchant, Shrine, Pilgrim, Rest, Event, Boss }
+
+    public static class RoomTypes
+    {
+        public static bool IsFight(RoomType t) => t == RoomType.Combat || t == RoomType.Elite || t == RoomType.Boss;
+        public static bool IsEncounter(RoomType t) => t >= RoomType.Merchant && t <= RoomType.Event;
+    }
 
     public sealed class RoomNode
     {

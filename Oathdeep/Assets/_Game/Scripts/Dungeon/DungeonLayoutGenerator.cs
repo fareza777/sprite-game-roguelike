@@ -88,6 +88,41 @@ namespace Oathdeep.Dungeon
             var leaves = rooms.Where(r => r.Type == RoomType.Combat && r.Connections.Count == 1).ToList();
             var pool = leaves.Count > 0 ? leaves : rooms.Where(r => r.Type == RoomType.Combat).ToList();
             pool[rng.Next(pool.Count)].Type = RoomType.Treasure;
+
+            AssignEncounters(rng, rooms, boss);
+        }
+
+        /// <summary>
+        /// Sprinkles the peaceful rooms and elites over the remaining combat rooms. The room guarding the boss stays
+        /// a fight; a campfire sits close to the boss; at least half the floor keeps fighting.
+        /// </summary>
+        static void AssignEncounters(System.Random rng, List<RoomNode> rooms, RoomNode boss)
+        {
+            var byCell = rooms.ToDictionary(r => r.GridPosition);
+            var guard = byCell[boss.Connections[0]];
+            List<RoomNode> Free() => rooms.Where(r => r.Type == RoomType.Combat && r != guard).ToList();
+            int budget = Mathf.Max(0, (rooms.Count - 4) / 2);   // encounters + elites never exceed half the floor
+
+            bool Take(RoomType type, Func<RoomNode, double> preference)
+            {
+                if (budget <= 0) return false;
+                var free = Free();
+                if (free.Count == 0) return false;
+                var best = free.OrderByDescending(r => preference(r) + rng.NextDouble() * 0.5).First();
+                best.Type = type;
+                budget--;
+                return true;
+            }
+
+            int max = rooms.Max(r => r.DistanceFromStart);
+            Take(RoomType.Rest, r => -Math.Abs(r.DistanceFromStart - (max - 1)));       // rest before the boss
+            Take(RoomType.Merchant, r => -Math.Abs(r.DistanceFromStart - max / 2.0));   // shop mid-floor
+            Take(RoomType.Shrine, r => r.Connections.Count == 1 ? 1 : 0);                // shrines hide in dead ends
+            Take(RoomType.Pilgrim, r => r.DistanceFromStart <= 2 ? 1 : 0);              // pilgrims near the entrance
+            Take(RoomType.Elite, r => r.DistanceFromStart);
+            Take(RoomType.Event, r => r.Connections.Count == 1 ? 1 : 0);
+            if (rooms.Count >= 14) Take(RoomType.Elite, r => r.DistanceFromStart);
+            if (rooms.Count >= 16) Take(RoomType.Event, r => 0);
         }
     }
 }

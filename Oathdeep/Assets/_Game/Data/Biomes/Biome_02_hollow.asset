@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e13ce3e2dd726443a86e1e55c6ff466, type: 3}
+  m_Name: Biome_02_hollow
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Dungeon.BiomeTiles
+  displayName: Mycelial Hollow
+  floors:
+  - {fileID: 11400000, guid: 3570b33646fc1214097abdfa88d0c50f, type: 2}
+  - {fileID: 11400000, guid: d494e7e59a1d9a3468691d23b8ec6f22, type: 2}
+  - {fileID: 11400000, guid: 74cc5af57bea8844da832c8f2b8583eb, type: 2}
+  - {fileID: 11400000, guid: b82e16342580fc148be022900b551ae7, type: 2}
+  rareFloors:
+  - {fileID: 11400000, guid: 04edac4800ea0e34db0af7e4de5d8ce6, type: 2}
+  - {fileID: 11400000, guid: 40effe4a672d8a341b391f1ae43d7603, type: 2}
+  - {fileID: 11400000, guid: d68092ee22d80604f87d7fb227afb797, type: 2}
+  - {fileID: 11400000, guid: 54bb585bb4e220047b804a1409ab3d66, type: 2}
+  rareFloorChance: 0.06
+  wallFaces:
+  - {fileID: 11400000, guid: 39c2cf2e9fc96c44eb02fd74225132a6, type: 2}
+  - {fileID: 11400000, guid: e4ba393646a73b048bf2a3b38c9e6d8a, type: 2}
+  - {fileID: 11400000, guid: f2f30eeb774ea8b4880a67038006ab8f, type: 2}
+  - {fileID: 11400000, guid: 984462423c98c524589d72b94e755320, type: 2}
+  wallCaps:
+  - {fileID: 11400000, guid: 8074e89e140a0fa49922f5e4933e4257, type: 2}
+  - {fileID: 11400000, guid: ca465b28b8ba99643abb7536a038dae2, type: 2}
+  - {fileID: 11400000, guid: 5e93d232808e6ea42aa4f4583b13db0b, type: 2}
+  - {fileID: 11400000, guid: c8eee6cc738e6ad439466eb668596b04, type: 2}
+  - {fileID: 11400000, guid: 8ed78eb0c0c3b9440b9a70c0be7d2e7a, type: 2}
+  - {fileID: 11400000, guid: 1fc0d70496d48584485b1f2a77b3c7c7, type: 2}
+  - {fileID: 11400000, guid: 15ce578e117cdc74b9aba28153881f2e, type: 2}
+  - {fileID: 11400000, guid: 1f0f1fae6da53304986ed8cfe5e6dc2a, type: 2}
+  - {fileID: 11400000, guid: 3cf31b3ffe491fe4ebb101c06cb36818, type: 2}
+  - {fileID: 11400000, guid: f155ad840dbf59c4482504cba71ddd00, type: 2}
+  - {fileID: 11400000, guid: 33f304f20ac3c4a40b39102c920a4026, type: 2}
+  - {fileID: 11400000, guid: ad87893c93fa2ee4a9d638a9ed90a8b3, type: 2}
+  - {fileID: 11400000, guid: 67380cbb07c03cf4a923a41287132580, type: 2}
+  - {fileID: 11400000, guid: bd3301500c69c6d4abf5dcd031d6f00a, type: 2}
+  - {fileID: 11400000, guid: 65eb26235e8eeac42a540a6ce3192a1e, type: 2}
+  - {fileID: 11400000, guid: 098dc31f564f2354c8427534f4769844, type: 2}
+  shadowTop: {fileID: 11400000, guid: 983839ad63264a44787aecf2956916f8, type: 2}
+  shadowLeft: {fileID: 11400000, guid: 58368569e3150824ab6f623e32ff5678, type: 2}
+  shadowCorner: {fileID: 11400000, guid: 5c422d9105bebc04793a79e9ca5c5bdb, type: 2}
+  decals:
+  - {fileID: 11400000, guid: 7978a5cb6296e3a4a887ce7e4652ec0e, type: 2}
+  - {fileID: 11400000, guid: 0e2fea68bcd32d147ba9b10cf4406fec, type: 2}
+  - {fileID: 11400000, guid: e765e786c1321f54aacf8c23ffcd6287, type: 2}
+  - {fileID: 11400000, guid: 012167547057ea84aa3f15c48d1fc6e0, type: 2}
+  - {fileID: 11400000, guid: d808187587e2a564e82809eeced87670, type: 2}
+  - {fileID: 11400000, guid: 024d9eca32055804794976297a321c18, type: 2}
+  - {fileID: 11400000, guid: 5b97a06a616ab0749a060c0d73e2f8ef, type: 2}
+  - {fileID: 11400000, guid: a19359a21ac87f3499edbc12d8b15647, type: 2}
+  - {fileID: 11400000, guid: 894eab9712f918643a48beb58fff9392, type: 2}
+  - {fileID: 11400000, guid: cf8bed299a23ab34884512bc4882b6a7, type: 2}
+  - {fileID: 11400000, guid: 06b288eb0cf12674e8f967b3989061d3, type: 2}
+  - {fileID: 11400000, guid: 894eab9712f918643a48beb58fff9392, type: 2}
+  - {fileID: 11400000, guid: cf8bed299a23ab34884512bc4882b6a7, type: 2}
+  - {fileID: 11400000, guid: 06b288eb0cf12674e8f967b3989061d3, type: 2}
+  cornerDecals:
+  - {fileID: 11400000, guid: 8cb7d2d3615b6e5439461b731f12c3a8, type: 2}
+  - {fileID: 11400000, guid: 021858280724c984f9a4a6fe22a9173c, type: 2}
+  ambientLight: {r: 0.62, g: 0.45, b: 0.75, a: 1}
+  ambientIntensity: 0.45

@@ -38,6 +38,9 @@ namespace Oathdeep.UI
         ItemCompendiumPage itemsPage;
         InventoryPage inventoryPage;
         Action inventoryClosed;
+        EncounterDialogView dialog;
+        ShopPage shopPage;
+        Action shopClosed;
         ScreenView pauseScreen, fallenScreen, victoryScreen;
 
         public RectTransform CanvasRoot { get; private set; }
@@ -68,6 +71,8 @@ namespace Oathdeep.UI
             if (heroes != null && heroes.Count > 0) heroesPage = HeroesPage.Create(SafeArea, skin, heroes);
             itemsPage = ItemCompendiumPage.Create(SafeArea, skin);
             inventoryPage = InventoryPage.Create(SafeArea, skin, () => inventoryClosed?.Invoke());
+            shopPage = ShopPage.Create(SafeArea, skin, () => { var c = shopClosed; shopClosed = null; c?.Invoke(); });
+            dialog = EncounterDialogView.Create(SafeArea, skin);
             Confirm = ConfirmDialog.Create(SafeArea, skin);
             BuildRunScreens();
             Cinematic = CinematicView.Create(SafeArea, skin, story);
@@ -89,6 +94,42 @@ namespace Oathdeep.UI
 
         public void ShowPause() => pauseScreen.Show();
 
+        CanvasGroup fader;
+
+        /// <summary>Full-screen black fade used between floors. Runs on unscaled time.</summary>
+        public System.Collections.IEnumerator FadeOut(float seconds) => Fade(0f, 1f, seconds);
+        public System.Collections.IEnumerator FadeIn(float seconds) => Fade(1f, 0f, seconds);
+
+        System.Collections.IEnumerator Fade(float from, float to, float seconds)
+        {
+            if (fader == null)
+            {
+                var rt = UIFactory.Stretch("Fader", CanvasRoot);
+                var img = UIFactory.Image(rt, skin.white, Color.black, false, true);
+                img.preserveAspect = false;
+                fader = rt.gameObject.AddComponent<CanvasGroup>();
+            }
+            fader.transform.SetAsLastSibling();
+            fader.gameObject.SetActive(true);
+            fader.blocksRaycasts = true;
+            for (float t = 0f; t < seconds; t += Time.unscaledDeltaTime)
+            {
+                fader.alpha = Mathf.Lerp(from, to, t / seconds);
+                yield return null;
+            }
+            fader.alpha = to;
+            fader.blocksRaycasts = to > 0.5f;
+            if (to <= 0f) fader.gameObject.SetActive(false);
+        }
+
+        public void ShowDialog(Dungeon.EncounterDialog d, Action onClosed) => dialog.Show(d, onClosed);
+
+        public void ShowShop(string title, Player.PlayerInventory inventory, System.Collections.Generic.List<Dungeon.ShopOffer> stock, Action onClosed)
+        {
+            shopClosed = onClosed;
+            shopPage.Show(title, inventory, stock);
+        }
+
         /// <summary>Opens the equipment page for this run; <paramref name="onClosed"/> runs when the player backs out.</summary>
         public void ShowInventory(Player.PlayerInventory inventory, Action onClosed)
         {
@@ -108,6 +149,9 @@ namespace Oathdeep.UI
         {
             inventoryClosed = null;
             inventoryPage.Hide();
+            shopClosed = null;
+            shopPage.Hide();
+            dialog.Close();
             pauseScreen.Hide();
             fallenScreen.Hide();
             victoryScreen.Hide();

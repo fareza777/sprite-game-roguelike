@@ -28,7 +28,8 @@ namespace Oathdeep.EditorTools
 
         static void BuildContent(List<string> log)
         {
-            cryptBiome = BuildBiome();
+            BuildBiomes();
+            cryptBiome = Biomes["crypt"];
             BuildEnemyData();
             BuildHeroes();
             itemIcons = BuildItemIcons();
@@ -122,23 +123,6 @@ namespace Oathdeep.EditorTools
         static TileBase[] Tiles(Tile.ColliderType collider, params string[] names) =>
             names.Select(n => (TileBase)MakeTile(n, collider)).ToArray();
 
-        static BiomeTiles BuildBiome()
-        {
-            var none = Tile.ColliderType.None;
-            var grid = Tile.ColliderType.Grid;
-            var biome = LoadOrCreate<BiomeTiles>(DataDir + "/Biome_SunkenCrypt.asset");
-            biome.EditorInit(
-                Tiles(none, "floor0", "floor1", "floor2", "floor3"),
-                Tiles(none, "floor4", "floor5", "floor6", "floor7"),
-                Tiles(grid, "face0", "face1", "face2", "face3"),
-                Tiles(grid, Enumerable.Range(0, 16).Select(m => "cap" + m).ToArray()),
-                MakeTile("shadowTop", none), MakeTile("shadowLeft", none), MakeTile("shadowCorner", none));
-            Set(biome, ("displayName", "Sunken Crypt"), ("rareFloorChance", 0.06f),
-                ("ambientLight", new Color(0.42f, 0.46f, 0.66f)), ("ambientIntensity", 0.42f));
-            EditorUtility.SetDirty(biome);
-            return biome;
-        }
-
         // ---------------- enemy data ----------------
 
         static void BuildEnemyData()
@@ -222,7 +206,6 @@ namespace Oathdeep.EditorTools
         // ---------------- stage 4: needs prefabs ----------------
 
         static PropSet cryptProps;
-        static FloorConfig floorOne;
 
         static void FinishContent(List<string> log)
         {
@@ -242,17 +225,11 @@ namespace Oathdeep.EditorTools
             cryptProps.door = Prefab("Props/Door").GetComponent<Door>();
             cryptProps.exitPortal = Prefab("Props/ExitPortal");
             cryptProps.spawnMarker = Prefab("VFX/SpawnMarker");
+            WireEncounters(cryptProps);
             EditorUtility.SetDirty(cryptProps);
 
-            floorOne = LoadOrCreate<FloorConfig>(DataDir + "/Floor_01.asset");
-            floorOne.EditorInit(cryptBiome, new[]
-            {
-                new WeightedEnemy { Prefab = Prefab("Enemies/Skeleton").GetComponent<EnemyBase>(), Weight = 5f },
-                new WeightedEnemy { Prefab = Prefab("Enemies/Archer").GetComponent<EnemyBase>(), Weight = 3f },
-                new WeightedEnemy { Prefab = Prefab("Enemies/Slime").GetComponent<EnemyBase>(), Weight = 3f },
-            }, Prefab("Enemies/BoneWarden").GetComponent<EnemyBase>());
-            EditorUtility.SetDirty(floorOne);
-            log.Add("content: prop set + floor 1 wired");
+            BuildFloors();
+            log.Add($"content: prop set + {Floors.Count} floors wired");
         }
     }
 }

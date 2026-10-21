@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e13ce3e2dd726443a86e1e55c6ff466, type: 3}
+  m_Name: Biome_07_clockwork
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Dungeon.BiomeTiles
+  displayName: Clockwork Ossuary
+  floors:
+  - {fileID: 11400000, guid: 11814423aebcd2043b5f5db74560b4af, type: 2}
+  - {fileID: 11400000, guid: 42beb79ae01266846a6767fea978a6a7, type: 2}
+  - {fileID: 11400000, guid: e609a76f5f394674992464ad1f5868f5, type: 2}
+  - {fileID: 11400000, guid: d97044ebae06c1a4a9bc91df3b4917f5, type: 2}
+  rareFloors:
+  - {fileID: 11400000, guid: 69a12609441f0f34282eb0e3ef568ad4, type: 2}
+  - {fileID: 11400000, guid: 38b727fea1e2481458991f9a86d5f2aa, type: 2}
+  - {fileID: 11400000, guid: 02139046437e5ab4584275ae610c8277, type: 2}
+  - {fileID: 11400000, guid: e03b6a39eab1696419e80d391d62a4f0, type: 2}
+  rareFloorChance: 0.06
+  wallFaces:
+  - {fileID: 11400000, guid: 8725b1761c198a64eaefa0ffb5c59b92, type: 2}
+  - {fileID: 11400000, guid: a95876ed1366db0459ee4b160860f125, type: 2}
+  - {fileID: 11400000, guid: e41b78844cc5bc7429286a8df4699368, type: 2}
+  - {fileID: 11400000, guid: d1198657f497c104e8047a89ca4f1201, type: 2}
+  wallCaps:
+  - {fileID: 11400000, guid: b3b2a17ebe3f4934e93e71dee98d9e60, type: 2}
+  - {fileID: 11400000, guid: 92cf688dfc0c1ed4cab7692c5ecd2fef, type: 2}
+  - {fileID: 11400000, guid: 3ebb65771eb153645ad349e69df6058e, type: 2}
+  - {fileID: 11400000, guid: c34e47a5937e77349a2bdd014605ce15, type: 2}
+  - {fileID: 11400000, guid: 3d6932bad691049498df6bfd391b6686, type: 2}
+  - {fileID: 11400000, guid: 803b4e4c8d60d4143bd34f89913d56b2, type: 2}
+  - {fileID: 11400000, guid: efbafea098eede8428f4c5e8da84be6d, type: 2}
+  - {fileID: 11400000, guid: 086f51ba50f320147b325c7dbfdd5e4c, type: 2}
+  - {fileID: 11400000, guid: f3c594ced5e8ebf4592c6f7fc42bdf20, type: 2}
+  - {fileID: 11400000, guid: 0c2cd07da2f33ac45809b4cd0a33227d, type: 2}
+  - {fileID: 11400000, guid: dc4252f8856369842bbe0cbf96fcd83a, type: 2}
+  - {fileID: 11400000, guid: 486e573218c493649b0b303ed4c29958, type: 2}
+  - {fileID: 11400000, guid: 6c7f67a1e53b3f3418092a8373cfcf62, type: 2}
+  - {fileID: 11400000, guid: 3325e60f7d953ed429cf3b94facbde9b, type: 2}
+  - {fileID: 11400000, guid: d11730930d2d809409a10d3ed426bd81, type: 2}
+  - {fileID: 11400000, guid: 819515a65a9fa51499b4159a3402f774, type: 2}
+  shadowTop: {fileID: 11400000, guid: 2139bdd13ddd07b41880af40ac2fd7b8, type: 2}
+  shadowLeft: {fileID: 11400000, guid: 8cb99792dfdd1054ba9b65de93f44c5e, type: 2}
+  shadowCorner: {fileID: 11400000, guid: 8f661b1c94534334f833bff4579717dc, type: 2}
+  decals:
+  - {fileID: 11400000, guid: 83d05b0364b322e42a4665d47c7dcb47, type: 2}
+  - {fileID: 11400000, guid: fb55542ed1699e64aabf73969e8ccad0, type: 2}
+  - {fileID: 11400000, guid: f3e9197ede7a9a449921ce0f2f06cd34, type: 2}
+  - {fileID: 11400000, guid: 22dca59926924934787291e205c9b287, type: 2}
+  - {fileID: 11400000, guid: 06910123c30564e4fbebdc555092a4c6, type: 2}
+  - {fileID: 11400000, guid: c34eb215b8a543344abd7e8fa19f9b7a, type: 2}
+  - {fileID: 11400000, guid: 4dd9c33bdb9cb944188da75ab5a65840, type: 2}
+  - {fileID: 11400000, guid: 89541cd717c3235419a3bae2a03b1beb, type: 2}
+  - {fileID: 11400000, guid: 92cff4f5c2ab16742b03584260be263b, type: 2}
+  - {fileID: 11400000, guid: 6750bba50e1ee7843aaafbdbfdc986bd, type: 2}
+  - {fileID: 11400000, guid: e346e37b740a330488572a5707294c63, type: 2}
+  - {fileID: 11400000, guid: 92cff4f5c2ab16742b03584260be263b, type: 2}
+  - {fileID: 11400000, guid: 6750bba50e1ee7843aaafbdbfdc986bd, type: 2}
+  - {fileID: 11400000, guid: e346e37b740a330488572a5707294c63, type: 2}
+  cornerDecals:
+  - {fileID: 11400000, guid: 258bd330cb9f5574aaa90efb329e140d, type: 2}
+  - {fileID: 11400000, guid: 2c69719f4292b7f409e251ec37889da2, type: 2}
+  ambientLight: {r: 0.8, g: 0.65, b: 0.45, a: 1}
+  ambientIntensity: 0.45

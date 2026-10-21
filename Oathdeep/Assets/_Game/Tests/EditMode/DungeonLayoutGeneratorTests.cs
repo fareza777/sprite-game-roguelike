@@ -70,6 +70,34 @@ namespace Oathdeep.Tests
         }
 
         [Test]
+        public void LargeFloors_HaveEverySpecialRoomOnce([ValueSource(nameof(Seeds))] int seed)
+        {
+            var layout = DungeonLayoutGenerator.Generate(seed, 18);
+            foreach (var type in new[] { RoomType.Merchant, RoomType.Shrine, RoomType.Pilgrim, RoomType.Rest })
+                Assert.AreEqual(1, layout.Rooms.Count(r => r.Type == type), type.ToString());
+            Assert.GreaterOrEqual(layout.Rooms.Count(r => r.Type == RoomType.Event), 1);
+            Assert.GreaterOrEqual(layout.Rooms.Count(r => r.Type == RoomType.Elite), 1);
+            Assert.GreaterOrEqual(layout.Rooms.Count(r => r.Type == RoomType.Combat), 6, "most rooms still fight");
+        }
+
+        [Test]
+        public void RoomNextToBoss_IsNeverASpecialRoom_AndBossStaysLeaf([ValueSource(nameof(Seeds))] int seed)
+        {
+            var layout = DungeonLayoutGenerator.Generate(seed, 18);
+            var boss = layout.Rooms.Single(r => r.Type == RoomType.Boss);
+            Assert.AreEqual(1, boss.Connections.Count);
+            Assert.AreEqual(RoomType.Start, layout.Rooms[0].Type);
+        }
+
+        [Test]
+        public void SmallFloors_StillGenerate([Values(3, 4, 5, 6)] int count)
+        {
+            var layout = DungeonLayoutGenerator.Generate(5, count);
+            Assert.AreEqual(count, layout.Rooms.Count);
+            Assert.AreEqual(1, layout.Rooms.Count(r => r.Type == RoomType.Boss));
+        }
+
+        [Test]
         public void TooFewRooms_Throws()
         {
             Assert.Throws<System.ArgumentOutOfRangeException>(() => DungeonLayoutGenerator.Generate(1, 2));

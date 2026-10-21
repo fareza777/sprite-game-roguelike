@@ -44,7 +44,7 @@ namespace Oathdeep.Dungeon
                 var controller = go.AddComponent<RoomController>();
                 controller.Init(room, Geometry.IsFloor, config, rng, player, doors, props != null ? props.spawnMarker : null, onExit);
                 Rooms.Add(controller);
-                decorator.Decorate(room, Geometry, config);
+                decorator.Decorate(room, Geometry, config, controller);
             }
 
             var start = Geometry.Rooms[0];

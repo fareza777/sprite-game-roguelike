@@ -68,6 +68,7 @@ namespace Oathdeep.EditorTools
             Slice(PropsPng, PropCells(), WorldPpu, SpriteMeshType.FullRect);
             Slice(VfxPng, VfxCells(), WorldPpu, SpriteMeshType.FullRect);
             Slice(HeroFxPng, HeroFxCells(), WorldPpu, SpriteMeshType.FullRect);
+            ConfigureWorldArt();
             Slice(ItemIconsPng, ItemIconNames.Select((n, i) => G(n, i % 8, i / 8, Centre)).ToList(), WorldPpu, SpriteMeshType.FullRect);
             Slice(UiPng, UiCells(), UiPpu, SpriteMeshType.FullRect);
             WriteWhiteSprite();
@@ -148,7 +149,7 @@ namespace Oathdeep.EditorTools
             for (int m = 0; m < 16; m++) c.Add(G("cap" + m, m % 8, 2 + m / 8, Centre));
             string[] row4 = { "shadowTop", "shadowLeft", "shadowCorner", "decalBones", "decalSkull", "decalCrack", "decalBlood", "decalMoss" };
             for (int i = 0; i < row4.Length; i++) c.Add(G(row4[i], i, 4, Centre));
-            string[] row5 = { "decalPuddle", "decalRubble", "cobwebTL", "cobwebTR", "decalScratch" };
+            string[] row5 = { "decalPuddle", "decalRubble", "cobwebTL", "cobwebTR", "decalScratch", "decalBiome0", "decalBiome1", "decalBiome2" };
             for (int i = 0; i < row5.Length; i++) c.Add(G(row5[i], i, 5, Centre));
             return c;
         }

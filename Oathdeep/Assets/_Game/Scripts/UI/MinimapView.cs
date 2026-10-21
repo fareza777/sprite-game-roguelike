@@ -16,6 +16,8 @@ namespace Oathdeep.UI
         static readonly Color Current = new Color32(0xEB, 0xED, 0xE9, 0xFF);
         static readonly Color BossColor = new Color32(0xCF, 0x57, 0x3C, 0xFF);
         static readonly Color TreasureColor = new Color32(0xDE, 0x9E, 0x41, 0xFF);
+        static readonly Color EncounterColor = new Color32(0x73, 0xBE, 0xD3, 0xFF);
+        static readonly Color EliteColor = new Color32(0xA2, 0x3E, 0x8C, 0xFF);
 
         UISkin skin;
         RectTransform content;
@@ -87,7 +89,9 @@ namespace Oathdeep.UI
                 var type = types[kv.Key];
                 Color c = visited.Contains(kv.Key) ? Visited : Unknown;
                 if (type == RoomType.Boss) c = BossColor;
-                else if (type == RoomType.Treasure && known.Contains(kv.Key)) c = TreasureColor;
+                else if (type == RoomType.Treasure) c = TreasureColor;
+                else if (type == RoomType.Elite && !visited.Contains(kv.Key)) c = EliteColor;
+                else if (RoomTypes.IsEncounter(type)) c = EncounterColor;
                 if (kv.Key == current) c = Current;
                 img.color = c;
             }

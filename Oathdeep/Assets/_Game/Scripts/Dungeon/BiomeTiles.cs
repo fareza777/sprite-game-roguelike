@@ -16,10 +16,14 @@ namespace Oathdeep.Dungeon
         [SerializeField] TileBase shadowTop;                      // under a wall face
         [SerializeField] TileBase shadowLeft;                     // right of a west wall
         [SerializeField] TileBase shadowCorner;
+        [SerializeField] TileBase[] decals;                       // bones, cracks, moss... plus this biome's own decals
+        [SerializeField] TileBase[] cornerDecals;                 // cobwebs
         [SerializeField] Color ambientLight = new Color(0.45f, 0.5f, 0.7f);
         [SerializeField, Range(0f, 1f)] float ambientIntensity = 0.35f;
 
         public string DisplayName => displayName;
+        public TileBase[] Decals => decals;
+        public TileBase[] CornerDecals => cornerDecals;
         public Color AmbientLight => ambientLight;
         public float AmbientIntensity => ambientIntensity;
 
@@ -50,10 +54,12 @@ namespace Oathdeep.Dungeon
         }
 
 #if UNITY_EDITOR
-        public void EditorInit(TileBase[] common, TileBase[] rare, TileBase[] faces, TileBase[] caps, TileBase top, TileBase left, TileBase corner)
+        public void EditorInit(TileBase[] common, TileBase[] rare, TileBase[] faces, TileBase[] caps, TileBase top, TileBase left, TileBase corner,
+                               TileBase[] floorDecals, TileBase[] corners)
         {
             floors = common; rareFloors = rare; wallFaces = faces; wallCaps = caps;
             shadowTop = top; shadowLeft = left; shadowCorner = corner;
+            decals = floorDecals; cornerDecals = corners;
         }
 #endif
     }

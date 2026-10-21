@@ -24,5 +24,14 @@ namespace Oathdeep.Dungeon
         public Door door;
         public GameObject exitPortal;
         public GameObject spawnMarker;
+        [Header("Encounters")]
+        public RoomEncounter merchant;
+        public RoomEncounter pilgrim;
+        public RoomEncounter shrine;
+        public RoomEncounter campfire;
+        public RoomEncounter diceAltar;
+        public RoomEncounter sunShard;
+        public RoomEncounter weepingStatue;
+        public RoomEncounter cursedChest;
     }
 }

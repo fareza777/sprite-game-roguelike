@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e13ce3e2dd726443a86e1e55c6ff466, type: 3}
+  m_Name: Biome_09_glass
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Dungeon.BiomeTiles
+  displayName: Glass Abyss
+  floors:
+  - {fileID: 11400000, guid: 1389c4cbe2cf08c4686411ae4b71f739, type: 2}
+  - {fileID: 11400000, guid: 92f3a266625fac443bc4abd1e7e31b93, type: 2}
+  - {fileID: 11400000, guid: 0f42b5227e48cc34187c7b3dbd0317ce, type: 2}
+  - {fileID: 11400000, guid: 4ad7e6f5d3d01dd49a883556d3135dc1, type: 2}
+  rareFloors:
+  - {fileID: 11400000, guid: 94ead8b9a2b324941b37ae5ad9dcfded, type: 2}
+  - {fileID: 11400000, guid: 5e161375ad31ef241aa4c1a610ea8044, type: 2}
+  - {fileID: 11400000, guid: 9c7b1c0427350ca4cbbe9a14ff916161, type: 2}
+  - {fileID: 11400000, guid: 9691f6d3f4a1cb7478f603909b9bfbfe, type: 2}
+  rareFloorChance: 0.06
+  wallFaces:
+  - {fileID: 11400000, guid: 376bf4abb9fae394db34988d71d33d51, type: 2}
+  - {fileID: 11400000, guid: 61efdfe7f8395844480ac3c3984994f7, type: 2}
+  - {fileID: 11400000, guid: cf33dc239fdc6b646bbeeb7910b953ac, type: 2}
+  - {fileID: 11400000, guid: 0ea179f9825954944983eaa3ada60b01, type: 2}
+  wallCaps:
+  - {fileID: 11400000, guid: d69d037eb4be2244da87f257a1746ce6, type: 2}
+  - {fileID: 11400000, guid: 72ccfb86250aa5f49b1a38acf81efbed, type: 2}
+  - {fileID: 11400000, guid: c6b9b5d692276e74e8d5d54585698189, type: 2}
+  - {fileID: 11400000, guid: 40dc279569eefce44a4a28e75dc2f484, type: 2}
+  - {fileID: 11400000, guid: 05307845890edb549b5e05fd459ae6dc, type: 2}
+  - {fileID: 11400000, guid: 9fe531d5e764fc0488dcbe9f18d01ab1, type: 2}
+  - {fileID: 11400000, guid: 93b30ece41f1da24c9e188d0da1fd811, type: 2}
+  - {fileID: 11400000, guid: f7c32920f55b1f742bbe1dd9e1ecc58b, type: 2}
+  - {fileID: 11400000, guid: 426fae13990be484a913813abc3cc1dc, type: 2}
+  - {fileID: 11400000, guid: 86c1672498740fb47b71b0448b43552f, type: 2}
+  - {fileID: 11400000, guid: 17cd900ab74f4b643a7046b58ba53fd6, type: 2}
+  - {fileID: 11400000, guid: 2be3bbd7c21baa349a4a3c0ff428cb61, type: 2}
+  - {fileID: 11400000, guid: ca8e7628e39da1b429ceee0fea5f4891, type: 2}
+  - {fileID: 11400000, guid: d0abbadf5016e414085157f4c8cec5d9, type: 2}
+  - {fileID: 11400000, guid: d99a909fb51fb4b468788c40fa6e9b5e, type: 2}
+  - {fileID: 11400000, guid: 88fae92e9bf4e45468b48bb46f882f0d, type: 2}
+  shadowTop: {fileID: 11400000, guid: 34a8403178a3cbc4392b4b77d1d35919, type: 2}
+  shadowLeft: {fileID: 11400000, guid: fd8bb6d151f3f7a49aed4ff9c48e8330, type: 2}
+  shadowCorner: {fileID: 11400000, guid: 7d99adfde5a05894ba1e9a4784fc02a1, type: 2}
+  decals:
+  - {fileID: 11400000, guid: 63d424adb629f9e48a19601767114471, type: 2}
+  - {fileID: 11400000, guid: b3ec18e8556cbf342986102369ecae1b, type: 2}
+  - {fileID: 11400000, guid: 38ec08365d295b94cad0d21732865249, type: 2}
+  - {fileID: 11400000, guid: 8802bc1e88c154547a40d3f1e0482566, type: 2}
+  - {fileID: 11400000, guid: 4a54a389e3c002646af9d97de8b5135a, type: 2}
+  - {fileID: 11400000, guid: 262ad901f29b21048b043a811d53bfa7, type: 2}
+  - {fileID: 11400000, guid: 0b430d7ad4d3b0844bae8b7cf5c4c079, type: 2}
+  - {fileID: 11400000, guid: 0bdb363e75e04ed4aa4419c47f9ce630, type: 2}
+  - {fileID: 11400000, guid: ffeb71f7f85ef5548ac19d0ef1b47610, type: 2}
+  - {fileID: 11400000, guid: 876a01d0f596d8b4994611cb101fd5e6, type: 2}
+  - {fileID: 11400000, guid: 19e7a1f3cd6a53c49bf19a4fd4d2daed, type: 2}
+  - {fileID: 11400000, guid: ffeb71f7f85ef5548ac19d0ef1b47610, type: 2}
+  - {fileID: 11400000, guid: 876a01d0f596d8b4994611cb101fd5e6, type: 2}
+  - {fileID: 11400000, guid: 19e7a1f3cd6a53c49bf19a4fd4d2daed, type: 2}
+  cornerDecals:
+  - {fileID: 11400000, guid: fa8960b309bab3e44aeb80b5f1e5894f, type: 2}
+  - {fileID: 11400000, guid: f9bd60cb7125808478200f5e84772035, type: 2}
+  ambientLight: {r: 0.55, g: 0.55, b: 0.95, a: 1}
+  ambientIntensity: 0.4

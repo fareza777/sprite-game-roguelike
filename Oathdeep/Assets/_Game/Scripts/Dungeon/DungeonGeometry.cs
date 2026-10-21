@@ -42,8 +42,8 @@ namespace Oathdeep.Dungeon
     /// </summary>
     public sealed class DungeonGeometry
     {
-        public const int StrideX = 34;
-        public const int StrideY = 32;
+        public const int StrideX = 40;
+        public const int StrideY = 38;
         const int CorridorHalf = 1;
         const int WallThickness = 2;
         const int LaneHalf = 2;      // keep a 5-wide cross through each room centre clear of pillars
@@ -51,13 +51,13 @@ namespace Oathdeep.Dungeon
 
         static readonly Dictionary<RoomShape, Vector2Int> Sizes = new Dictionary<RoomShape, Vector2Int>
         {
-            { RoomShape.Chamber, new Vector2Int(13, 13) },
-            { RoomShape.Hall, new Vector2Int(17, 15) },
-            { RoomShape.GreatHall, new Vector2Int(23, 19) },
-            { RoomShape.Gallery, new Vector2Int(27, 11) },
-            { RoomShape.Nave, new Vector2Int(13, 23) },
-            { RoomShape.Vault, new Vector2Int(11, 11) },
-            { RoomShape.Arena, new Vector2Int(29, 25) },
+            { RoomShape.Chamber, new Vector2Int(15, 15) },
+            { RoomShape.Hall, new Vector2Int(21, 17) },
+            { RoomShape.GreatHall, new Vector2Int(27, 23) },
+            { RoomShape.Gallery, new Vector2Int(31, 13) },
+            { RoomShape.Nave, new Vector2Int(15, 27) },
+            { RoomShape.Vault, new Vector2Int(13, 13) },
+            { RoomShape.Arena, new Vector2Int(33, 29) },
         };
 
         static readonly RoomShape[] CombatShapes = { RoomShape.Chamber, RoomShape.Hall, RoomShape.Hall, RoomShape.GreatHall, RoomShape.Gallery, RoomShape.Nave };
@@ -105,6 +105,9 @@ namespace Oathdeep.Dungeon
             RoomType.Start => RoomShape.Chamber,
             RoomType.Treasure => RoomShape.Vault,
             RoomType.Boss => RoomShape.Arena,
+            RoomType.Elite => rng.NextDouble() < 0.5 ? RoomShape.GreatHall : RoomShape.Gallery,
+            RoomType.Merchant or RoomType.Pilgrim or RoomType.Rest => RoomShape.Chamber,
+            RoomType.Shrine or RoomType.Event => RoomShape.Hall,
             _ => CombatShapes[rng.Next(CombatShapes.Length)],
         };
 
@@ -151,7 +154,7 @@ namespace Oathdeep.Dungeon
         void PlacePillars(RoomGeometry room, System.Random rng)
         {
             var type = room.Node.Type;
-            if (type == RoomType.Start || type == RoomType.Treasure) return;
+            if (type == RoomType.Start || type == RoomType.Treasure || RoomTypes.IsEncounter(type)) return;
 
             var r = room.Interior;
             var centre = room.Centre;

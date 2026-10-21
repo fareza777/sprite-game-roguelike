@@ -24,6 +24,10 @@ namespace Oathdeep.UI
         CanvasGroup toastGroup;
         Coroutine toastRoutine;
         float hpTarget = 1f;
+        RectTransform interactRoot;
+        TextMeshProUGUI interactLabel;
+        Oathdeep.Dungeon.Interactable nearby;
+        PlayerController trackedPlayer;
         Sprite skillIcon;
 
         public MinimapView Minimap { get; private set; }
@@ -63,6 +67,13 @@ namespace Oathdeep.UI
             var mapRect = UIFactory.Rect("Minimap", safeArea, Vector2.one, Vector2.one, Vector2.one, new Vector2(-8, -44), new Vector2(84, 84));
             Minimap = mapRect.gameObject.AddComponent<MinimapView>();
             Minimap.Build(skin);
+
+            // --- Context button (TALK / TRADE / PRAY...) above the controls, shown near an interactable ---
+            interactRoot = UIFactory.Rect("Interact", safeArea, new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0, 236), new Vector2(132, 40));
+            UIFactory.Button(interactRoot, skin, "TALK", 15, () => { if (nearby != null) nearby.Use(); });
+            interactLabel = interactRoot.GetComponentInChildren<TextMeshProUGUI>();
+            interactRoot.gameObject.SetActive(false);
+            trackedPlayer = player;
 
             // --- Bag under the minimap ---
             var bag = UIFactory.Rect("Bag", safeArea, Vector2.one, Vector2.one, Vector2.one, new Vector2(-8, -134), new Vector2(34, 34));
@@ -187,6 +198,19 @@ namespace Oathdeep.UI
             yield return new WaitForSecondsRealtime(1.6f);
             for (float t = 0; t < 0.4f; t += Time.unscaledDeltaTime) { toastGroup.alpha = 1f - t / 0.4f; yield return null; }
             toastGroup.alpha = 0f;
+        }
+
+        /// <summary>Shows the context button while the hero stands by something usable. E also works on keyboards.</summary>
+        void LateUpdate()
+        {
+            if (interactRoot == null) return;
+            nearby = trackedPlayer != null && !trackedPlayer.IsDead ? Oathdeep.Dungeon.Interactable.Nearest(trackedPlayer.transform.position) : null;
+            bool show = nearby != null && Time.timeScale > 0f;
+            if (interactRoot.gameObject.activeSelf != show) interactRoot.gameObject.SetActive(show);
+            if (!show) return;
+            if (interactLabel.text != nearby.Prompt) interactLabel.text = nearby.Prompt;
+            var keyboard = UnityEngine.InputSystem.Keyboard.current;
+            if (keyboard != null && keyboard.eKey.wasPressedThisFrame) nearby.Use();
         }
     }
 }

@@ -33,6 +33,7 @@ namespace Oathdeep.EditorTools
             BuildPlayers();
             BuildEnemies();
             BuildProps();
+            BuildEncounters();
             log.Add($"prefabs: {count - before} saved");
         }
 
