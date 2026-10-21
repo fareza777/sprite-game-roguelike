@@ -69,6 +69,7 @@ namespace Oathdeep.EditorTools
             Slice(VfxPng, VfxCells(), WorldPpu, SpriteMeshType.FullRect);
             Slice(HeroFxPng, HeroFxCells(), WorldPpu, SpriteMeshType.FullRect);
             ConfigureWorldArt();
+            ConfigureBestiaryArt();
             Slice(ItemIconsPng, ItemIconNames.Select((n, i) => G(n, i % 8, i / 8, Centre)).ToList(), WorldPpu, SpriteMeshType.FullRect);
             Slice(UiPng, UiCells(), UiPpu, SpriteMeshType.FullRect);
             WriteWhiteSprite();

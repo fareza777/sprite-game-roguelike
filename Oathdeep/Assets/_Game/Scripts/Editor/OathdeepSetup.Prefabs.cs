@@ -32,6 +32,8 @@ namespace Oathdeep.EditorTools
             BuildProjectilesAndPickup();
             BuildPlayers();
             BuildEnemies();
+            BuildBestiaryVfx();
+            BuildBestiary();
             BuildProps();
             BuildEncounters();
             log.Add($"prefabs: {count - before} saved");
@@ -271,6 +273,7 @@ namespace Oathdeep.EditorTools
             public string Name, Ase, Data;
             public float BodyRadius, ShadowWidth, ModelScale, KnockbackResistance;
             public Vector2 Hurtbox;
+            public Oathdeep.Data.BestiaryEntry Entry;   // set for sprite-sheet creatures
         }
 
         static void BuildEnemies()
@@ -312,7 +315,7 @@ namespace Oathdeep.EditorTools
             var tele = AddSprite(go, "Telegraph", Spr(VfxPng, "telegraph"), OrderTelegraph, Vector3.zero, true);
             var telegraph = tele.gameObject.AddComponent<Telegraph>();
 
-            var (animator, renderer, flash) = Model(go, spec.Ase, spec.ModelScale);
+            var (animator, renderer, flash) = spec.Entry != null ? SheetModel(go, spec.Entry) : Model(go, spec.Ase, spec.ModelScale);
             go.AddComponent<Health>();
             go.AddComponent<CombatStats>();
             var driver = Driver(go, animator, renderer);

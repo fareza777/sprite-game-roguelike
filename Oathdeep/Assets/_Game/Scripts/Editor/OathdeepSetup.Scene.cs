@@ -49,7 +49,8 @@ namespace Oathdeep.EditorTools
 
             var runner = new GameObject("GameRunner").AddComponent<GameRunner>();
             Set(runner,
-                ("heroes", Heroes.OrderBy(h => h.Key).Select(h => (Object)h.Value).ToArray()), ("floors", Floors.Select(f => (Object)f).ToArray()), ("props", cryptProps),
+                ("heroes", Heroes.OrderBy(h => h.Key).Select(h => (Object)h.Value).ToArray()),
+                ("codex", Oathdeep.Data.Bestiary.All.Select(e => (Object)Enemies[e.Id]).ToArray()), ("floors", Floors.Select(f => (Object)f).ToArray()), ("props", cryptProps),
                 ("pickupPrefab", Prefab("Pickup").GetComponent<Pickup>()),
                 ("goldSprite", Spr(PropsPng, "coin0")), ("potionSprite", Spr(PropsPng, "potion")),
                 ("skin", uiSkin), ("itemIcons", itemIcons), ("audioLibrary", audioLibrary), ("story", storyAssets), ("worldCamera", cam), ("globalLight", global));

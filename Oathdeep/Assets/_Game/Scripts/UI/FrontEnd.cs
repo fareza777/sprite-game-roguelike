@@ -23,7 +23,7 @@ namespace Oathdeep.UI
             public Action AbandonRun;
             public Action ControlsChanged;
             public Action ReplayIntro;        // null until the prologue exists
-            public Action OpenCodex, OpenQuests;   // null hides the menu button
+            public Action OpenQuests;   // null hides the menu button
             public Action OpenInventory;
         }
 
@@ -36,6 +36,7 @@ namespace Oathdeep.UI
         PageView settingsPage, aboutPage;
         HeroesPage heroesPage;
         ItemCompendiumPage itemsPage;
+        CodexPage codexPage;
         InventoryPage inventoryPage;
         Action inventoryClosed;
         EncounterDialogView dialog;
@@ -49,7 +50,7 @@ namespace Oathdeep.UI
 
         public CinematicView Cinematic { get; private set; }
 
-        public void Build(UISkin uiSkin, Hooks runHooks, StoryAssets story, IReadOnlyList<HeroData> heroes)
+        public void Build(UISkin uiSkin, Hooks runHooks, StoryAssets story, IReadOnlyList<HeroData> heroes, IReadOnlyList<EnemyData> codex)
         {
             skin = uiSkin;
             hooks = runHooks;
@@ -59,7 +60,7 @@ namespace Oathdeep.UI
                 Descend = hooks.StartRun,
                 Heroes = heroes != null && heroes.Count > 0 ? () => heroesPage.Show() : (Action)null,
                 Items = () => itemsPage.Show(),
-                Codex = hooks.OpenCodex,
+                Codex = codex != null && codex.Count > 0 ? () => codexPage.Show() : (Action)null,
                 Quests = hooks.OpenQuests,
                 Settings = () => OpenSettings(),
                 About = () => aboutPage.Show(),
@@ -70,6 +71,7 @@ namespace Oathdeep.UI
             FrontEndPages.BuildAbout(aboutPage, Version);
             if (heroes != null && heroes.Count > 0) heroesPage = HeroesPage.Create(SafeArea, skin, heroes);
             itemsPage = ItemCompendiumPage.Create(SafeArea, skin);
+            if (codex != null && codex.Count > 0) codexPage = CodexPage.Create(SafeArea, skin, codex);
             inventoryPage = InventoryPage.Create(SafeArea, skin, () => inventoryClosed?.Invoke());
             shopPage = ShopPage.Create(SafeArea, skin, () => { var c = shopClosed; shopClosed = null; c?.Invoke(); });
             dialog = EncounterDialogView.Create(SafeArea, skin);

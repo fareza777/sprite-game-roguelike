@@ -131,6 +131,7 @@ namespace Oathdeep.Enemies
             if (deathVfx != null) Pool.Spawn(deathVfx, transform.position, Quaternion.identity);
             LootDropper.DropFor(data, transform.position, IsElite);
             GameEvents.RaiseEnemyKilled(transform.position, data.IsBoss);
+            if (SaveSystem.Current.UnlockCodex(data.Id)) GameEvents.RaiseToast($"Codex: {data.DisplayName}");
             OnDeath();
             Died?.Invoke(this);
             Destroy(gameObject, 0.9f);

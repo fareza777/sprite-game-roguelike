@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f04203fffb60a49a6653198d141e42, type: 3}
+  m_Name: Enemy_sand_wraith
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Data.EnemyData
+  id: sand_wraith
+  displayName: Sand Wraith
+  portrait: {fileID: -7629444125167880744, guid: 840bff0d12d78914e867a83de5965ae7, type: 3}
+  stats:
+    maxHealth: 26
+    attack: 7
+    defense: 0
+    critChance: 0.04
+    critMultiplier: 1.5
+    moveSpeed: 2.2
+  aggroRange: 11
+  attackRange: 6
+  goldDrop: {x: 1, y: 4}
+  itemDropChance: 0.06
+  potionDropChance: 0.06
+  isBoss: 0

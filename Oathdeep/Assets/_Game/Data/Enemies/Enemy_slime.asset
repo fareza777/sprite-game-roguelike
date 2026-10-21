@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f04203fffb60a49a6653198d141e42, type: 3}
   m_Name: Enemy_slime
   m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Data.EnemyData
+  id: slime
   displayName: Bog Slime
+  portrait: {fileID: -968332419979523530, guid: 086b8924bc20ffb45ab150d500fa08ad, type: 3}
   stats:
     maxHealth: 30
     attack: 6
     defense: 0
-    critChance: 0
+    critChance: 0.04
     critMultiplier: 1.5
     moveSpeed: 2
-  aggroRange: 7
-  attackRange: 1.6
-  goldDrop: {x: 1, y: 3}
-  itemDropChance: 0.03
-  potionDropChance: 0.08
+  aggroRange: 9
+  attackRange: 1.4
+  goldDrop: {x: 1, y: 4}
+  itemDropChance: 0.06
+  potionDropChance: 0.06
   isBoss: 0

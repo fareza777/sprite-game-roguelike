@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f04203fffb60a49a6653198d141e42, type: 3}
   m_Name: Enemy_skeleton
   m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Data.EnemyData
+  id: skeleton
   displayName: Skeleton
+  portrait: {fileID: 3197697357151329776, guid: 20eb838a902a489409119557e4d172da, type: 3}
   stats:
     maxHealth: 34
     attack: 7
     defense: 2
-    critChance: 0.03
+    critChance: 0.04
     critMultiplier: 1.5
     moveSpeed: 2.4
-  aggroRange: 8
+  aggroRange: 9
   attackRange: 1.3
   goldDrop: {x: 1, y: 4}
   itemDropChance: 0.06

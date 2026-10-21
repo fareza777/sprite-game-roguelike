@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f04203fffb60a49a6653198d141e42, type: 3}
   m_Name: Enemy_archer
   m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Data.EnemyData
+  id: archer
   displayName: Skeleton Archer
+  portrait: {fileID: 7600531088273520497, guid: d6db15c88ed990e4592910132bc4e525, type: 3}
   stats:
     maxHealth: 24
     attack: 6
@@ -20,9 +22,9 @@ MonoBehaviour:
     critChance: 0.05
     critMultiplier: 1.5
     moveSpeed: 2.3
-  aggroRange: 10
+  aggroRange: 11
   attackRange: 6
-  goldDrop: {x: 2, y: 5}
+  goldDrop: {x: 1, y: 4}
   itemDropChance: 0.06
-  potionDropChance: 0.05
+  potionDropChance: 0.06
   isBoss: 0

@@ -1,0 +1,752 @@
+fileFormatVersion: 2
+guid: 9079557584941f347bfa1ae123e64e2f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3609271098010899695
+    second: dune_pharaoh_0
+  - first:
+      213: -5731271366458194543
+    second: dune_pharaoh_1
+  - first:
+      213: 2318242445950533521
+    second: dune_pharaoh_2
+  - first:
+      213: 5050866296856510788
+    second: dune_pharaoh_3
+  - first:
+      213: 4445625252913838819
+    second: dune_pharaoh_4
+  - first:
+      213: 4316674884865164584
+    second: dune_pharaoh_5
+  - first:
+      213: 4724954405753391286
+    second: dune_pharaoh_6
+  - first:
+      213: -9004004959534812050
+    second: dune_pharaoh_7
+  - first:
+      213: -7436738047531653934
+    second: dune_pharaoh_8
+  - first:
+      213: -2554715494596731886
+    second: dune_pharaoh_9
+  - first:
+      213: -4817099807468515398
+    second: dune_pharaoh_10
+  - first:
+      213: -2192140647410536242
+    second: dune_pharaoh_11
+  - first:
+      213: -466916259856549480
+    second: dune_pharaoh_12
+  - first:
+      213: -5422079878803214179
+    second: dune_pharaoh_13
+  - first:
+      213: -1210655712750505052
+    second: dune_pharaoh_14
+  - first:
+      213: -1249905334700052418
+    second: dune_pharaoh_15
+  - first:
+      213: -642740397014900961
+    second: dune_pharaoh_16
+  - first:
+      213: -4158487660282998590
+    second: dune_pharaoh_17
+  - first:
+      213: -4996902882600014912
+    second: dune_pharaoh_18
+  - first:
+      213: 7143792063723152984
+    second: dune_pharaoh_19
+  - first:
+      213: -3757305931611663355
+    second: dune_pharaoh_20
+  - first:
+      213: 8209949287108769046
+    second: dune_pharaoh_21
+  - first:
+      213: 6015994110232518142
+    second: dune_pharaoh_22
+  - first:
+      213: 2289103389076024742
+    second: dune_pharaoh_23
+  - first:
+      213: 5905624839516991232
+    second: dune_pharaoh_24
+  - first:
+      213: -5812789873216160811
+    second: dune_pharaoh_25
+  - first:
+      213: 7793439718037471728
+    second: dune_pharaoh_26
+  - first:
+      213: 7704043432685386459
+    second: dune_pharaoh_27
+  - first:
+      213: 8814271269963657668
+    second: dune_pharaoh_28
+  - first:
+      213: 6129497638934476275
+    second: dune_pharaoh_29
+  - first:
+      213: -3503837426336834005
+    second: dune_pharaoh_30
+  - first:
+      213: 6430575578437171043
+    second: dune_pharaoh_31
+  - first:
+      213: 4999653998089664228
+    second: dune_pharaoh_32
+  - first:
+      213: -4235394606133643332
+    second: dune_pharaoh_33
+  - first:
+      213: 8527087832987863020
+    second: dune_pharaoh_34
+  - first:
+      213: 936699805241577649
+    second: dune_pharaoh_35
+  - first:
+      213: 1706369179699735454
+    second: dune_pharaoh_36
+  - first:
+      213: -1861785730795861331
+    second: dune_pharaoh_37
+  - first:
+      213: -165204567151302572
+    second: dune_pharaoh_38
+  - first:
+      213: -6701508501570264468
+    second: dune_pharaoh_39
+  - first:
+      213: 5129917320533160926
+    second: dune_pharaoh_40
+  - first:
+      213: 6516384820673370372
+    second: dune_pharaoh_41
+  - first:
+      213: -8186478653747526145
+    second: dune_pharaoh_42
+  - first:
+      213: -8822652912225217510
+    second: dune_pharaoh_43
+  - first:
+      213: -6856676160987000223
+    second: dune_pharaoh_44
+  - first:
+      213: 3396875546427934035
+    second: dune_pharaoh_45
+  - first:
+      213: 3835356201460074051
+    second: dune_pharaoh_46
+  - first:
+      213: 1324912219579785620
+    second: dune_pharaoh_47
+  - first:
+      213: -3356380937568433975
+    second: dune_pharaoh_48
+  - first:
+      213: 1985289693645986483
+    second: dune_pharaoh_49
+  - first:
+      213: -8007951683828563090
+    second: dune_pharaoh_50
+  - first:
+      213: -1060863525959763256
+    second: dune_pharaoh_51
+  - first:
+      213: 3592595938760113475
+    second: dune_pharaoh_52
+  - first:
+      213: -6529891590845384978
+    second: dune_pharaoh_53
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 0
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: dune_pharaoh_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe4160fd0f4b61230800000000000000
+      internalID: 3609271098010899695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19544eace0f6670b0800000000000000
+      internalID: -5731271366458194543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19f3d16d83d0c2020800000000000000
+      internalID: 2318242445950533521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4410028e228481640800000000000000
+      internalID: 5050866296856510788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ea7f641d9802bd30800000000000000
+      internalID: 4445625252913838819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8250d33efe8e7eb30800000000000000
+      internalID: 4316674884865164584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b809d68ff8629140800000000000000
+      internalID: 4724954405753391286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_7
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e64721fc1395b0380800000000000000
+      internalID: -9004004959534812050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_8
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d46e35b5266bc890800000000000000
+      internalID: -7436738047531653934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_9
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21c106a0bc3db8cd0800000000000000
+      internalID: -2554715494596731886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_10
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abf8c384f39362db0800000000000000
+      internalID: -4817099807468515398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_11
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec0766512b3f391e0800000000000000
+      internalID: -2192140647410536242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_12
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 899756fa22e2589f0800000000000000
+      internalID: -466916259856549480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_13
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d903420e317e0c4b0800000000000000
+      internalID: -5422079878803214179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_14
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a375382b03e23fe0800000000000000
+      internalID: -1210655712750505052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_15
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e30765a68b177aee0800000000000000
+      internalID: -1249905334700052418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_16
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1f1229a3078417f0800000000000000
+      internalID: -642740397014900961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_17
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c09cfd61851a46c0800000000000000
+      internalID: -4158487660282998590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_18
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cb20819d4f67aab0800000000000000
+      internalID: -4996902882600014912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dune_pharaoh_19
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85629735809d32360800000000000000
+      internalID: 7143792063723152984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c375d67c39e7b28488aa699a414d7d9d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      dune_pharaoh_0: 3609271098010899695
+      dune_pharaoh_1: -5731271366458194543
+      dune_pharaoh_10: -4817099807468515398
+      dune_pharaoh_11: -2192140647410536242
+      dune_pharaoh_12: -466916259856549480
+      dune_pharaoh_13: -5422079878803214179
+      dune_pharaoh_14: -1210655712750505052
+      dune_pharaoh_15: -1249905334700052418
+      dune_pharaoh_16: -642740397014900961
+      dune_pharaoh_17: -4158487660282998590
+      dune_pharaoh_18: -4996902882600014912
+      dune_pharaoh_19: 7143792063723152984
+      dune_pharaoh_2: 2318242445950533521
+      dune_pharaoh_3: 5050866296856510788
+      dune_pharaoh_4: 4445625252913838819
+      dune_pharaoh_5: 4316674884865164584
+      dune_pharaoh_6: 4724954405753391286
+      dune_pharaoh_7: -9004004959534812050
+      dune_pharaoh_8: -7436738047531653934
+      dune_pharaoh_9: -2554715494596731886
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

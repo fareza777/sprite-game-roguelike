@@ -16,14 +16,14 @@ MonoBehaviour:
   biome: {fileID: 11400000, guid: f75b009c4ac140f4d996231d43b4d53a, type: 2}
   roomCount: 17
   enemies:
-  - Prefab: {fileID: 2147713022161934247, guid: ccc6c6ba38bec9549b81d812b7909096, type: 3}
-    Weight: 5
-  - Prefab: {fileID: 243138922903384821, guid: f520fe485212fa54395fd4d4198d2c4c, type: 3}
+  - Prefab: {fileID: 5588028080075463538, guid: 08597acaf34546f4094ee99c8f7b0816, type: 3}
     Weight: 3
-  - Prefab: {fileID: 8984880783451013081, guid: 2a3b8ad1aaa4c2d43a136ae8363c3367, type: 3}
+  - Prefab: {fileID: 5192324528375083292, guid: 52b0c81343d45e84aaef51b848fc19b4, type: 3}
+    Weight: 5
+  - Prefab: {fileID: 5540654799642447192, guid: dfbc1507b38c74147af693ce127bfa96, type: 3}
     Weight: 3
   wavesPerRoom: {x: 2, y: 3}
   enemiesPerWave: {x: 5, y: 8}
   eliteChance: 0.16
   statScale: 1.64
-  boss: {fileID: 4516969859121606569, guid: 5b0be5a7bfe6dd9418eb006f3536c850, type: 3}
+  boss: {fileID: 5826852084180501283, guid: 69a3f35a2caed3741a7f804d6640e3c2, type: 3}

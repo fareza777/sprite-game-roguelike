@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f04203fffb60a49a6653198d141e42, type: 3}
   m_Name: Enemy_slimeling
   m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Data.EnemyData
+  id: slimeling
   displayName: Slimeling
+  portrait: {fileID: -968332419979523530, guid: 086b8924bc20ffb45ab150d500fa08ad, type: 3}
   stats:
     maxHealth: 10
     attack: 4

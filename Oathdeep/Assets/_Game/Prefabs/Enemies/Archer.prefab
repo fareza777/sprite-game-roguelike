@@ -346,6 +346,9 @@ MonoBehaviour:
     HitStopSeconds: 0.04
     ShakeAmount: 0.12
     Element: 0
+  shots: 1
+  spread: 0
+  stationary: 0
 --- !u!1 &7982187988705658945
 GameObject:
   m_ObjectHideFlags: 0

@@ -120,6 +120,14 @@ namespace Oathdeep.EditorTools
                     case Vector2 v: p.vector2Value = v; break;
                     case Vector2Int v: p.vector2IntValue = v; break;
                     case System.Enum e: p.enumValueIndex = System.Convert.ToInt32(e); break;
+                    case Oathdeep.Combat.AttackSpec a:
+                        p.FindPropertyRelative("Multiplier").floatValue = a.Multiplier;
+                        p.FindPropertyRelative("Knockback").floatValue = a.Knockback;
+                        p.FindPropertyRelative("StunSeconds").floatValue = a.StunSeconds;
+                        p.FindPropertyRelative("HitStopSeconds").floatValue = a.HitStopSeconds;
+                        p.FindPropertyRelative("ShakeAmount").floatValue = a.ShakeAmount;
+                        p.FindPropertyRelative("Element").enumValueIndex = (int)a.Element;
+                        break;
                     case Object[] arr:
                         p.arraySize = arr.Length;
                         for (int k = 0; k < arr.Length; k++) p.GetArrayElementAtIndex(k).objectReferenceValue = arr[k];

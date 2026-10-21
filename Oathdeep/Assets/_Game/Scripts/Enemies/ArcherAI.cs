@@ -5,7 +5,8 @@ using Oathdeep.Audio;
 
 namespace Oathdeep.Enemies
 {
-    /// <summary>Ranged: keeps its distance, draws (telegraphed aim line), fires, repositions.</summary>
+    /// <summary>Ranged: keeps its distance, draws (telegraphed aim line), fires one shot or a fan, repositions.
+    /// Stationary shooters (sentries, eyes) never walk.</summary>
     public sealed class ArcherAI : EnemyBase
     {
         enum S { Idle, Reposition, Draw, Recover }
@@ -17,6 +18,9 @@ namespace Oathdeep.Enemies
         [SerializeField] float arrowSpeed = 9f;
         [SerializeField] float recover = 0.9f;
         [SerializeField] AttackSpec arrow = new AttackSpec(1f, 4f, 0f, 0.04f, 0.12f);
+        [SerializeField] int shots = 1;
+        [SerializeField] float spread = 0f;
+        [SerializeField] bool stationary;
 
         S state;
         Vector2 aimDir;
@@ -79,14 +83,19 @@ namespace Oathdeep.Enemies
         void Fire()
         {
             if (arrowPrefab == null) return;
-            var p = Pool.Spawn(arrowPrefab, (Vector2)transform.position + aimDir * 0.5f, Quaternion.identity);
-            p.Launch(Stats, aimDir, arrowSpeed, arrow);
+            for (int i = 0; i < shots; i++)
+            {
+                float a = shots == 1 ? 0f : Mathf.Lerp(-spread * 0.5f, spread * 0.5f, i / (float)(shots - 1));
+                Vector2 dir = Quaternion.Euler(0, 0, a) * aimDir;
+                var p = Pool.Spawn(arrowPrefab, (Vector2)transform.position + Vector2.up * 0.4f + dir * 0.5f, Quaternion.identity);
+                p.Launch(Stats, dir, arrowSpeed, arrow);
+            }
             AudioManager.Play(Sfx.ArrowShoot, transform.position);
         }
 
         protected override Vector2 DesiredVelocity()
         {
-            if (state != S.Reposition) return Vector2.zero;
+            if (state != S.Reposition || stationary) return Vector2.zero;
             float d = DistanceToTarget;
             Vector2 dir = ToTarget.normalized;
             Vector2 v = d < preferredMin ? -dir : d > preferredMax ? dir : Vector2.Perpendicular(dir) * Mathf.Sign(wander.x);

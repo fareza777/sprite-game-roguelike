@@ -5,7 +5,9 @@ namespace Oathdeep.Data
     [CreateAssetMenu(menuName = "Oathdeep/Enemy", fileName = "Enemy_")]
     public sealed class EnemyData : ScriptableObject
     {
+        [SerializeField] string id;
         [SerializeField] string displayName;
+        [SerializeField] Sprite portrait;
         [SerializeField] StatBlock stats = new StatBlock(30, 6, 0, 0f, 1.5f, 2.2f);
         [SerializeField] float aggroRange = 7f;
         [SerializeField] float attackRange = 1.2f;
@@ -14,7 +16,9 @@ namespace Oathdeep.Data
         [SerializeField, Range(0f, 1f)] float potionDropChance = 0.06f;
         [SerializeField] bool isBoss;
 
+        public string Id => id;
         public string DisplayName => displayName;
+        public Sprite Portrait => portrait;
         public StatBlock Stats => stats;
         public float AggroRange => aggroRange;
         public float AttackRange => attackRange;
@@ -24,8 +28,10 @@ namespace Oathdeep.Data
         public bool IsBoss => isBoss;
 
 #if UNITY_EDITOR
-        public void EditorInit(string name, StatBlock s, float aggro, float range, Vector2Int gold, float itemChance, float potionChance, bool boss)
+        public void EditorInit(string newId, string name, Sprite picture, StatBlock s, float aggro, float range, Vector2Int gold, float itemChance,
+                               float potionChance, bool boss)
         {
+            id = newId; portrait = picture;
             displayName = name; stats = s; aggroRange = aggro; attackRange = range; goldDrop = gold;
             itemDropChance = itemChance; potionDropChance = potionChance; isBoss = boss;
         }

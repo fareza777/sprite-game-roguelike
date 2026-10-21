@@ -125,24 +125,6 @@ namespace Oathdeep.EditorTools
 
         // ---------------- enemy data ----------------
 
-        static void BuildEnemyData()
-        {
-            Enemy("skeleton", "Skeleton", new StatBlock(34, 7, 2, 0.03f, 1.5f, 2.4f), 8f, 1.3f, new Vector2Int(1, 4), 0.06f, 0.06f, false);
-            Enemy("archer", "Skeleton Archer", new StatBlock(24, 6, 0, 0.05f, 1.5f, 2.3f), 10f, 6f, new Vector2Int(2, 5), 0.06f, 0.05f, false);
-            Enemy("slime", "Bog Slime", new StatBlock(30, 6, 0, 0f, 1.5f, 2f), 7f, 1.6f, new Vector2Int(1, 3), 0.03f, 0.08f, false);
-            Enemy("slimeling", "Slimeling", new StatBlock(10, 4, 0, 0f, 1.5f, 2.6f), 7f, 1.2f, new Vector2Int(0, 1), 0f, 0.02f, false);
-            Enemy("bone_warden", "The Bone Warden", new StatBlock(520, 15, 8, 0.05f, 1.6f, 2.1f), 22f, 2.4f, new Vector2Int(40, 60), 1f, 1f, true);
-        }
-
-        static void Enemy(string id, string name, StatBlock stats, float aggro, float range, Vector2Int gold, float itemChance,
-                          float potionChance, bool boss)
-        {
-            var data = LoadOrCreate<EnemyData>($"{DataDir}/Enemies/Enemy_{id}.asset");
-            data.EditorInit(name, stats, aggro, range, gold, itemChance, potionChance, boss);
-            EditorUtility.SetDirty(data);
-            Enemies[id] = data;
-        }
-
         // ---------------- font + skin ----------------
 
         static TMP_FontAsset BuildFont()

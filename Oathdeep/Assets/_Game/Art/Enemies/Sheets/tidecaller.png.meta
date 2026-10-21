@@ -1,0 +1,737 @@
+fileFormatVersion: 2
+guid: 7d408976508658447aef103f26f5b74a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1786932294219172747
+    second: tidecaller_0
+  - first:
+      213: 7020355669018566458
+    second: tidecaller_1
+  - first:
+      213: -5561707736576454849
+    second: tidecaller_2
+  - first:
+      213: 4147405088983880673
+    second: tidecaller_3
+  - first:
+      213: 1884041056998175783
+    second: tidecaller_4
+  - first:
+      213: 1723826897618921578
+    second: tidecaller_5
+  - first:
+      213: 6034700724363060126
+    second: tidecaller_6
+  - first:
+      213: -5994093061256492788
+    second: tidecaller_7
+  - first:
+      213: 561802503100066625
+    second: tidecaller_8
+  - first:
+      213: 4796664031032849316
+    second: tidecaller_9
+  - first:
+      213: -8441374901698652451
+    second: tidecaller_10
+  - first:
+      213: 6140579231256647177
+    second: tidecaller_11
+  - first:
+      213: -3566599734849565760
+    second: tidecaller_12
+  - first:
+      213: -7305228952591177665
+    second: tidecaller_13
+  - first:
+      213: 840576679670738410
+    second: tidecaller_14
+  - first:
+      213: 4495691828326545140
+    second: tidecaller_15
+  - first:
+      213: -4037750024320524903
+    second: tidecaller_16
+  - first:
+      213: 3971027626250492661
+    second: tidecaller_17
+  - first:
+      213: 4508851246994325143
+    second: tidecaller_18
+  - first:
+      213: 4757338369532970668
+    second: tidecaller_19
+  - first:
+      213: -3180514195980174836
+    second: tidecaller_20
+  - first:
+      213: -7191850018097541019
+    second: tidecaller_21
+  - first:
+      213: 4389132813535636366
+    second: tidecaller_22
+  - first:
+      213: 1478663399467541483
+    second: tidecaller_23
+  - first:
+      213: 5263468618332805553
+    second: tidecaller_24
+  - first:
+      213: -6180200741335904171
+    second: tidecaller_25
+  - first:
+      213: 4368055089829676396
+    second: tidecaller_26
+  - first:
+      213: -1752385622560608611
+    second: tidecaller_27
+  - first:
+      213: -257226155186415772
+    second: tidecaller_28
+  - first:
+      213: -8786452098804913900
+    second: tidecaller_29
+  - first:
+      213: -4488917036319782519
+    second: tidecaller_30
+  - first:
+      213: 6392991223036539227
+    second: tidecaller_31
+  - first:
+      213: 7707059179083450633
+    second: tidecaller_32
+  - first:
+      213: -8432577101604451940
+    second: tidecaller_33
+  - first:
+      213: -4622092340088366931
+    second: tidecaller_34
+  - first:
+      213: -4171241965462039403
+    second: tidecaller_35
+  - first:
+      213: -6134040093116801697
+    second: tidecaller_36
+  - first:
+      213: -7684288008740381183
+    second: tidecaller_37
+  - first:
+      213: 184873664999234342
+    second: tidecaller_38
+  - first:
+      213: -6440679387572296644
+    second: tidecaller_39
+  - first:
+      213: -3854420179952713862
+    second: tidecaller_40
+  - first:
+      213: -6467929781981007804
+    second: tidecaller_41
+  - first:
+      213: 2377858774078391219
+    second: tidecaller_42
+  - first:
+      213: 2874758190114083444
+    second: tidecaller_43
+  - first:
+      213: 1298007627244670967
+    second: tidecaller_44
+  - first:
+      213: -2937865049986098478
+    second: tidecaller_45
+  - first:
+      213: -3592155951519770650
+    second: tidecaller_46
+  - first:
+      213: -3303321342400116584
+    second: tidecaller_47
+  - first:
+      213: -2783477227062361473
+    second: tidecaller_48
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 0
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: tidecaller_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8b8b9a34757cc810800000000000000
+      internalID: 1786932294219172747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3f50c819405d6160800000000000000
+      internalID: 7020355669018566458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3f81d0e748d0d2b0800000000000000
+      internalID: -5561707736576454849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e3188c54fa8e8930800000000000000
+      internalID: 4147405088983880673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 724b0a8fb55752a10800000000000000
+      internalID: 1884041056998175783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a68e6de1e634ce710800000000000000
+      internalID: 1723826897618921578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e93e379e5509fb350800000000000000
+      internalID: 6034700724363060126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_7
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c094c2d6e14b0dca0800000000000000
+      internalID: -5994093061256492788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_8
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14b6437666cebc700800000000000000
+      internalID: 561802503100066625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_9
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a33b9cb58c219240800000000000000
+      internalID: 4796664031032849316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_10
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd69a5050463ada80800000000000000
+      internalID: -8441374901698652451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_11
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9069132d648b73550800000000000000
+      internalID: 6140579231256647177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_12
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cb0a441074e08ec0800000000000000
+      internalID: -3566599734849565760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_13
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3867ede8fc9e9a90800000000000000
+      internalID: -7305228952591177665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_14
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aed604e59045aab00800000000000000
+      internalID: 840576679670738410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_15
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f6b70f06e7e36e30800000000000000
+      internalID: 4495691828326545140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_16
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99ddc8ceeb707f7c0800000000000000
+      internalID: -4037750024320524903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_17
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fa5cef269ceb1730800000000000000
+      internalID: 3971027626250492661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_18
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79e7c2af158a29e30800000000000000
+      internalID: 4508851246994325143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tidecaller_19
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0234375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca64958aa06750240800000000000000
+      internalID: 4757338369532970668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 95a355a29b587274bac51b72bc46a3e7
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      tidecaller_0: 1786932294219172747
+      tidecaller_1: 7020355669018566458
+      tidecaller_10: -8441374901698652451
+      tidecaller_11: 6140579231256647177
+      tidecaller_12: -3566599734849565760
+      tidecaller_13: -7305228952591177665
+      tidecaller_14: 840576679670738410
+      tidecaller_15: 4495691828326545140
+      tidecaller_16: -4037750024320524903
+      tidecaller_17: 3971027626250492661
+      tidecaller_18: 4508851246994325143
+      tidecaller_19: 4757338369532970668
+      tidecaller_2: -5561707736576454849
+      tidecaller_3: 4147405088983880673
+      tidecaller_4: 1884041056998175783
+      tidecaller_5: 1723826897618921578
+      tidecaller_6: 6034700724363060126
+      tidecaller_7: -5994093061256492788
+      tidecaller_8: 561802503100066625
+      tidecaller_9: 4796664031032849316
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

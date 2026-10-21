@@ -148,17 +148,10 @@ namespace Oathdeep.EditorTools
         static void BuildFloors()
         {
             Floors.Clear();
-            var pool = new[]
-            {
-                new WeightedEnemy { Prefab = Prefab("Enemies/Skeleton").GetComponent<EnemyBase>(), Weight = 5f },
-                new WeightedEnemy { Prefab = Prefab("Enemies/Archer").GetComponent<EnemyBase>(), Weight = 3f },
-                new WeightedEnemy { Prefab = Prefab("Enemies/Slime").GetComponent<EnemyBase>(), Weight = 3f },
-            };
-            var boss = Prefab("Enemies/BoneWarden").GetComponent<EnemyBase>();
             for (int n = 1; n <= BiomeDefs.Length; n++)
             {
                 var floor = LoadOrCreate<FloorConfig>($"{DataDir}/Floors/Floor_{n:00}.asset");
-                floor.EditorInit(Biomes[BiomeDefs[n - 1].id], pool, boss);
+                floor.EditorInit(Biomes[BiomeDefs[n - 1].id], PoolFor(n), EnemyPrefab(Oathdeep.Data.Bestiary.BossOf(n).Id));
                 Set(floor, ("floorNumber", n), ("roomCount", 15 + (n + 1) / 2),
                     ("wavesPerRoom", new Vector2Int(2, n < 4 ? 3 : 4)),
                     ("enemiesPerWave", new Vector2Int(4 + n / 3, 7 + n / 3)),

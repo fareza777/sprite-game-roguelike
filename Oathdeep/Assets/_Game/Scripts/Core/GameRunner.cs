@@ -22,6 +22,7 @@ namespace Oathdeep.Core
 
         [Header("Content")]
         [SerializeField] HeroData[] heroes;
+        [SerializeField] EnemyData[] codex;
         [SerializeField] FloorConfig[] floors;
         [SerializeField] PropSet props;
         [SerializeField] Pickup pickupPrefab;
@@ -61,7 +62,7 @@ namespace Oathdeep.Core
                 ControlsChanged = () => { if (hud != null) hud.RebuildControls(); },
                 OpenInventory = OpenInventory,
                 ReplayIntro = () => PlayPrologue(ShowMenuAfterCinematic),
-            }, story, heroes);
+            }, story, heroes, codex);
             if (worldCamera != null && worldCamera.GetComponent<CameraRig>() == null) worldCamera.gameObject.AddComponent<CameraRig>();
             if (FindFirstObjectByType<HitStop>() == null) new GameObject("HitStop").AddComponent<HitStop>();
             LootDropper.Configure(pickupPrefab, goldSprite, potionSprite);

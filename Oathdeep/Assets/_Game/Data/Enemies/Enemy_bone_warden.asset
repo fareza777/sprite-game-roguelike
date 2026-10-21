@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f04203fffb60a49a6653198d141e42, type: 3}
   m_Name: Enemy_bone_warden
   m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Data.EnemyData
+  id: bone_warden
   displayName: The Bone Warden
+  portrait: {fileID: 6498044869131623743, guid: 298b8760fb682aa43acc8cf436ef1262, type: 3}
   stats:
     maxHealth: 520
     attack: 15
     defense: 8
     critChance: 0.05
-    critMultiplier: 1.6
+    critMultiplier: 1.5
     moveSpeed: 2.1
   aggroRange: 22
   attackRange: 2.4
