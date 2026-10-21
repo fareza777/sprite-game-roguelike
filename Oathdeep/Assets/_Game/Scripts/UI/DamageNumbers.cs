@@ -51,6 +51,7 @@ namespace Oathdeep.UI
 
         void Show(DamageInfo info, Vector3 at)
         {
+            if (!Core.GameSettings.DamageNumbers) return;
             var e = free.Count > 0 ? free.Pop() : (active.Count > 0 ? Recycle() : Create());
             e.Text.gameObject.SetActive(true);
             e.Text.text = info.IsCrit ? $"{info.Amount}!" : info.Amount.ToString();

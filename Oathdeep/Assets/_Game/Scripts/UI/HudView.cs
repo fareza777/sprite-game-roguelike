@@ -83,30 +83,50 @@ namespace Oathdeep.UI
             Subscribe(player);
         }
 
+        RectTransform controlsRoot;
+        RectTransform safeAreaRoot;
+        PlayerController controlledPlayer;
+
+        /// <summary>A touch control by name ("Attack", "Dodge", "Skill", "MoveZone") for tutorials to point at.</summary>
+        public RectTransform ControlRect(string name) => controlsRoot != null ? controlsRoot.Find(name) as RectTransform : null;
+
+        /// <summary>Re-lays out the touch controls (after the joystick / handedness settings change).</summary>
+        public void RebuildControls()
+        {
+            if (controlsRoot != null) Destroy(controlsRoot.gameObject);
+            BuildControls(safeAreaRoot, controlledPlayer);
+        }
+
         void BuildControls(RectTransform safeArea, PlayerController player)
         {
-            // Left 55% of the lower screen is the floating joystick zone.
-            var zone = UIFactory.Rect("MoveZone", safeArea, new Vector2(0, 0), new Vector2(0.55f, 0.5f), new Vector2(0, 0), Vector2.zero, Vector2.zero);
+            safeAreaRoot = safeArea;
+            controlledPlayer = player;
+            var layout = ControlLayout.Compute(GameSettings.LeftHanded);
+            controlsRoot = UIFactory.Stretch("Controls", safeArea);
+            controlsRoot.SetAsFirstSibling();   // under the HUD readouts, above the world
+
+            var zone = UIFactory.Rect("MoveZone", controlsRoot, layout.MoveZoneMin, layout.MoveZoneMax, Vector2.zero, Vector2.zero, Vector2.zero);
             var zoneImg = UIFactory.Image(zone, skin.white, new Color(0, 0, 0, 0), false, true);
             zoneImg.preserveAspect = false;
-            var stickBase = UIFactory.Rect("Base", zone, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0.5f, 0.5f), new Vector2(90, 110), new Vector2(112, 112));
+            var stickBase = UIFactory.Rect("Base", zone, Vector2.zero, Vector2.zero, new Vector2(0.5f, 0.5f), ControlLayout.StickRest, new Vector2(112, 112));
             UIFactory.Image(stickBase, skin.joystickBase);
             var knob = UIFactory.Rect("Knob", stickBase, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(52, 52));
             UIFactory.Image(knob, skin.joystickKnob);
             var group = stickBase.gameObject.AddComponent<CanvasGroup>();
             group.blocksRaycasts = false;
             var stick = zone.gameObject.AddComponent<VirtualJoystick>();
-            stick.Setup(stickBase, knob, group);
+            stick.Setup(stickBase, knob, group, !GameSettings.FixedJoystick);
 
-            // Right thumb arc: big attack, dodge below-left, skill above-left.
-            MakeAction(safeArea, "Attack", PlayerAction.Attack, skin.iconAttack, new Vector2(-62, 92), 96f, null);
-            MakeAction(safeArea, "Dodge", PlayerAction.Dodge, skin.iconDodge, new Vector2(-150, 52), 64f, () => player != null ? player.DodgeCooldownFraction : 0f);
-            MakeAction(safeArea, "Skill", PlayerAction.Skill, skin.iconSkill, new Vector2(-126, 170), 64f, () => player != null ? player.SkillCooldownFraction : 0f);
+            var corner = layout.LeftHanded ? Vector2.zero : new Vector2(1, 0);
+            MakeAction(controlsRoot, corner, "Attack", PlayerAction.Attack, skin.iconAttack, layout.Attack, null);
+            MakeAction(controlsRoot, corner, "Dodge", PlayerAction.Dodge, skin.iconDodge, layout.Dodge, () => player != null ? player.DodgeCooldownFraction : 0f);
+            MakeAction(controlsRoot, corner, "Skill", PlayerAction.Skill, skin.iconSkill, layout.Skill, () => player != null ? player.SkillCooldownFraction : 0f);
         }
 
-        void MakeAction(RectTransform parent, string name, PlayerAction action, Sprite icon, Vector2 pos, float size, System.Func<float> cooldown)
+        void MakeAction(RectTransform parent, Vector2 corner, string name, PlayerAction action, Sprite icon, ControlLayout.Slot slot, System.Func<float> cooldown)
         {
-            var root = UIFactory.Rect(name, parent, new Vector2(1, 0), new Vector2(1, 0), new Vector2(0.5f, 0.5f), pos, new Vector2(size, size));
+            float size = slot.Size;
+            var root = UIFactory.Rect(name, parent, corner, corner, new Vector2(0.5f, 0.5f), slot.Position, new Vector2(size, size));
             var bg = UIFactory.Image(root, skin.actionRing, null, false, true);
             bg.color = new Color(1, 1, 1, 0.85f);
             var iconRect = UIFactory.Rect("Icon", root, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(size * 0.55f, size * 0.55f));

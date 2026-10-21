@@ -22,6 +22,10 @@ namespace Oathdeep.EditorTools
         const string VfxPng = ArtDir + "/VFX/vfx.png";
         const string UiPng = ArtDir + "/UI/ui.png";
         const string WhitePng = ArtDir + "/UI/white.png";
+        const string MenuIconsPng = ArtDir + "/UI/menu_icons.png";
+        const string LogoPng = ArtDir + "/UI/logo_undersun.png";
+        const string MenuBgPng = ArtDir + "/UI/menu_bg.png";
+        static readonly string[] MenuIconNames = { "gear", "info", "share", "star", "codex", "quest", "heroes", "back", "close", "bag" };
         const float UiPpu = 100f;   // 1 art pixel = 1 reference-canvas unit
 
         static readonly Vector2 Centre = new Vector2(0.5f, 0.5f);
@@ -48,6 +52,9 @@ namespace Oathdeep.EditorTools
             Slice(VfxPng, VfxCells(), WorldPpu, SpriteMeshType.FullRect);
             Slice(UiPng, UiCells(), UiPpu, SpriteMeshType.FullRect);
             WriteWhiteSprite();
+            Slice(MenuIconsPng, MenuIconNames.Select((n, i) => G(n, i, 0, Centre)).ToList(), UiPpu, SpriteMeshType.FullRect);
+            SingleSprite(LogoPng, UiPpu);
+            SingleSprite(MenuBgPng, UiPpu);
             SpriteCache.Clear();
             log.Add("art: 5 aseprite importers, 4 sliced sheets");
         }
@@ -189,6 +196,19 @@ namespace Oathdeep.EditorTools
             new Cell("joystickKnob", 200, 24, 26, 26, Centre),
             new Cell("logo", 0, 80, 160, 64, Centre),
         };
+
+        static void SingleSprite(string path, float ppu)
+        {
+            var ti = AssetImporter.GetAtPath(path) as TextureImporter;
+            if (ti == null) throw new FileNotFoundException("Texture missing", path);
+            ti.textureType = TextureImporterType.Sprite;
+            ti.spriteImportMode = SpriteImportMode.Single;
+            ti.spritePixelsPerUnit = ppu;
+            ti.filterMode = FilterMode.Point;
+            ti.mipmapEnabled = false;
+            ti.textureCompression = TextureImporterCompression.Uncompressed;
+            ti.SaveAndReimport();
+        }
 
         /// <summary>4x4 pure white sprite for fills, dims and minimap blocks (utility, not art).</summary>
         static void WriteWhiteSprite()

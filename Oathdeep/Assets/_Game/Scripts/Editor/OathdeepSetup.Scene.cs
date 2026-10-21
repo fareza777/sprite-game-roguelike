@@ -63,10 +63,11 @@ namespace Oathdeep.EditorTools
         {
             Physics2D.gravity = Vector2.zero;
             PlayerSettings.runInBackground = true;   // keeps editor play mode ticking when remote-driven
-            PlayerSettings.companyName = "Oathdeep";
-            PlayerSettings.productName = "OATHDEEP";
+            PlayerSettings.companyName = "fareza777";
+            PlayerSettings.productName = "UNDERSUN";
+            PlayerSettings.SplashScreen.show = false;   // our own splash; Unity 6 allows hiding the engine one
             PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
-            PlayerSettings.SetApplicationIdentifier(UnityEditor.Build.NamedBuildTarget.Android, "com.oathdeep.game");
+            PlayerSettings.SetApplicationIdentifier(UnityEditor.Build.NamedBuildTarget.Android, Core.AppLinks.PackageId);
 
             // Characters and props sort by their feet: lower on screen draws in front.
             var renderer = AssetDatabase.LoadAssetAtPath<Renderer2DData>(Renderer2DPath);

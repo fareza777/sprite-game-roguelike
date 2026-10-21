@@ -9,7 +9,7 @@ namespace Oathdeep.EditorTools
     /// <summary>Android player settings and APK build. The build is queued so a remote caller isn't blocked for minutes.</summary>
     public static partial class OathdeepSetup
     {
-        const string ApkPath = "Builds/Android/Oathdeep.apk";
+        const string ApkPath = "Builds/Android/Undersun.apk";
         const string BuildReportPath = "Builds/Android/build-report.txt";
         const string IconPath = ArtDir + "/UI/app_icon.png";
 
@@ -20,9 +20,9 @@ namespace Oathdeep.EditorTools
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
             PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel24;
             PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
-            PlayerSettings.SetApplicationIdentifier(android, "com.oathdeep.game");
-            PlayerSettings.bundleVersion = "0.1.0";
-            PlayerSettings.Android.bundleVersionCode = 1;
+            PlayerSettings.SetApplicationIdentifier(android, Core.AppLinks.PackageId);
+            PlayerSettings.bundleVersion = "0.2.0";
+            PlayerSettings.Android.bundleVersionCode = 2;
             PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
             PlayerSettings.Android.useCustomKeystore = false;   // debug-signed: fine for sideloading the slice
             EditorUserBuildSettings.buildAppBundle = false;

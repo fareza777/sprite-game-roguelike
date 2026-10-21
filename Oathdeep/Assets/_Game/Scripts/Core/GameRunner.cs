@@ -7,20 +7,17 @@ using Oathdeep.Loot;
 using Oathdeep.Player;
 using Oathdeep.UI;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.UI;
 
 namespace Oathdeep.Core
 {
     /// <summary>
-    /// Owns the run loop: title → build floor → play → game over / victory → restart.
-    /// Everything per-run (dungeon, player, HUD) is rebuilt so no state leaks between runs.
+    /// Owns the app flow (splash → menu → run → menu) and the run loop. Everything per-run (dungeon, player, HUD)
+    /// is rebuilt so no state leaks between runs. Out-of-run screens live in <see cref="FrontEnd"/>.
     /// </summary>
     public sealed class GameRunner : MonoBehaviour
     {
-        enum Phase { Title, Playing, Paused, Ended }
+        enum Phase { Boot, Menu, Playing, Paused, Ended }
 
         [Header("Content")]
         [SerializeField] HeroData hero;
@@ -37,31 +34,34 @@ namespace Oathdeep.Core
         [SerializeField] Light2D globalLight;
 
         Phase phase;
+        FrontEnd frontEnd;
         DungeonBuilder dungeon;
         PlayerController player;
-        RectTransform canvasRoot;
-        RectTransform safeArea;
         HudView hud;
         DamageNumbers numbers;
-        ScreenView titleScreen, pauseScreen, overScreen, victoryScreen;
         RunStats stats;
 
         void Awake()
         {
             Application.targetFrameRate = 60;
-            BuildCanvas();
-            BuildScreens();
+            AudioManager.Create(audioLibrary);
+            frontEnd = new GameObject("FrontEnd").AddComponent<FrontEnd>();
+            frontEnd.Build(skin, new FrontEnd.Hooks
+            {
+                StartRun = StartRun,
+                ResumeRun = Resume,
+                AbandonRun = ToMenu,
+                ControlsChanged = () => { if (hud != null) hud.RebuildControls(); },
+            });
             if (worldCamera != null && worldCamera.GetComponent<CameraRig>() == null) worldCamera.gameObject.AddComponent<CameraRig>();
             if (FindFirstObjectByType<HitStop>() == null) new GameObject("HitStop").AddComponent<HitStop>();
             LootDropper.Configure(pickupPrefab, goldSprite, potionSprite);
-            AudioManager.Create(audioLibrary);
         }
 
         void Start()
         {
-            phase = Phase.Title;
-            titleScreen.Show();
-            AudioManager.PlayMusic(MusicTrack.Title);
+            phase = Phase.Boot;
+            frontEnd.PlaySplash(ToMenu);
         }
 
         // ---------------- Run lifecycle ----------------
@@ -71,6 +71,8 @@ namespace Oathdeep.Core
             StopAllCoroutines();
             Time.timeScale = 1f;
             TeardownRun();
+            frontEnd.HideMenu();
+            frontEnd.HideRunScreens();
             GameEvents.ClearAll();
             AudioManager.BindRunEvents();
             AudioManager.PlayMusic(MusicTrack.Crypt);
@@ -81,6 +83,7 @@ namespace Oathdeep.Core
 
             int seed = System.Environment.TickCount;
             stats = new RunStats();
+            SaveSystem.Current.runs++;
 
             player = Instantiate(playerPrefab);
             var inventory = player.GetComponent<PlayerInventory>();
@@ -98,7 +101,8 @@ namespace Oathdeep.Core
                 globalLight.intensity = floor.Biome.AmbientIntensity;
             }
 
-            var hudRoot = UIFactory.Stretch("HUD", safeArea);
+            var hudRoot = UIFactory.Stretch("HUD", frontEnd.SafeArea);
+            hudRoot.SetAsFirstSibling();   // below menus/pages so they draw on top
             hud = hudRoot.gameObject.AddComponent<HudView>();
             hud.Build(skin, hudRoot, player, Pause);
             hud.SetFloor(floor.FloorNumber, floor.Biome != null ? floor.Biome.DisplayName : "The Deep");
@@ -117,8 +121,8 @@ namespace Oathdeep.Core
             ExitPortal.Reached += () => StartCoroutine(EndAfter(0.4f, true));
 
             phase = Phase.Playing;
-            HideScreens();
             GameEvents.RaiseToast(floor.Biome != null ? floor.Biome.DisplayName : "The Deep");
+            if (!SaveSystem.Current.onboardingDone) OnboardingCoach.Begin(hudRoot, skin, hud, player);
         }
 
         void TeardownRun()
@@ -140,6 +144,11 @@ namespace Oathdeep.Core
             yield return new WaitForSecondsRealtime(delay);
             phase = Phase.Ended;
             stats.End();
+            var save = SaveSystem.Current;
+            save.totalKills += stats.Kills;
+            save.bestFloor = Mathf.Max(save.bestFloor, floor.FloorNumber);
+            if (victory) save.victories++; else save.deaths++;
+            SaveSystem.Save();
             string summary =
                 $"Floor reached   B{floor.FloorNumber}\n" +
                 $"Foes slain      {stats.Kills}\n" +
@@ -148,20 +157,18 @@ namespace Oathdeep.Core
                 $"Highest hit     {stats.HighestHit}\n" +
                 $"Time            {RunStats.FormatTime(stats.Duration)}";
             AudioManager.PlayStinger(victory);
-            var screen = victory ? victoryScreen : overScreen;
-            screen.SetBody(summary);
-            screen.Show();
+            frontEnd.ShowEnd(victory, summary);
             Time.timeScale = victory ? 1f : 0.25f;
         }
 
-        // ---------------- Pause ----------------
+        // ---------------- Pause / menu ----------------
 
         public void Pause()
         {
             if (phase != Phase.Playing) return;
             phase = Phase.Paused;
             Time.timeScale = 0f;
-            pauseScreen.Show();
+            frontEnd.ShowPause();
         }
 
         public void Resume()
@@ -169,74 +176,23 @@ namespace Oathdeep.Core
             if (phase != Phase.Paused) return;
             phase = Phase.Playing;
             Time.timeScale = 1f;
-            pauseScreen.Hide();
+            frontEnd.HidePause();
         }
 
-        void ToTitle()
+        void ToMenu()
         {
+            StopAllCoroutines();
             TeardownRun();
             Time.timeScale = 1f;
-            phase = Phase.Title;
-            HideScreens();
-            titleScreen.Show();
-            AudioManager.PlayMusic(MusicTrack.Title);
+            phase = Phase.Menu;
+            frontEnd.ShowMenu();
         }
 
         void OnApplicationPause(bool paused)
         {
-            if (paused) Pause();
-        }
-
-        // ---------------- UI scaffolding ----------------
-
-        void BuildCanvas()
-        {
-            var canvasGo = new GameObject("UI", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
-            var canvas = canvasGo.GetComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.pixelPerfect = true;
-            var scaler = canvasGo.GetComponent<CanvasScaler>();
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(360, 640);
-            scaler.matchWidthOrHeight = 0.5f;
-            canvasRoot = (RectTransform)canvasGo.transform;
-            safeArea = UIFactory.Stretch("SafeArea", canvasRoot);
-            safeArea.gameObject.AddComponent<SafeAreaFitter>();
-
-            if (FindFirstObjectByType<EventSystem>() == null)
-                new GameObject("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
-        }
-
-        void BuildScreens()
-        {
-            titleScreen = ScreenView.Create("Title", safeArea, skin, "OATHDEEP",
-                "Sworn to descend. Sworn to return.\n\nMove: left thumb   Strike: right thumb",
-                new (string, System.Action)[] { ("BEGIN", StartRun) }, showLogo: true);
-            pauseScreen = ScreenView.Create("Pause", safeArea, skin, "PAUSED", SoundLabel(),
-                new (string, System.Action)[] { ("RESUME", Resume), ("SOUND", CycleSound), ("RESTART", StartRun), ("TITLE", ToTitle) });
-            overScreen = ScreenView.Create("GameOver", safeArea, skin, "FALLEN", "",
-                new (string, System.Action)[] { ("RISE AGAIN", StartRun), ("TITLE", ToTitle) });
-            victoryScreen = ScreenView.Create("Victory", safeArea, skin, "FLOOR CLEARED", "",
-                new (string, System.Action)[] { ("DESCEND AGAIN", StartRun), ("TITLE", ToTitle) });
-        }
-
-        /// <summary>Sound button cycles: all on -> music off -> all off.</summary>
-        void CycleSound()
-        {
-            bool music = GameSettings.MusicVolume > 0f, sfx = GameSettings.SfxVolume > 0f;
-            if (music && sfx) GameSettings.MusicVolume = 0f;
-            else if (sfx) GameSettings.SfxVolume = 0f;
-            else { GameSettings.MusicVolume = 0.8f; GameSettings.SfxVolume = 1f; }
-            AudioManager.RefreshVolumes();
-            pauseScreen.SetBody(SoundLabel());
-        }
-
-        static string SoundLabel() =>
-            $"Music  {(GameSettings.MusicVolume > 0f ? "ON" : "OFF")}     Effects  {(GameSettings.SfxVolume > 0f ? "ON" : "OFF")}";
-
-        void HideScreens()
-        {
-            titleScreen.Hide(); pauseScreen.Hide(); overScreen.Hide(); victoryScreen.Hide();
+            if (!paused) return;
+            Pause();
+            SaveSystem.Save();
         }
     }
 }

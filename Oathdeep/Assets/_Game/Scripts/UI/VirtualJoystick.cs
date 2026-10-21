@@ -27,19 +27,21 @@ namespace Oathdeep.UI
         int pointerId = -1;
         int touchId = -1;   // -1 = mouse/pen
 
-        public void Setup(RectTransform baseRect, RectTransform knobRect, CanvasGroup group)
+        /// <summary>
+        /// Must set the rest position here: Awake runs during AddComponent, before the stick exists, and a zero rest
+        /// position used to snap the stick into the bottom-left corner after every release.
+        /// </summary>
+        public void Setup(RectTransform baseRect, RectTransform knobRect, CanvasGroup group, bool isFloating)
         {
             stickBase = baseRect;
             knob = knobRect;
             visual = group;
-        }
-
-        void Awake()
-        {
-            zone = (RectTransform)transform;
-            if (stickBase != null) restPosition = stickBase.anchoredPosition;
+            floating = isFloating;
+            restPosition = stickBase.anchoredPosition;
             SetActiveLook(false);
         }
+
+        void Awake() => zone = (RectTransform)transform;
 
         public void OnPointerDown(PointerEventData e)
         {
@@ -47,7 +49,7 @@ namespace Oathdeep.UI
             pointerId = e.pointerId;
             touchId = e is ExtendedPointerEventData ext && ext.pointerType == UIPointerType.Touch ? ext.touchId : -1;
             if (floating && RectTransformUtility.ScreenPointToLocalPointInRectangle(zone, e.position, e.pressEventCamera, out var local))
-                stickBase.anchoredPosition = local;
+                stickBase.anchoredPosition = ControlLayout.ClampStick(local, zone.rect.size, stickBase.sizeDelta.x);
             SetActiveLook(true);
             OnDrag(e);
         }

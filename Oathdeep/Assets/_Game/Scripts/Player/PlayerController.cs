@@ -39,6 +39,8 @@ namespace Oathdeep.Player
 
         public Vector2 Aim => aim;
         public bool IsDead => state == State.Dead;
+        /// <summary>Raised when an attack, dodge or skill actually starts (used by onboarding and quests).</summary>
+        public event System.Action<PlayerAction> Performed;
         public float SkillCooldownFraction => skillCooldown <= 0f ? 0f : Mathf.Clamp01((skillReadyAt - Time.time) / skillCooldown);
         public float DodgeCooldownFraction => dodgeCooldown <= 0f ? 0f : Mathf.Clamp01((dodgeReadyAt - Time.time) / dodgeCooldown);
 
@@ -140,6 +142,7 @@ namespace Oathdeep.Player
             Enter(State.Attack);
             anim.Face(aim.x);
             anim.Play(KnightMoves.Combo[index].Anim, true);
+            Performed?.Invoke(PlayerAction.Attack);
             if (slashVfx != null)
             {
                 var angle = Mathf.Atan2(aim.y, aim.x) * Mathf.Rad2Deg;
@@ -195,6 +198,7 @@ namespace Oathdeep.Player
             Enter(State.Dodge);
             anim.Face(dashDir.x);
             anim.Play("dodge", true);
+            Performed?.Invoke(PlayerAction.Dodge);
             if (dodgeDustVfx != null) Pool.Spawn(dodgeDustVfx, transform.position, Quaternion.identity);
             AudioManager.Play(Sfx.Dodge);
             Haptics.Pulse(12);
@@ -216,6 +220,7 @@ namespace Oathdeep.Player
             Enter(State.Bash);
             anim.Face(aim.x);
             anim.Play("bash", true);
+            Performed?.Invoke(PlayerAction.Skill);
             if (bashVfx != null) Pool.Spawn(bashVfx, transform.position, Quaternion.Euler(0, 0, Mathf.Atan2(aim.y, aim.x) * Mathf.Rad2Deg));
             AudioManager.Play(Sfx.Bash);
             Haptics.Pulse(25);
