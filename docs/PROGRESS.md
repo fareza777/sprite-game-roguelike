@@ -43,7 +43,7 @@ in Unity 6. Design doc: `docs/design/2026-10-21-undersun-full-game-design.md`.
    - VO: `tools/audio/vo.py`.
 3. Unity: `bash tools/setup-wait.sh` queues **Oathdeep > Build Everything**. It runs these stages in order: importers and
    slicing, content data, audio library and story, about 97 prefabs, floors and the scene.
-4. Tests: EditMode, 2033 passing (`node tools/unity-mcp.mjs tests-run '{"testMode":"EditMode"}'`; save the scene first).
+4. Tests: EditMode, 2045 passing (`node tools/unity-mcp.mjs tests-run '{"testMode":"EditMode"}'`; save the scene first).
 5. QA: `bash tools/smoke.sh` in play mode runs every floor (teleport to the boss, clear it, take the portal).
 6. APK: `node tools/run-cs.mjs tools/playtest/apk.cs`, then pump the editor; output goes to `Oathdeep/Builds/Android/Undersun.apk`.
 
@@ -71,6 +71,8 @@ in Unity 6. Design doc: `docs/design/2026-10-21-undersun-full-game-design.md`.
 - **Editor**: `OathdeepSetup.*` partials build all content from code and data.
 
 ## Known limits / next ideas
+- Difficulty: enemy health/attack follow `FloorConfig.StatScaleFor` (x1.0 on B1 to x7.35 on B10, accelerating so it outgrows
+  the player's compounding gear). Model it with a quick per-floor hits-to-kill / hits-to-die table before retuning.
 - Screenshots in the editor use a landscape Game view, so the room camera clamp centres horizontally there.
   On a portrait phone it follows the hero normally.
 - Ideas for later:
