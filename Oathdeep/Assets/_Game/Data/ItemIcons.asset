@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7411297e0bb57644a9cf2a2d7d233a5, type: 3}
+  m_Name: ItemIcons
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Loot.ItemIcons
+  entries:
+  - Key: sword
+    Sprite: {fileID: -937567645, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: longsword
+    Sprite: {fileID: 2114124967, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: greatsword
+    Sprite: {fileID: -541972277, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: axe
+    Sprite: {fileID: 1117789303, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: mace
+    Sprite: {fileID: 1686911566, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: flail
+    Sprite: {fileID: 1599732479, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: hammer
+    Sprite: {fileID: 654069738, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: dagger
+    Sprite: {fileID: -1408155008, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: spear
+    Sprite: {fileID: 360067881, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: crossbow
+    Sprite: {fileID: -494559549, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: staff
+    Sprite: {fileID: 536273036, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: scythe
+    Sprite: {fileID: 1825838607, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: plate
+    Sprite: {fileID: 1188290310, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: mail
+    Sprite: {fileID: -664578317, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: leather
+    Sprite: {fileID: 490431688, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: robe
+    Sprite: {fileID: -195924803, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: cloak
+    Sprite: {fileID: -1485957880, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: helm
+    Sprite: {fileID: 415280009, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: gauntlet
+    Sprite: {fileID: 123678990, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: boots
+    Sprite: {fileID: -1790329549, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: ring
+    Sprite: {fileID: 1200571190, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: ringGem
+    Sprite: {fileID: -1005973736, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: amulet
+    Sprite: {fileID: -1519875020, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: talisman
+    Sprite: {fileID: 1101781114, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: brooch
+    Sprite: {fileID: 1968058142, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: idol
+    Sprite: {fileID: -2119431259, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: tome
+    Sprite: {fileID: -286629346, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: skull
+    Sprite: {fileID: -1591175509, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: orb
+    Sprite: {fileID: -2001278284, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: lantern
+    Sprite: {fileID: -2096555847, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: hourglass
+    Sprite: {fileID: -1054884148, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: feather
+    Sprite: {fileID: -1685446926, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: bell
+    Sprite: {fileID: 375260036, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: heart
+    Sprite: {fileID: 2145828941, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: crown
+    Sprite: {fileID: 2016347640, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  - Key: candle
+    Sprite: {fileID: 1648213174, guid: c8ab7975f62b1114094ad23d126699de, type: 3}
+  fallback: {fileID: -937567645, guid: c8ab7975f62b1114094ad23d126699de, type: 3}

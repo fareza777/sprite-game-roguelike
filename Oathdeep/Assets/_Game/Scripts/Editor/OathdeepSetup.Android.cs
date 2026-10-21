@@ -18,7 +18,7 @@ namespace Oathdeep.EditorTools
             var android = NamedBuildTarget.Android;
             PlayerSettings.SetScriptingBackend(android, ScriptingImplementation.IL2CPP);
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
-            PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel24;
+            PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel25;
             PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
             PlayerSettings.SetApplicationIdentifier(android, Core.AppLinks.PackageId);
             PlayerSettings.bundleVersion = "0.2.0";

@@ -52,7 +52,7 @@ namespace Oathdeep.EditorTools
                 ("heroes", Heroes.OrderBy(h => h.Key).Select(h => (Object)h.Value).ToArray()), ("floor", floorOne), ("props", cryptProps),
                 ("pickupPrefab", Prefab("Pickup").GetComponent<Pickup>()),
                 ("goldSprite", Spr(PropsPng, "coin0")), ("potionSprite", Spr(PropsPng, "potion")),
-                ("skin", uiSkin), ("audioLibrary", audioLibrary), ("story", storyAssets), ("worldCamera", cam), ("globalLight", global));
+                ("skin", uiSkin), ("itemIcons", itemIcons), ("audioLibrary", audioLibrary), ("story", storyAssets), ("worldCamera", cam), ("globalLight", global));
 
             EditorSceneManager.SaveScene(scene, ScenePath);
             EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };

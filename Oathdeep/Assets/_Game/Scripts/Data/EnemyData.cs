@@ -1,4 +1,3 @@
-using Oathdeep.Loot;
 using UnityEngine;
 
 namespace Oathdeep.Data
@@ -13,7 +12,6 @@ namespace Oathdeep.Data
         [SerializeField] Vector2Int goldDrop = new Vector2Int(1, 4);
         [SerializeField, Range(0f, 1f)] float itemDropChance = 0.08f;
         [SerializeField, Range(0f, 1f)] float potionDropChance = 0.06f;
-        [SerializeField] ItemData[] lootTable;
         [SerializeField] bool isBoss;
 
         public string DisplayName => displayName;
@@ -23,14 +21,13 @@ namespace Oathdeep.Data
         public Vector2Int GoldDrop => goldDrop;
         public float ItemDropChance => itemDropChance;
         public float PotionDropChance => potionDropChance;
-        public ItemData[] LootTable => lootTable;
         public bool IsBoss => isBoss;
 
 #if UNITY_EDITOR
-        public void EditorInit(string name, StatBlock s, float aggro, float range, Vector2Int gold, float itemChance, float potionChance, ItemData[] loot, bool boss)
+        public void EditorInit(string name, StatBlock s, float aggro, float range, Vector2Int gold, float itemChance, float potionChance, bool boss)
         {
             displayName = name; stats = s; aggroRange = aggro; attackRange = range; goldDrop = gold;
-            itemDropChance = itemChance; potionDropChance = potionChance; lootTable = loot; isBoss = boss;
+            itemDropChance = itemChance; potionDropChance = potionChance; isBoss = boss;
         }
 #endif
     }

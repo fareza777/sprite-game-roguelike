@@ -18,6 +18,17 @@ namespace Oathdeep.EditorTools
         const string BrakkaAse = ArtDir + "/Characters/brakka.aseprite";
         const string SableAse = ArtDir + "/Characters/sable.aseprite";
         const string HeroFxPng = ArtDir + "/VFX/hero_fx.png";
+        const string ItemIconsPng = ArtDir + "/UI/item_icons.png";
+
+        /// <summary>Order of the 16x16 cells in item_icons.png (ArtSource/gen/items.py ICONS).</summary>
+        static readonly string[] ItemIconNames =
+        {
+            "sword", "longsword", "greatsword", "axe", "mace", "flail", "hammer", "dagger",
+            "spear", "crossbow", "staff", "scythe", "plate", "mail", "leather", "robe",
+            "cloak", "helm", "gauntlet", "boots", "ring", "ringGem", "amulet", "talisman",
+            "brooch", "idol", "tome", "skull", "orb", "lantern", "hourglass", "feather",
+            "bell", "heart", "crown", "candle",
+        };
         const string SkeletonAse = ArtDir + "/Enemies/skeleton.aseprite";
         const string ArcherAse = ArtDir + "/Enemies/archer.aseprite";
         const string SlimeAse = ArtDir + "/Enemies/slime.aseprite";
@@ -57,13 +68,14 @@ namespace Oathdeep.EditorTools
             Slice(PropsPng, PropCells(), WorldPpu, SpriteMeshType.FullRect);
             Slice(VfxPng, VfxCells(), WorldPpu, SpriteMeshType.FullRect);
             Slice(HeroFxPng, HeroFxCells(), WorldPpu, SpriteMeshType.FullRect);
+            Slice(ItemIconsPng, ItemIconNames.Select((n, i) => G(n, i % 8, i / 8, Centre)).ToList(), WorldPpu, SpriteMeshType.FullRect);
             Slice(UiPng, UiCells(), UiPpu, SpriteMeshType.FullRect);
             WriteWhiteSprite();
             Slice(MenuIconsPng, MenuIconNames.Select((n, i) => G(n, i, 0, Centre)).ToList(), UiPpu, SpriteMeshType.FullRect);
             SingleSprite(LogoPng, UiPpu);
             SingleSprite(MenuBgPng, UiPpu);
             SpriteCache.Clear();
-            log.Add("art: 9 aseprite importers, 5 sliced sheets");
+            log.Add("art: 9 aseprite importers, 6 sliced sheets");
         }
 
         static void ConfigureAseprite(string path, Vector2 pivot)

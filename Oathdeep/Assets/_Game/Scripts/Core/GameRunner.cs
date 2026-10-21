@@ -27,6 +27,7 @@ namespace Oathdeep.Core
         [SerializeField] Sprite goldSprite;
         [SerializeField] Sprite potionSprite;
         [SerializeField] UISkin skin;
+        [SerializeField] ItemIcons itemIcons;
         [SerializeField] AudioLibrary audioLibrary;
         [SerializeField] StoryAssets story;
         [SerializeField] int finalFloor = 10;
@@ -47,6 +48,7 @@ namespace Oathdeep.Core
         {
             Application.targetFrameRate = 60;
             AudioManager.Create(audioLibrary);
+            ItemIcons.Use(itemIcons);
             frontEnd = new GameObject("FrontEnd").AddComponent<FrontEnd>();
             frontEnd.Build(skin, new FrontEnd.Hooks
             {
@@ -54,6 +56,7 @@ namespace Oathdeep.Core
                 ResumeRun = Resume,
                 AbandonRun = ToMenu,
                 ControlsChanged = () => { if (hud != null) hud.RebuildControls(); },
+                OpenInventory = OpenInventory,
                 ReplayIntro = () => PlayPrologue(ShowMenuAfterCinematic),
             }, story, heroes);
             if (worldCamera != null && worldCamera.GetComponent<CameraRig>() == null) worldCamera.gameObject.AddComponent<CameraRig>();
@@ -89,6 +92,7 @@ namespace Oathdeep.Core
             LootDropper.Configure(pickupPrefab, goldSprite, potionSprite);
 
             int seed = System.Environment.TickCount;
+            LootDropper.BeginFloor(floor.FloorNumber, seed);
             stats = new RunStats();
             SaveSystem.Current.runs++;
 
@@ -112,7 +116,7 @@ namespace Oathdeep.Core
             var hudRoot = UIFactory.Stretch("HUD", frontEnd.SafeArea);
             hudRoot.SetAsFirstSibling();   // below menus/pages so they draw on top
             hud = hudRoot.gameObject.AddComponent<HudView>();
-            hud.Build(skin, hudRoot, player, Pause, hero.SkillIcon);
+            hud.Build(skin, hudRoot, player, Pause, OpenInventory, hero.SkillIcon);
             hud.SetFloor(floor.FloorNumber, floor.Biome != null ? floor.Biome.DisplayName : "The Deep");
             hud.Minimap.Show(dungeon.Geometry.Rooms);
             GameEvents.RoomEntered += hud.Minimap.Enter;
@@ -126,6 +130,7 @@ namespace Oathdeep.Core
             stats.Begin();
             GameEvents.PlayerDied += () => StartCoroutine(EndAfter(1.6f, false));
             GameEvents.BossDefeated += () => GameEvents.RaiseToast("The way down is open.");
+            GameEvents.ItemFound += _ => AudioManager.Play(Sfx.UiConfirm);
             ExitPortal.Reached += () => StartCoroutine(EndAfter(0.4f, true));
 
             phase = Phase.Playing;
@@ -222,6 +227,21 @@ namespace Oathdeep.Core
             phase = Phase.Paused;
             Time.timeScale = 0f;
             frontEnd.ShowPause();
+        }
+
+        /// <summary>From play (HUD bag) the game pauses under the page and resumes on close; from the pause menu it returns there.</summary>
+        void OpenInventory()
+        {
+            if (player == null) return;
+            var inventory = player.GetComponent<PlayerInventory>();
+            if (phase == Phase.Playing)
+            {
+                phase = Phase.Paused;
+                Time.timeScale = 0f;
+                frontEnd.ShowInventory(inventory, Resume);
+            }
+            else if (phase == Phase.Paused)
+                frontEnd.ShowInventory(inventory, null);
         }
 
         public void Resume()

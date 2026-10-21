@@ -25,8 +25,4 @@ MonoBehaviour:
   goldDrop: {x: 1, y: 4}
   itemDropChance: 0.06
   potionDropChance: 0.06
-  lootTable:
-  - {fileID: 11400000, guid: 744fa3f4530b501468ba2b1d97b8187f, type: 2}
-  - {fileID: 11400000, guid: f31aa86c5d072fa4790833b205b22997, type: 2}
-  - {fileID: 11400000, guid: 1ceeb43365aeb13479f5c2e3f13f8af2, type: 2}
   isBoss: 0

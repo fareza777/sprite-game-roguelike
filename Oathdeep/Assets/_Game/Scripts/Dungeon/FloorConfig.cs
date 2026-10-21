@@ -1,6 +1,5 @@
 using System;
 using Oathdeep.Enemies;
-using Oathdeep.Loot;
 using UnityEngine;
 
 namespace Oathdeep.Dungeon
@@ -25,7 +24,6 @@ namespace Oathdeep.Dungeon
         [SerializeField, Range(0f, 1f)] float eliteChance = 0.12f;
         [SerializeField] float statScale = 1f;
         [SerializeField] EnemyBase boss;
-        [SerializeField] ItemData[] treasureLoot;
 
         public int FloorNumber => floorNumber;
         public BiomeTiles Biome => biome;
@@ -35,7 +33,6 @@ namespace Oathdeep.Dungeon
         public float StatScale => statScale;
         public float EliteChance => eliteChance;
         public EnemyBase Boss => boss;
-        public ItemData[] TreasureLoot => treasureLoot;
 
         public EnemyBase PickEnemy(System.Random rng)
         {
@@ -52,9 +49,9 @@ namespace Oathdeep.Dungeon
         }
 
 #if UNITY_EDITOR
-        public void EditorInit(BiomeTiles b, WeightedEnemy[] pool, EnemyBase bossPrefab, ItemData[] loot)
+        public void EditorInit(BiomeTiles b, WeightedEnemy[] pool, EnemyBase bossPrefab)
         {
-            biome = b; enemies = pool; boss = bossPrefab; treasureLoot = loot;
+            biome = b; enemies = pool; boss = bossPrefab;
         }
 #endif
     }

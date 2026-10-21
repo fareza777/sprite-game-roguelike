@@ -18,12 +18,13 @@ namespace Oathdeep.Loot
 
         PickupKind kind;
         int amount;
-        ItemData item;
+        ItemInstance item;
         Vector2 popVelocity;
         float armedAt;
         Transform player;
+        static float nextFullWarning;
 
-        public void Setup(PickupKind k, int value, ItemData data, Sprite icon)
+        public void Setup(PickupKind k, int value, ItemInstance data, Sprite icon)
         {
             kind = k;
             amount = value;
@@ -32,7 +33,7 @@ namespace Oathdeep.Loot
             if (glow != null)
             {
                 glow.enabled = k == PickupKind.Item;
-                if (data != null) glow.color = RarityColors.Of(data.Rarity) * new Color(1, 1, 1, 0.6f);
+                if (data != null) glow.color = RarityInfo.ColorOf(data.Rarity) * new Color(1, 1, 1, 0.6f);
             }
             popVelocity = Random.insideUnitCircle.normalized * Random.Range(1.5f, 3f);
             armedAt = Time.time + (k == PickupKind.Item ? 0.6f : 0.35f);
@@ -80,9 +81,15 @@ namespace Oathdeep.Loot
                     GameEvents.RaiseToast($"+{amount} HP");
                     break;
                 case PickupKind.Item:
-                    var replaced = inv.Equip(item);
-                    GameEvents.RaiseToast($"Equipped {item.DisplayName}");
-                    if (replaced != null) LootDropper.SpawnItem(replaced, transform.position + Vector3.down * 0.6f);
+                    string name = $"<color={RarityInfo.Hex(item.Rarity)}>{item.Name}</color>";
+                    switch (inv.Take(item))
+                    {
+                        case PlayerInventory.TakeResult.Equipped: GameEvents.RaiseToast($"Equipped {name}"); break;
+                        case PlayerInventory.TakeResult.Bagged: GameEvents.RaiseToast($"{name} - in your bag"); break;
+                        default:
+                            if (Time.time >= nextFullWarning) { GameEvents.RaiseToast("Bag full - salvage something"); nextFullWarning = Time.time + 3f; }
+                            return;   // stays on the floor
+                    }
                     break;
             }
             Haptics.Pulse(10);

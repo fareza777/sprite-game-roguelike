@@ -24,6 +24,7 @@ namespace Oathdeep.UI
             public Action ControlsChanged;
             public Action ReplayIntro;        // null until the prologue exists
             public Action OpenCodex, OpenQuests;   // null hides the menu button
+            public Action OpenInventory;
         }
 
         public const string Version = "UNDERSUN  v0.2.0";
@@ -34,6 +35,9 @@ namespace Oathdeep.UI
         MainMenuView menu;
         PageView settingsPage, aboutPage;
         HeroesPage heroesPage;
+        ItemCompendiumPage itemsPage;
+        InventoryPage inventoryPage;
+        Action inventoryClosed;
         ScreenView pauseScreen, fallenScreen, victoryScreen;
 
         public RectTransform CanvasRoot { get; private set; }
@@ -51,6 +55,7 @@ namespace Oathdeep.UI
             {
                 Descend = hooks.StartRun,
                 Heroes = heroes != null && heroes.Count > 0 ? () => heroesPage.Show() : (Action)null,
+                Items = () => itemsPage.Show(),
                 Codex = hooks.OpenCodex,
                 Quests = hooks.OpenQuests,
                 Settings = () => OpenSettings(),
@@ -61,6 +66,8 @@ namespace Oathdeep.UI
             aboutPage = PageView.Create("About", SafeArea, skin, "ABOUT", null);
             FrontEndPages.BuildAbout(aboutPage, Version);
             if (heroes != null && heroes.Count > 0) heroesPage = HeroesPage.Create(SafeArea, skin, heroes);
+            itemsPage = ItemCompendiumPage.Create(SafeArea, skin);
+            inventoryPage = InventoryPage.Create(SafeArea, skin, () => inventoryClosed?.Invoke());
             Confirm = ConfirmDialog.Create(SafeArea, skin);
             BuildRunScreens();
             Cinematic = CinematicView.Create(SafeArea, skin, story);
@@ -81,6 +88,13 @@ namespace Oathdeep.UI
         public void HideMenu() => menu.Hide();
 
         public void ShowPause() => pauseScreen.Show();
+
+        /// <summary>Opens the equipment page for this run; <paramref name="onClosed"/> runs when the player backs out.</summary>
+        public void ShowInventory(Player.PlayerInventory inventory, Action onClosed)
+        {
+            inventoryClosed = onClosed;
+            inventoryPage.Show(inventory);
+        }
         public void HidePause() => pauseScreen.Hide();
 
         public void ShowEnd(bool victory, string summary)
@@ -92,6 +106,8 @@ namespace Oathdeep.UI
 
         public void HideRunScreens()
         {
+            inventoryClosed = null;
+            inventoryPage.Hide();
             pauseScreen.Hide();
             fallenScreen.Hide();
             victoryScreen.Hide();
@@ -136,6 +152,7 @@ namespace Oathdeep.UI
                 new (string, Action)[]
                 {
                     ("RESUME", hooks.ResumeRun),
+                    ("INVENTORY", () => hooks.OpenInventory?.Invoke()),
                     ("SETTINGS", () => OpenSettings()),
                     ("ABANDON RUN", () => Confirm.Ask("Abandon this descent?\nYour run will end.", hooks.AbandonRun)),
                 });

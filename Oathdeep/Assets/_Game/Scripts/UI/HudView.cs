@@ -28,7 +28,7 @@ namespace Oathdeep.UI
 
         public MinimapView Minimap { get; private set; }
 
-        public void Build(UISkin uiSkin, RectTransform safeArea, PlayerController player, System.Action onPause, Sprite heroSkillIcon = null)
+        public void Build(UISkin uiSkin, RectTransform safeArea, PlayerController player, System.Action onPause, System.Action onBag, Sprite heroSkillIcon = null)
         {
             skin = uiSkin;
             skillIcon = heroSkillIcon != null ? heroSkillIcon : skin.iconSkill;
@@ -63,6 +63,10 @@ namespace Oathdeep.UI
             var mapRect = UIFactory.Rect("Minimap", safeArea, Vector2.one, Vector2.one, Vector2.one, new Vector2(-8, -44), new Vector2(84, 84));
             Minimap = mapRect.gameObject.AddComponent<MinimapView>();
             Minimap.Build(skin);
+
+            // --- Bag under the minimap ---
+            var bag = UIFactory.Rect("Bag", safeArea, Vector2.one, Vector2.one, Vector2.one, new Vector2(-8, -134), new Vector2(34, 34));
+            UIWidgets.IconButton(bag, skin, skin.iconBag, () => onBag?.Invoke());
 
             // --- Boss bar (hidden until a boss appears) ---
             bossRoot = UIFactory.Rect("Boss", safeArea, new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -136), new Vector2(260, 30));

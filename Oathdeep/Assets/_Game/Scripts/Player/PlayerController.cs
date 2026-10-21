@@ -46,7 +46,7 @@ namespace Oathdeep.Player
         public bool IsDead => state == State.Dead;
         /// <summary>Raised when an attack, dodge or skill actually starts (used by onboarding and quests).</summary>
         public event System.Action<PlayerAction> Performed;
-        public float SkillCooldownFraction => skillCooldown <= 0f ? 0f : Mathf.Clamp01((skillReadyAt - Time.time) / skillCooldown);
+        public float SkillCooldownFraction => activeSkillCooldown <= 0f ? 0f : Mathf.Clamp01((skillReadyAt - Time.time) / activeSkillCooldown);
         public float DodgeCooldownFraction => dodgeCooldown <= 0f ? 0f : Mathf.Clamp01((dodgeReadyAt - Time.time) / dodgeCooldown);
 
         void Awake()

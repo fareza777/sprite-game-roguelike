@@ -21,7 +21,6 @@ namespace Oathdeep.EditorTools
         const string FontTtf = Root + "/Fonts/OathdeepPixel.ttf";
         const string FontAssetPath = Root + "/Fonts/OathdeepPixel.asset";
 
-        static readonly Dictionary<string, ItemData> Items = new Dictionary<string, ItemData>();
         static readonly Dictionary<string, EnemyData> Enemies = new Dictionary<string, EnemyData>();
         static BiomeTiles cryptBiome;
         static readonly Dictionary<HeroId, HeroData> Heroes = new Dictionary<HeroId, HeroData>();
@@ -30,11 +29,27 @@ namespace Oathdeep.EditorTools
         static void BuildContent(List<string> log)
         {
             cryptBiome = BuildBiome();
-            BuildItems();
             BuildEnemyData();
             BuildHeroes();
+            itemIcons = BuildItemIcons();
             uiSkin = BuildSkin(BuildFont());
-            log.Add($"content: biome, {Items.Count} items, {Enemies.Count} enemies, {Heroes.Count} heroes, font, UI skin");
+            log.Add($"content: biome, {Enemies.Count} enemies, {Heroes.Count} heroes, {ItemCatalog.Count} item identities, font, UI skin");
+        }
+
+        // ---------------- items ----------------
+
+        static ItemIcons itemIcons;
+
+        /// <summary>Icon lookup for the procedural item catalog. Fails loudly if the catalog names an icon we never drew.</summary>
+        static ItemIcons BuildItemIcons()
+        {
+            var missing = ItemCatalog.IconKeys.Where(k => !ItemIconNames.Contains(k)).ToList();
+            if (missing.Count > 0) throw new System.InvalidOperationException("Item icons not drawn: " + string.Join(", ", missing));
+            var asset = LoadOrCreate<ItemIcons>(DataDir + "/ItemIcons.asset");
+            asset.EditorInit(ItemIconNames.Select(n => new ItemIcons.Entry { Key = n, Sprite = Spr(ItemIconsPng, n) }).ToArray(),
+                             Spr(ItemIconsPng, "sword"));
+            EditorUtility.SetDirty(asset);
+            return asset;
         }
 
         // ---------------- heroes ----------------
@@ -124,50 +139,22 @@ namespace Oathdeep.EditorTools
             return biome;
         }
 
-        // ---------------- items ----------------
-
-        static void BuildItems()
-        {
-            Item("rusted_blade", "Rusted Blade", "Notched, but it remembers its oath.", "iconSword", Rarity.Common, EquipSlot.Weapon, new StatBlock(0, 4, 0, 0f, 0f, 0f));
-            Item("oathsworn_greatsword", "Oathsworn Greatsword", "Heavy enough to split a crypt door.", "iconGreatsword", Rarity.Rare, EquipSlot.Weapon, new StatBlock(0, 9, 0, 0.05f, 0.25f, -0.2f));
-            Item("crypt_plate", "Crypt Plate", "Cold iron, still warm from its last owner.", "iconArmor", Rarity.Uncommon, EquipSlot.Armor, new StatBlock(25, 0, 4, 0f, 0f, -0.1f));
-            Item("pilgrim_tabard", "Pilgrim's Tabard", "Light cloth for long descents.", "iconTabard", Rarity.Common, EquipSlot.Armor, new StatBlock(15, 0, 2, 0f, 0f, 0.2f));
-            Item("helm_of_vigil", "Helm of the Vigil", "Its wearer never sleeps below ground.", "iconHelm", Rarity.Uncommon, EquipSlot.Armor, new StatBlock(20, 0, 3, 0f, 0f, 0f));
-            Item("ember_ring", "Ember Ring", "A spark that never went out.", "iconRing", Rarity.Rare, EquipSlot.Accessory, new StatBlock(0, 3, 0, 0.08f, 0.3f, 0f));
-            Item("warden_amulet", "Warden's Amulet", "Taken from the Bone Warden's throat.", "iconAmulet", Rarity.Epic, EquipSlot.Accessory, new StatBlock(30, 4, 2, 0.05f, 0f, 0f));
-        }
-
-        static void Item(string id, string name, string desc, string icon, Rarity rarity, EquipSlot slot, StatBlock bonus)
-        {
-            var item = LoadOrCreate<ItemData>($"{DataDir}/Items/Item_{id}.asset");
-            item.EditorInit(id, name, desc, Spr(PropsPng, icon), rarity, slot, bonus);
-            EditorUtility.SetDirty(item);
-            Items[id] = item;
-        }
-
-        static ItemData[] ItemsOf(params string[] ids) => ids.Select(i => Items[i]).ToArray();
-
         // ---------------- enemy data ----------------
 
         static void BuildEnemyData()
         {
-            Enemy("skeleton", "Skeleton", new StatBlock(34, 7, 2, 0.03f, 1.5f, 2.4f), 8f, 1.3f, new Vector2Int(1, 4), 0.06f, 0.06f,
-                  ItemsOf("rusted_blade", "pilgrim_tabard", "helm_of_vigil"), false);
-            Enemy("archer", "Skeleton Archer", new StatBlock(24, 6, 0, 0.05f, 1.5f, 2.3f), 10f, 6f, new Vector2Int(2, 5), 0.06f, 0.05f,
-                  ItemsOf("ember_ring", "pilgrim_tabard"), false);
-            Enemy("slime", "Bog Slime", new StatBlock(30, 6, 0, 0f, 1.5f, 2f), 7f, 1.6f, new Vector2Int(1, 3), 0.03f, 0.08f,
-                  ItemsOf("crypt_plate"), false);
-            Enemy("slimeling", "Slimeling", new StatBlock(10, 4, 0, 0f, 1.5f, 2.6f), 7f, 1.2f, new Vector2Int(0, 1), 0f, 0.02f,
-                  new ItemData[0], false);
-            Enemy("bone_warden", "The Bone Warden", new StatBlock(520, 15, 8, 0.05f, 1.6f, 2.1f), 22f, 2.4f, new Vector2Int(40, 60), 1f, 1f,
-                  ItemsOf("oathsworn_greatsword", "warden_amulet"), true);
+            Enemy("skeleton", "Skeleton", new StatBlock(34, 7, 2, 0.03f, 1.5f, 2.4f), 8f, 1.3f, new Vector2Int(1, 4), 0.06f, 0.06f, false);
+            Enemy("archer", "Skeleton Archer", new StatBlock(24, 6, 0, 0.05f, 1.5f, 2.3f), 10f, 6f, new Vector2Int(2, 5), 0.06f, 0.05f, false);
+            Enemy("slime", "Bog Slime", new StatBlock(30, 6, 0, 0f, 1.5f, 2f), 7f, 1.6f, new Vector2Int(1, 3), 0.03f, 0.08f, false);
+            Enemy("slimeling", "Slimeling", new StatBlock(10, 4, 0, 0f, 1.5f, 2.6f), 7f, 1.2f, new Vector2Int(0, 1), 0f, 0.02f, false);
+            Enemy("bone_warden", "The Bone Warden", new StatBlock(520, 15, 8, 0.05f, 1.6f, 2.1f), 22f, 2.4f, new Vector2Int(40, 60), 1f, 1f, true);
         }
 
         static void Enemy(string id, string name, StatBlock stats, float aggro, float range, Vector2Int gold, float itemChance,
-                          float potionChance, ItemData[] loot, bool boss)
+                          float potionChance, bool boss)
         {
             var data = LoadOrCreate<EnemyData>($"{DataDir}/Enemies/Enemy_{id}.asset");
-            data.EditorInit(name, stats, aggro, range, gold, itemChance, potionChance, loot, boss);
+            data.EditorInit(name, stats, aggro, range, gold, itemChance, potionChance, boss);
             EditorUtility.SetDirty(data);
             Enemies[id] = data;
         }
@@ -263,7 +250,7 @@ namespace Oathdeep.EditorTools
                 new WeightedEnemy { Prefab = Prefab("Enemies/Skeleton").GetComponent<EnemyBase>(), Weight = 5f },
                 new WeightedEnemy { Prefab = Prefab("Enemies/Archer").GetComponent<EnemyBase>(), Weight = 3f },
                 new WeightedEnemy { Prefab = Prefab("Enemies/Slime").GetComponent<EnemyBase>(), Weight = 3f },
-            }, Prefab("Enemies/BoneWarden").GetComponent<EnemyBase>(), ItemsOf("crypt_plate", "ember_ring", "helm_of_vigil", "pilgrim_tabard"));
+            }, Prefab("Enemies/BoneWarden").GetComponent<EnemyBase>());
             EditorUtility.SetDirty(floorOne);
             log.Add("content: prop set + floor 1 wired");
         }

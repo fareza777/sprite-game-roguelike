@@ -231,9 +231,7 @@ namespace Oathdeep.Dungeon
 
         void SpawnTreasure()
         {
-            var loot = config.TreasureLoot;
-            if (loot == null || loot.Length == 0) return;
-            var item = loot[rng.Next(loot.Length)];
+            var item = ItemGenerator.Roll(rng, config.FloorNumber, 1.2f);
             LootDropper.SpawnItem(item, (Vector2)room.Interior.center);
             GameEvents.RaiseToast("A relic glints in the dark...");
         }

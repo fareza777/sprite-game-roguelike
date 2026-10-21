@@ -14,7 +14,7 @@ namespace Oathdeep.UI
     {
         public sealed class Actions
         {
-            public Action Descend, Heroes, Codex, Quests, Settings, About, Share, Rate;
+            public Action Descend, Heroes, Items, Codex, Quests, Settings, About, Share, Rate;
         }
 
         const int EmberCount = 22;
@@ -57,6 +57,7 @@ namespace Oathdeep.UI
 
             var middle = new List<(Sprite, string, Action)>();
             if (actions.Heroes != null) middle.Add((skin.iconHeroes, "HEROES", actions.Heroes));
+            if (actions.Items != null) middle.Add((skin.iconBag, "ITEMS", actions.Items));
             if (actions.Codex != null) middle.Add((skin.iconCodex, "CODEX", actions.Codex));
             if (actions.Quests != null) middle.Add((skin.iconQuest, "QUESTS", actions.Quests));
             Row(root, skin, middle, -118, new Vector2(70, 62));

@@ -20,6 +20,7 @@ namespace Oathdeep.Player
         [SerializeField] GameObject shadowVfx;
 
         bool skillLanded;
+        float activeSkillCooldown = 5f;
         Vector2 stepTarget;
 
         Projectile ShotPrefab(ShotKind kind)
@@ -36,7 +37,9 @@ namespace Oathdeep.Player
         {
             AutoAim();
             dashDir = aim;
-            skillReadyAt = Time.time + skillCooldown;
+            var inventory = GetComponent<PlayerInventory>();
+            activeSkillCooldown = skillCooldown * (inventory != null ? inventory.SkillCooldownScale : 1f);
+            skillReadyAt = Time.time + activeSkillCooldown;
             skillLanded = false;
             hitThisSwing.Clear();
             health.PushInvulnerable();

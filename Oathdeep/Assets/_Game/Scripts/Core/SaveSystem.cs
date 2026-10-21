@@ -44,6 +44,15 @@ namespace Oathdeep.Core
         public int deaths;
         public int totalKills;
         public string lastHero = "aldric";
+        public List<string> items = new List<string>();   // item identities ever found (compendium)
+
+        /// <summary>Returns true only the first time an item identity is found.</summary>
+        public bool DiscoverItem(string id)
+        {
+            if (string.IsNullOrEmpty(id) || items.Contains(id)) return false;
+            items.Add(id);
+            return true;
+        }
 
         /// <summary>Returns true only the first time an entry is unlocked (used to celebrate new codex pages).</summary>
         public bool UnlockCodex(string id)
@@ -69,6 +78,7 @@ namespace Oathdeep.Core
             settings ??= new SettingsData();
             codex ??= new List<string>();
             quests ??= new List<QuestProgress>();
+            items ??= new List<string>();
             if (string.IsNullOrEmpty(lastHero)) lastHero = "aldric";
             return this;
         }

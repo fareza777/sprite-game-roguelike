@@ -166,9 +166,8 @@ namespace Oathdeep.Dungeon
             var cell = new Vector2Int(rng.NextDouble() < 0.5 ? r.xMin + 1 : r.xMax - 2, r.yMax - 2);
             var go = Place(props.chest.gameObject, cell, occupied);
             if (go == null) return;
-            var loot = config.TreasureLoot;
-            var item = loot != null && loot.Length > 0 && rng.NextDouble() < 0.25 ? loot[rng.Next(loot.Length)] : null;
-            go.GetComponent<Chest>().Setup(item, new Vector2Int(5, 12));
+            var item = rng.NextDouble() < 0.4 ? Loot.ItemGenerator.Roll(rng, config.FloorNumber, 0.5f) : null;
+            go.GetComponent<Chest>().Setup(item, new Vector2Int(5, 12) * Mathf.Max(1, config.FloorNumber / 2 + 1));
         }
 
         void SpikeField(RoomGeometry room, HashSet<Vector2Int> occupied)

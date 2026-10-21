@@ -17,10 +17,10 @@ namespace Oathdeep.Dungeon
         [SerializeField] Vector2Int goldRange = new Vector2Int(8, 16);
         [SerializeField, Range(0f, 1f)] float potionChance = 0.5f;
 
-        ItemData relic;
+        ItemInstance relic;
         bool opened;
 
-        public void Setup(ItemData item, Vector2Int gold)
+        public void Setup(ItemInstance item, Vector2Int gold)
         {
             relic = item;
             goldRange = gold;
@@ -47,7 +47,7 @@ namespace Oathdeep.Dungeon
             if (relic != null)
             {
                 LootDropper.SpawnItem(relic, transform.position + Vector3.down * 0.6f);
-                GameEvents.RaiseToast($"{relic.DisplayName}!");
+                GameEvents.RaiseToast($"<color={RarityInfo.Hex(relic.Rarity)}>{relic.Name}</color>!");
             }
         }
     }

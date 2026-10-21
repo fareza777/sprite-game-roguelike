@@ -27,8 +27,3 @@ MonoBehaviour:
   eliteChance: 0.12
   statScale: 1
   boss: {fileID: 4516969859121606569, guid: 5b0be5a7bfe6dd9418eb006f3536c850, type: 3}
-  treasureLoot:
-  - {fileID: 11400000, guid: a2a0216ed59729f4c90d4c1897d98e45, type: 2}
-  - {fileID: 11400000, guid: 9a071d6d2bbe3eb488fb1fba3c2b582d, type: 2}
-  - {fileID: 11400000, guid: 1ceeb43365aeb13479f5c2e3f13f8af2, type: 2}
-  - {fileID: 11400000, guid: f31aa86c5d072fa4790833b205b22997, type: 2}

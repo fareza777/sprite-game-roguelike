@@ -11,7 +11,8 @@ namespace Oathdeep.Core
         public static event Action<DamageInfo, Vector3> DamageDealt;
         public static event Action<Vector3, bool> EnemyKilled;          // position, wasBoss
         public static event Action<int> GoldChanged;                     // new total
-        public static event Action<ItemData> ItemEquipped;
+        public static event Action<ItemInstance> ItemEquipped;
+        public static event Action<ItemInstance> ItemFound;
         public static event Action<string> Toast;
         public static event Action RoomCleared;
         public static event Action PlayerDied;
@@ -23,7 +24,8 @@ namespace Oathdeep.Core
         public static void RaiseDamageDealt(DamageInfo info, Vector3 at) => DamageDealt?.Invoke(info, at);
         public static void RaiseEnemyKilled(Vector3 at, bool boss) => EnemyKilled?.Invoke(at, boss);
         public static void RaiseGoldChanged(int total) => GoldChanged?.Invoke(total);
-        public static void RaiseItemEquipped(ItemData item) => ItemEquipped?.Invoke(item);
+        public static void RaiseItemEquipped(ItemInstance item) => ItemEquipped?.Invoke(item);
+        public static void RaiseItemFound(ItemInstance item) => ItemFound?.Invoke(item);
         public static void RaiseToast(string message) => Toast?.Invoke(message);
         public static void RaiseRoomCleared() => RoomCleared?.Invoke();
         public static void RaisePlayerDied() => PlayerDied?.Invoke();
@@ -34,7 +36,7 @@ namespace Oathdeep.Core
 
         public static void ClearAll()
         {
-            DamageDealt = null; EnemyKilled = null; GoldChanged = null; ItemEquipped = null; Toast = null;
+            DamageDealt = null; EnemyKilled = null; GoldChanged = null; ItemEquipped = null; ItemFound = null; Toast = null;
             RoomCleared = null; PlayerDied = null; BossDefeated = null; BossHealthChanged = null; BossEncountered = null; RoomEntered = null;
         }
     }
