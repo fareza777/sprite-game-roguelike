@@ -1,113 +1,76 @@
-# OATHDEEP — Progress / Handoff
+# UNDERSUN: Progress and Handoff
 
-## Toolchain (done 2026-10-20)
-- Unity 6000.3.20f1 project: `D:\Isprite Game Pixel\Oathdeep` (URP 2D, Android, `com.unity.2d.aseprite` importer).
-- Unity MCP (IvanMurzak 0.93.4) on http://127.0.0.1:8080. Native MCP tools did not load in this Claude session,
-  so `tools/unity-mcp.mjs` calls the same server over HTTP: `node tools/unity-mcp.mjs <tool> '<json>'`
-  (`--list`, `--schema <tool>`). Useful: assets-refresh, tests-run (save scene first: scene-save), console-get-logs,
-  script-execute, screenshot-*, gameobject-*, scene-*.
-- Aseprite 1.3.18.6 built from source → `D:\Tools\aseprite\aseprite.exe`; aseprite-ai-artist MCP plugin works (live mode).
-- Art sources: `ArtSource/*.aseprite` + generator scripts `ArtSource/gen/*.py` (grid authoring, validated widths).
+UNDERSUN (formerly the OATHDEEP vertical slice) is a portrait, one-handed pixel-art action roguelike for Android, built
+in Unity 6. Design doc: `docs/design/2026-10-21-undersun-full-game-design.md`.
 
-## User direction
-- Must use Aseprite MCP for art and Unity MCP for engine work.
-- A floor must be MASSIVE (many rooms, varied sizes), detailed, many enemies, chests, etc. Level design/detail "maksimal keren".
+## Status (2026-10-21): full game, milestones M1-M9 done
+| Milestone | Content |
+|---|---|
+| M1 | Brand, app icon, splash, main menu (settings / about / share / rate), joystick + controls fix |
+| M2 | Original story, narrated prologue and ending cinematics with offline VO, per-floor narration |
+| M3 | Five heroes (Aldric, Wren, Morrow, Brakka, Sable) with their own stats, combos and skills; Heroes page |
+| M4 | 104 item identities (64 bases + 40 legendaries), 24 affixes, 5 rarities, procedural stats; equipment + compendium |
+| M5 | Ten biomes, a ten-floor descent, bigger rooms (16-20 per floor), merchant / shrine / pilgrim / rest / events / elites |
+| M6 | Forty creatures (30 regulars, 10 Chorister bosses), new AIs, data-driven pattern bosses, Codex |
+| M7 | Main story chapters, 12 side quests, permanent meta rewards, Quests page |
+| M8 | Nine biome themes + two boss themes, 34 SFX |
+| M9 | Ten-floor smoke test, Android APK, README, push to GitHub |
 
-## Art done
-- `Assets/_Game/Art/Characters/knight.aseprite` 48×48, 36 frames, tags: idle, run, attack1-3, dodge, bash, hurt, death
-  (layers: fx-back, shadow, legs, shield, torso, head, sword, arm, fx). Palette Apollo. Critic: 6/10, no blockers left.
-- `Assets/_Game/Art/Tiles/crypt_tiles.png` (src ArtSource/crypt_tiles.aseprite), 16px grid 8×6:
-  row0 floors F0-F3 common, F4 moss, F5 broken, F6 drain, F7 rune (rare); row1 wall faces W0-W3;
-  rows2-3 wall caps by mask (N=1,E=2,S=4,W=8; index = mask, col = mask%8, row = 2+mask/8);
-  row4: shadowTop(0) shadowLeft(1) shadowCorner(2) decal bones(3) skull(4) crack(5) blood(6) moss(7);
-  row5: puddle(0) rubble(1) cobwebTL(2) cobwebTR(3) scratches(4).
-- `Assets/_Game/Art/Props/crypt_props.png` (src ArtSource/crypt_props.aseprite), 16px grid 16×6:
-  row0: torch f0-3 (0-3), brazier f0-3 (4-7), candles f0-2 (8-10), banner 11, chains 12, skull niche 13, pot 14, barrel 15
-  row1: crate 0, shards fx f0-2 (1-3), chest closed 4, open 5, spikes hidden 6 warn 7 up 8, portcullis 9,
-        spawn marker f0-3 (10-13), potion 14, coin f0 15
-  row2: coin f1-3 (0-2), icons sword 3, greatsword 4, armor 5, tabard 6, ring 7, amulet 8, helm 9,
-        hit spark f0-2 (10-12), dust f0-2 (13-15)
-  rows3-4: statue 16×32 at (0,3); big chest closed 32×16 at px (16,48), open at (48,48);
-        exit portal 4 frames 32×32 at px x=80,112,144,176 y=48; arrow (13,3); bone shard (14,3);
-        elite aura f0 (15,3), f1 (13,4)
-  row5: death poof f0-3 (0-3)
+## Toolchain
+- Unity 6000.3.20f1 project at `Oathdeep/` (URP 2D, Android, IL2CPP ARM64, min SDK 25, package `com.fareza777.undersun`).
+- Unity MCP (IvanMurzak) over HTTP: `node tools/unity-mcp.mjs <tool> '<json>'`; run C# in the editor with
+  `node tools/run-cs.mjs file.cs` (`class Script { public static string Main() }`).
+  - The editor only ticks while an MCP call is in flight when it is unfocused. Pump it with `tools/playtest/editorstate.cs`.
+  - Long jobs are queued on an idle editor tick instead of run inside a call (calls retry on timeout).
+- Aseprite 1.3.18 + aseprite MCP (live mode). Every sprite sheet passes through Aseprite (palette lock to Apollo,
+  validate, save the `.aseprite` source in `ArtSource/`, export the PNG into `Assets`).
+- Python generators (stdlib only, no PIL) in `ArtSource/gen/`, audio synthesis in `tools/audio/` (numpy/scipy, offline).
 
-## Code (compiles clean; 1562 EditMode tests pass)
-Core (GameRunner flow, GameEvents, Pool, HitStop, CameraRig, AnimDriver, Haptics, GameSettings, RunStats, FlickerLight),
-Combat, Player (Knight), Enemies (Skeleton/Archer/Slime/BoneWarden + elites), Loot, Dungeon (layout generator,
-geometry with room archetypes Chamber/Hall/GreatHall/Gallery/Nave/Vault/Arena, 14 rooms, pillars, autotile walls,
-contact shadows, decorator: torches/banners/decals/breakables/statues/braziers/chests/spike traps, RoomController
-waves+elites+boss, Door, Chest, Breakable, SpikeTrap, ExitPortal), UI (HUD, minimap, joystick, action buttons,
-damage numbers, screens, safe area).
+## Rebuilding everything
+1. Art: `python ArtSource/gen/<generator>.py`, then open, validate, save and export through the Aseprite MCP.
+   - Heroes: `heroes.py`.
+   - Creatures: `bestiary.py <id>` (`--list` for all).
+   - Biome tiles: `biomes.py`.
+   - Items, NPCs, FX: `items.py`, `npcs.py`, `hero_fx.py`, `enemy_fx.py`.
+2. Audio:
+   - `python tools/audio/sfx.py Oathdeep/Assets/_Game/Audio/SFX`
+   - `python tools/audio/music.py Oathdeep/Assets/_Game/Audio/Music`
+   - `python tools/audio/biome_music.py Oathdeep/Assets/_Game/Audio/Music`
+   - VO: `tools/audio/vo.py`.
+3. Unity: `bash tools/setup-wait.sh` queues **Oathdeep > Build Everything**. It runs these stages in order: importers and
+   slicing, content data, audio library and story, about 97 prefabs, floors and the scene.
+4. Tests: EditMode, 2031 passing (`node tools/unity-mcp.mjs tests-run '{"testMode":"EditMode"}'`; save the scene first).
+5. QA: `bash tools/smoke.sh` in play mode runs every floor (teleport to the boss, clear it, take the portal).
+6. APK: `node tools/run-cs.mjs tools/playtest/apk.cs`, then pump the editor; output goes to `Oathdeep/Builds/Android/Undersun.apk`.
 
-## Enemy art status
-- DONE: `Art/Enemies/skeleton.aseprite` (idle, run, windup, attack, hurt, death) and `archer.aseprite`
-  (idle, run, attack, hurt, death), 32×32, generated by `ArtSource/gen/skeleton.py` / `archer.py`.
-- DONE: `Art/Enemies/slime.aseprite` 32×32, 10 frames: idle 1-2, windup 3, attack 4-5 (airborne + ground shadow),
-  hurt 6, death 7-10 (`ArtSource/gen/slime.py`). Validate 90.
-- DONE: `Art/Enemies/bone_warden.aseprite` 64×64, 23 frames: idle 1-4, run 5-8, windup 9, attack 10-12 (sweep smear),
-  slam_windup 13, slam 14-15, cast 16-17 (purple orb), hurt 18, death 19-23. Feet on y≈61.
-  Built by `ArtSource/gen/bonewarden.py` (pose rig: shaded shapes, lean/kneel/cast), reviewed by pixel-critic and fixed.
-- Import trick for big sprites: `python strip.py X.json X_strip.png` → Aseprite MCP `open` the strip → add N+1 frames →
-  `draw blit` each 64px cell from frame 1 into frames 2..N+1 → delete frame 1 → `resize_canvas` → palette/tags → save_as.
-  `preview.py X.json out.png [scale] [cols]` renders a contact sheet with stdlib only (no PIL installed).
+## Architecture map (`Oathdeep/Assets/_Game/Scripts`)
+- **Core**
+  - `GameRunner` (+ `.Floors`, `.Screens`): app flow, run lifecycle, floor descent, pause, inventory, encounters.
+  - `GameEvents` bus (cleared every run), `SaveSystem` (JSON; codex, items, quests, meta bonuses).
+  - `QuestCatalog` / `QuestTracker`, `StoryAssets`.
+- **Player**
+  - `PlayerController` (+ `.Skills`): state machine driven by `HeroMoves` per `HeroId`.
+  - `PlayerInventory`: bag, specials, run bonuses. `SoulWisps`.
+- **Loot**
+  - `ItemCatalog` (bases, legendaries, affixes), `ItemGenerator` (seeded rolls), `ItemInstance`, `Loadout`, `LootDropper`.
+- **Dungeon**
+  - Layout generator (room types), geometry (room shapes), builder, decorator (biome decals, encounter rooms).
+  - `RoomController` (waves, elites, ambush, boss), `RoomEncounter`, `Interactable`, `EncounterHost` (bridge to UI).
+- **Enemies**
+  - Skeleton/Melee, Archer/Shooter/Turret, Slime/Hopper, `ChargerAI`, `CasterAI`, `BomberAI`, `BoneWardenAI`.
+  - `PatternBossAI` + `BossPatterns` (data), `GroundBlast`.
+- **Data**
+  - `HeroData`, `EnemyData`, `Bestiary` (40 entries with lore and base stats), `StatBlock`.
+- **UI**
+  - Code-built UGUI: front end, HUD (context button, bag), pages (Heroes, Items, Codex, Quests, Inventory, Shop,
+    Settings, About), encounter dialog, cinematic, onboarding.
+- **Editor**: `OathdeepSetup.*` partials build all content from code and data.
 
-## Unity integration (done 2026-10-20)
-- New art: `Art/UI/ui.png` (src `ArtSource/ui.aseprite`: panel, buttons, bar frame/fills, 6 HUD icons, action ring,
-  joystick base/knob, OATHDEEP logo), `Art/VFX/vfx.png` (src `ArtSource/vfx.aseprite`: slash x3, bash x3, telegraph,
-  shadow, glow). Wall caps brightened one ramp step in `crypt_tiles` (were reading as void).
-- Font: `Fonts/OathdeepPixel.ttf` built by `tools/make_font.py` from the CC0 pixel5x7 glyphs; TMP raster asset at 16pt.
-- `Scripts/Core/SpriteVfx.cs`: flipbook for VFX/animated props (one-shots return to Pool, loops run forever or for a lifetime).
-- Editor: `Scripts/Editor/OathdeepSetup*.cs`, menu **Oathdeep > Build Everything** (idempotent): Aseprite importer settings
-  (AnimatedSprite, MergeFrame, 16 PPU, feet pivots), sheet slicing, Tiles/Biome/Items/Enemies/Hero/UISkin/font,
-  31 prefabs (`Prefabs/`), PropSet + Floor_01, scene `Scenes/Main.unity` (Pixel Perfect 216x384, global Light2D,
-  GameRunner), 2D renderer custom sort axis (0,1,0), portrait.
-- Verified in Play mode: dungeon renders lit, HUD/minimap/controls, enemies spawn in waves, doors seal, archers shoot,
-  knight combo kills a skeleton (34→21→0). 1562 EditMode tests pass. Screenshots in `docs/screenshots/`.
-- Playtest harness: `node tools/run-cs.mjs tools/playtest/<x>.cs` (play, start, tp, god, atk, shotui, stop, build).
-  MCP round-trips exceed the 0.18 s input buffer, so `atk.cs` extends the buffer via reflection (harness only).
-- Fixed: bar fills were shrunk by UIFactory's preserveAspect; obsolete TMP enableWordWrapping.
-
-## Audio + Android (2026-10-21)
-- All audio is original, synthesized offline by `tools/audio/` (numpy/scipy, no samples, no external services):
-  `python tools/audio/sfx.py Oathdeep/Assets/_Game/Audio/SFX` (25 SFX) and
-  `python tools/audio/music.py Oathdeep/Assets/_Game/Audio/Music` (title 70bpm, crypt 84bpm, boss 140bpm seamless loops
-  in D minor + victory / game-over stingers). Loops wrap reverb tails onto the start; 25 Hz DC blocker on everything.
-- Runtime: `Scripts/Audio/AudioLibrary.cs` (Sfx/MusicTrack enums, per-sound volume/pitch jitter/min interval) and
-  `AudioManager.cs` (16 pooled voices, camera-relative pan/attenuation, 2-deck music crossfade, stingers).
-  GameEvents are cleared each run, so GameRunner calls `AudioManager.BindRunEvents()` right after `ClearAll()`.
-  One-line hooks in PlayerController, enemies, Door, Chest, Breakable, SpikeTrap, RoomController, Pickup, UIFactory.
-  Pause screen has a SOUND button (all on → music off → all off); volumes in GameSettings (PlayerPrefs).
-- Setup stage `OathdeepSetup.Audio.cs` (SFX: DecompressOnLoad ADPCM mono; music: Streaming Vorbis 0.55).
-  Camera now has an AudioListener; PlayerSettings.runInBackground = true so remote-driven play mode keeps ticking.
-- Launcher icon: `ArtSource/app_icon.aseprite` (48px) → `Art/UI/app_icon.png` (x8).
-- Android: `OathdeepSetup.Android.cs`, menu **Oathdeep > Build Android APK** (queued via delayCall; report in
-  `Oathdeep/Builds/Android/build-report.txt`, APK `Oathdeep/Builds/Android/Oathdeep.apk`). IL2CPP ARM64, min API 24,
-  target auto, debug-signed (no custom keystore yet — needed before any store upload). Run it via
-  `node tools/run-cs.mjs tools/playtest/apk.cs`.
-- First APK built 2026-10-21: `Oathdeep/Builds/Android/Oathdeep.apk` (47.5 MB, arm64-v8a, com.oathdeep.game 0.1.0,
-  target SDK 36). Full IL2CPP build ~31 min cold. Not yet tested on a device (no adb device connected).
-- Unattended-build gotchas: an unfocused editor does not tick EditorApplication.update/delayCall by itself — any MCP
-  call pumps it (`tools/playtest/editorstate.cs`, safe to retry). A long MCP call times out and the MCP retries it up to
-  10x, so never run the build synchronously from script-execute. Unsaved scenes trigger a modal save prompt that blocks
-  the build (now auto-saved in BuildAndroidNow).
-
-## Playtest fixes (2026-10-21, from user report "gak bisa pindah room, dpad nyangkut")
-- Root cause 1 (rooms): the camera was clamped to the current room and never released. Rooms narrower than the
-  216-px view pinned it to the room centre, so walking into a corridor took the knight off-screen. Now
-  `Core/CameraBounds.cs` (pure, tested) + `RoomController.Update` releases the clamp once the player leaves the room
-  interior; the next room re-clamps on entry.
-- Safety nets in `RoomController.WaitUntilClear`: `RescueStranded` moves living enemies that end up outside the
-  interior or on non-floor cells (boss summons at r=1.8, slime splits, doorway pushes) back to the nearest spawn cell;
-  `KeepPlayerInside` pulls the player back in if they're ever outside a sealed fight. Rules in `Dungeon/RoomRules.cs`.
-- Joystick: `VirtualJoystick` remembers the touchId and releases if that touch is no longer pressed (missed
-  pointer-up, cancelled touch, focus loss) — previously the stick could stay latched with the last direction.
-- Characters use `Art/Materials/Frictionless.physicsMaterial2D` so diagonal movement slides along walls.
-- Tests: RoomRulesTests, CameraBoundsTests (1572 total pass). Verified in play: camera follows down corridors;
-  an enemy shoved behind a wall is returned inside.
-
-## Next
-1. Feel pass: camera framing under HUD, torch light strength, enemy counts/damage balance (idle knight dies in ~15 s
-   to a full wave), boss fight playtest (teleport to Boss room), victory/game-over flow.
-2. SFX + music (none yet), title screen polish, settings screen.
-3. Android build (IL2CPP, ARM64) and on-device test.
+## Known limits / next ideas
+- Screenshots in the editor use a landscape Game view, so the room camera clamp centres horizontally there.
+  On a portrait phone it follows the hero normally.
+- Ideas for later:
+  - controller/keyboard UI navigation
+  - localisation (EN only today)
+  - Play Store listing assets
+  - a real device performance pass on low-end phones

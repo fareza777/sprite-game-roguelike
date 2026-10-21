@@ -26,7 +26,7 @@ namespace Oathdeep.UI
             public Action OpenInventory;
         }
 
-        public const string Version = "UNDERSUN  v0.2.0";
+        public const string Version = "UNDERSUN  v1.0.0";
 
         UISkin skin;
         Hooks hooks;
