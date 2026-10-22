@@ -11,13 +11,33 @@ namespace Oathdeep.Monetization
 
         public static void After(float seconds, Action action)
         {
+            Instance().StartCoroutine(Run(seconds, action));
+        }
+
+        static AdRetry Instance()
+        {
             if (instance == null)
             {
                 var go = new GameObject("AdRetry") { hideFlags = HideFlags.HideAndDontSave };
                 DontDestroyOnLoad(go);
                 instance = go.AddComponent<AdRetry>();
             }
-            instance.StartCoroutine(Run(seconds, action));
+            return instance;
+        }
+
+        /// <summary>Calls `done` every `interval` seconds (real time) until it returns true or `timeout` passes.</summary>
+        public static void Until(float interval, float timeout, Func<bool> done)
+        {
+            Instance().StartCoroutine(Poll(interval, timeout, done));
+        }
+
+        static IEnumerator Poll(float interval, float timeout, Func<bool> done)
+        {
+            for (float waited = 0f; waited <= timeout; waited += interval)
+            {
+                if (done()) yield break;
+                yield return new WaitForSecondsRealtime(interval);
+            }
         }
 
         static IEnumerator Run(float seconds, Action action)

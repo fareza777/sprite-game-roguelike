@@ -17,6 +17,7 @@ namespace Oathdeep.Monetization
         const string InterstitialId = "ca-app-pub-3940256099942544/1033173712";
         const string RewardedId = "ca-app-pub-3940256099942544/5224354917";
         const float RetrySeconds = 30f;
+        const float ConsentPollSeconds = 1f, ConsentWaitSeconds = 120f;
 
         BannerView banner;
         InterstitialAd interstitial;
@@ -35,11 +36,16 @@ namespace Oathdeep.Monetization
                 ConsentForm.LoadAndShowConsentFormIfRequired(formError =>
                 {
                     if (formError != null) Debug.LogWarning($"[Ads] consent form: {formError.Message}");
-                    // Consent from an earlier session still counts if this one could not reach the server.
-                    if (ConsentInformation.CanRequestAds()) StartAds();
                 });
             });
-            if (ConsentInformation.CanRequestAds()) StartAds();
+            // The consent callbacks can arrive off the main thread (or not at all on a first launch), so the main
+            // thread checks for itself. Consent from an earlier session counts straight away.
+            AdRetry.Until(ConsentPollSeconds, ConsentWaitSeconds, () =>
+            {
+                if (!ConsentInformation.CanRequestAds()) return false;
+                StartAds();
+                return true;
+            });
         }
 
         void StartAds()
