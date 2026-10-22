@@ -27,6 +27,7 @@ namespace Oathdeep.EditorTools
             PlayerSettings.Android.useCustomKeystore = false;   // debug-signed: fine for sideloading the slice
             EditorUserBuildSettings.buildAppBundle = false;
             EditorUserBuildSettings.androidBuildType = AndroidBuildType.Release;
+            ConfigureAds();
 
             var icon = AssetDatabase.LoadAssetAtPath<Texture2D>(IconPath);
             if (icon != null)

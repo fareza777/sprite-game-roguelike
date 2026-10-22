@@ -30,6 +30,45 @@ namespace Oathdeep.Player
         public float SkillCooldownScale => 1f - Specials.SkillHaste;
         public event System.Action Changed;
 
+        /// <summary>Potions carried for later (drunk from the HUD). Starts each run with one.</summary>
+        public PotionPouch Potions { get; private set; } = new PotionPouch(1, 3);
+        public event System.Action PotionsChanged;
+
+        bool HpFull => health.Current >= health.Max;
+
+        /// <summary>Whether a potion on the floor is worth homing in on.</summary>
+        public bool WantsPotion => Potions.WantsMore(HpFull);
+
+        /// <summary>A potion touched: kept, drunk on the spot (pouch full, hero hurt), or left on the floor.</summary>
+        public PotionPickup PickUpPotion()
+        {
+            var result = Potions.Pickup(HpFull);
+            if (result == PotionPickup.DrinkNow) Drink();
+            if (result == PotionPickup.Stored)
+            {
+                PotionsChanged?.Invoke();
+                GameEvents.RaiseToast($"Potion ({Potions.Count}/{Potions.Capacity})");
+            }
+            return result;
+        }
+
+        /// <summary>The HUD potion button.</summary>
+        public bool DrinkPotion()
+        {
+            if (!Potions.TryDrink(HpFull)) return false;
+            Drink();
+            PotionsChanged?.Invoke();
+            return true;
+        }
+
+        void Drink()
+        {
+            int heal = PotionPouch.HealFor(health.Max);
+            health.Heal(heal);
+            Audio.AudioManager.Play(Audio.Sfx.Potion);
+            GameEvents.RaiseToast($"+{heal} HP");
+        }
+
         void Awake()
         {
             stats = GetComponent<CombatStats>();
@@ -44,6 +83,8 @@ namespace Oathdeep.Player
             Loadout = new Loadout(hero.BaseStats);
             bag.Clear();
             Gold = 0;
+            Potions = new PotionPouch(1, 3);
+            PotionsChanged?.Invoke();
             stats.Set(Loadout.Total, Team.Player);
             health.Init(Loadout.Total.MaxHealth, Team.Player);
             GameEvents.DamageDealt += OnDamageDealt;   // cleared with the bus at the next run

@@ -84,6 +84,15 @@ namespace Oathdeep.Combat
             }
         }
 
+        /// <summary>Back from the dead with `amount` health (a revive).</summary>
+        public void Revive(int amount)
+        {
+            if (!IsDead) return;
+            IsDead = false;
+            Current = Mathf.Clamp(amount, 1, Max);
+            Changed?.Invoke(Current, Max);
+        }
+
         /// <summary>Stackable invulnerability (dodge i-frames, cutscenes).</summary>
         public void PushInvulnerable() => invulnerableLocks++;
         public void PopInvulnerable() => invulnerableLocks = Mathf.Max(0, invulnerableLocks - 1);

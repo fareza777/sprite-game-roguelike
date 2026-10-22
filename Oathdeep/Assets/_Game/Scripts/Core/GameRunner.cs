@@ -126,7 +126,9 @@ namespace Oathdeep.Core
             CameraRig.Follow(player.transform);
 
             stats.Begin();
-            GameEvents.PlayerDied += () => StartCoroutine(EndAfter(1.6f, false));
+            Monetization.OnGameplay();   // no banner during play: it would sit on the touch controls
+            reviveUsed = false;
+            GameEvents.PlayerDied += () => StartCoroutine(Fallen());
             GameEvents.BossDefeated += () => GameEvents.RaiseToast("The way down is open.");
             GameEvents.ItemFound += _ => AudioManager.Play(Sfx.UiConfirm);
             ExitPortal.Reached += OnPortalReached;
@@ -144,6 +146,36 @@ namespace Oathdeep.Core
             if (hud != null) Destroy(hud.gameObject);
             if (numbers != null) Destroy(numbers.gameObject);
             player = null; hud = null; numbers = null; hudRoot = null;
+        }
+
+        bool reviveUsed;
+
+        /// <summary>The hero fell: once a run, offer a second chance for a rewarded ad, otherwise end the run.</summary>
+        IEnumerator Fallen()
+        {
+            yield return new WaitForSecondsRealtime(1.2f);
+            if (AdPolicy.ReviveOffered(reviveUsed, Monetization.RewardedReady))
+            {
+                bool decided = false, revived = false;
+                var d = new Dungeon.EncounterDialog
+                {
+                    Speaker = "Second chance",
+                    Text = "Not yet. Watch a short ad to rise again with half your health?",
+                };
+                d.Choices.Add(new Dungeon.EncounterChoice("RISE AGAIN (WATCH AD)", () => Monetization.ShowRewarded(ok => { revived = ok; decided = true; })));
+                d.Choices.Add(new Dungeon.EncounterChoice("REST", () => decided = true));
+                Dungeon.EncounterHost.Dialog(d);
+                while (!decided) yield return null;
+                if (revived)
+                {
+                    reviveUsed = true;
+                    Time.timeScale = 1f;
+                    player.Revive(0.5f);
+                    GameEvents.RaiseToast("You rise again!");
+                    yield break;
+                }
+            }
+            yield return EndAfter(0.4f, false);
         }
 
         IEnumerator EndAfter(float delay, bool victory)
@@ -201,11 +233,12 @@ namespace Oathdeep.Core
             Time.timeScale = 1f;
             phase = Phase.Menu;
             frontEnd.ShowMenu();
+            Monetization.OnMenu();
         }
 
         void OnApplicationPause(bool paused)
         {
-            if (!paused) return;
+            if (!paused || Monetization.ShowingFullScreenAd) return;   // an ad, not the player leaving
             Pause();
             SaveSystem.Save();
         }

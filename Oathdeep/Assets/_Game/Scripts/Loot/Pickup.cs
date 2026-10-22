@@ -22,6 +22,7 @@ namespace Oathdeep.Loot
         Vector2 popVelocity;
         float armedAt;
         Transform player;
+        PlayerInventory playerInventory;
         static float nextFullWarning;
 
         public void Setup(PickupKind k, int value, ItemInstance data, Sprite icon)
@@ -52,7 +53,10 @@ namespace Oathdeep.Loot
                 var pc = FindFirstObjectByType<PlayerController>();
                 if (pc == null) return;
                 player = pc.transform;
+                playerInventory = pc.GetComponent<PlayerInventory>();
             }
+            // A potion the hero cannot use right now (full health, full pouch) stays put instead of following them.
+            if (kind == PickupKind.Potion && playerInventory != null && !playerInventory.WantsPotion) return;
             Vector2 to = player.position - transform.position;
             if (to.sqrMagnitude < magnetRange * magnetRange)
                 transform.position += (Vector3)(to.normalized * magnetSpeed * Time.deltaTime);
@@ -75,10 +79,7 @@ namespace Oathdeep.Loot
                     inv.AddGold(amount);
                     break;
                 case PickupKind.Potion:
-                    if (health.Current >= health.Max) return; // leave it for later
-                    health.Heal(amount);
-                    AudioManager.Play(Sfx.Potion);
-                    GameEvents.RaiseToast($"+{amount} HP");
+                    if (inv.PickUpPotion() == PotionPickup.Leave) return;   // nothing to gain: leave it for later
                     break;
                 case PickupKind.Item:
                     string name = $"<color={RarityInfo.Hex(item.Rarity)}>{item.Name}</color>";

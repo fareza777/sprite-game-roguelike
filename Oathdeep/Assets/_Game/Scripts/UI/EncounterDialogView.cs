@@ -89,9 +89,17 @@ namespace Oathdeep.UI
                 var choice = choices[i];
                 var rt = UIFactory.Rect("Choice" + i, choiceRoot, new Vector2(0, 0), new Vector2(1, 0), new Vector2(0.5f, 0),
                                         new Vector2(0, (choices.Count - 1 - i) * (h + 4)), new Vector2(0, h));
-                var button = UIFactory.Button(rt, skin, choice.Label, choice.Label.Length > 28 ? 10 : 13, () => Pick(choice));
+                var button = UIFactory.Button(rt, skin, choice.Label, 13, () => Pick(choice));
                 button.interactable = choice.Enabled;
-                if (!choice.Enabled) rt.GetComponentInChildren<TextMeshProUGUI>().color = skin.mutedColor;
+                // Long answers (boon descriptions) wrap onto two lines and shrink to fit instead of spilling out.
+                var label = rt.GetComponentInChildren<TextMeshProUGUI>();
+                label.textWrappingMode = TextWrappingModes.Normal;
+                label.enableAutoSizing = true;
+                label.fontSizeMin = 8;
+                label.fontSizeMax = 13;
+                label.overflowMode = TextOverflowModes.Ellipsis;
+                label.lineSpacing = -10f;
+                if (!choice.Enabled) label.color = skin.mutedColor;
                 buttons.Add(rt.gameObject);
             }
         }

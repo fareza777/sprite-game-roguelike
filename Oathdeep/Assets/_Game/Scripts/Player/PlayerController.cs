@@ -305,6 +305,23 @@ namespace Oathdeep.Player
             stateTime = 0f;
         }
 
+        /// <summary>A second chance: back on the feet with a share of health and a moment of invulnerability.</summary>
+        public void Revive(float healthShare)
+        {
+            if (state != State.Dead) return;
+            health.Revive(Mathf.RoundToInt(health.Max * healthShare));
+            ResetState();
+            anim.Play("idle", true);
+            StartCoroutine(GraceSeconds(2.5f));
+        }
+
+        System.Collections.IEnumerator GraceSeconds(float seconds)
+        {
+            health.PushInvulnerable();
+            yield return new WaitForSeconds(seconds);
+            health.PopInvulnerable();
+        }
+
         /// <summary>Called when a run restarts or the player enters a new floor.</summary>
         public void ResetState()
         {

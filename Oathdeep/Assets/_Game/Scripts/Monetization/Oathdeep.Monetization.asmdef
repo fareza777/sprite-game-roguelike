@@ -1,0 +1,19 @@
+{
+    "name": "Oathdeep.Monetization",
+    "rootNamespace": "Oathdeep.Monetization",
+    "references": [
+        "Oathdeep.Runtime",
+        "Unity.Purchasing",
+        "Unity.Purchasing.Stores"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstants": [],
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

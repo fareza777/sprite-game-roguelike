@@ -16,7 +16,8 @@ SCRIPTS = os.path.join(ROOT, "Assets", "_Game", "Scripts")
 TESTS = os.path.join(ROOT, "Assets", "_Game", "Tests", "EditMode")
 
 ASSEMBLIES = [
-    ("Oathdeep.Runtime", [f for f in glob.glob(SCRIPTS + "/**/*.cs", recursive=True) if os.sep + "Editor" + os.sep not in f], []),
+    ("Oathdeep.Runtime", [f for f in glob.glob(SCRIPTS + "/**/*.cs", recursive=True) if os.sep + "Editor" + os.sep not in f and os.sep + "Monetization" + os.sep not in f], []),
+    ("Oathdeep.Monetization", glob.glob(SCRIPTS + "/Monetization/**/*.cs", recursive=True), ["Oathdeep.Runtime"]),
     ("Oathdeep.Editor", glob.glob(SCRIPTS + "/Editor/**/*.cs", recursive=True), ["Oathdeep.Runtime"]),
     ("Oathdeep.Tests.EditMode", glob.glob(TESTS + "/**/*.cs", recursive=True), ["Oathdeep.Runtime"]),
 ]

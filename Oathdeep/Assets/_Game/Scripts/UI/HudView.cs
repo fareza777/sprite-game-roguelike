@@ -81,6 +81,21 @@ namespace Oathdeep.UI
             var bag = UIFactory.Rect("Bag", safeArea, Vector2.one, Vector2.one, Vector2.one, new Vector2(-8, -134), new Vector2(34, 34));
             UIWidgets.IconButton(bag, skin, skin.iconBag, () => onBag?.Invoke());
 
+            // --- Potion pouch, left of the bag: tap to drink, the count shows how many are left ---
+            var inventory = player.GetComponent<PlayerInventory>();
+            var potion = UIFactory.Rect("Potion", safeArea, Vector2.one, Vector2.one, Vector2.one, new Vector2(-48, -134), new Vector2(34, 34));
+            var potionButton = UIWidgets.IconButton(potion, skin, skin.iconPotion, () => { if (inventory != null) inventory.DrinkPotion(); });
+            var countRect = UIFactory.Rect("Count", potion, new Vector2(1, 0), new Vector2(1, 0), new Vector2(1, 0), new Vector2(-1, 0), new Vector2(18, 14));
+            var potionCount = UIFactory.Text(countRect, skin, "", 11, TextAlignmentOptions.BottomRight, skin.accentColor);
+            void ShowPotions()
+            {
+                int n = inventory != null ? inventory.Potions.Count : 0;
+                potionCount.text = n.ToString();
+                potionButton.interactable = n > 0;
+            }
+            if (inventory != null) inventory.PotionsChanged += ShowPotions;
+            ShowPotions();
+
             // --- Boss bar (hidden until a boss appears) ---
             // Under the minimap/bag column and stretching with the screen (a 20:9 phone is only ~322 units wide).
             bossRoot = UIFactory.Rect("Boss", safeArea, new Vector2(0.05f, 1), new Vector2(0.95f, 1), new Vector2(0.5f, 1), new Vector2(0, -178), new Vector2(0, 38));

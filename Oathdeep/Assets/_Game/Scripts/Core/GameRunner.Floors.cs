@@ -105,6 +105,10 @@ namespace Oathdeep.Core
             GameEvents.RaiseToast("Deeper...");
             AudioManager.Play(Sfx.DoorOpen);
             yield return frontEnd.FadeOut(DescendFadeSeconds);
+            // While the screen is dark between floors: maybe an interstitial (spaced out, never for Remove Ads owners).
+            bool adDone = false;
+            Monetization.BetweenFloors(floorIndex + 2, () => adDone = true);
+            while (!adDone) yield return null;
             var health = player.GetComponent<Health>();
             health.Heal(health.Max / 4);
             EnterFloor(floorIndex + 1);

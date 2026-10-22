@@ -2,6 +2,7 @@ using System;
 using Oathdeep.Audio;
 using Oathdeep.Core;
 using TMPro;
+using UnityEngine.UI;
 using UnityEngine;
 
 namespace Oathdeep.UI
@@ -42,6 +43,43 @@ namespace Oathdeep.UI
                 v => GameSettings.ScreenShake = v ? 1f : 0f);
             UIWidgets.ToggleRow(page.Row("Numbers", 36), skin, "Damage numbers", () => GameSettings.DamageNumbers, v => GameSettings.DamageNumbers = v);
             UIWidgets.ToggleRow(page.Row("Motion", 36), skin, "Reduce motion", () => GameSettings.ReduceMotion, v => GameSettings.ReduceMotion = v);
+
+            page.Heading("ADS");
+            if (Monetization.AdsRemoved)
+                page.Paragraph("Ads removed. Thank you for supporting UNDERSUN!", 11, skin.accentColor, TextAlignmentOptions.Center);
+            else
+            {
+                Button removeAds = null;
+                removeAds = UIFactory.Button(page.Row("RemoveAds", 40), skin, $"REMOVE ADS - {Monetization.RemoveAdsPrice}", 14, () =>
+                {
+                    removeAds.interactable = false;
+                    Monetization.BuyRemoveAds(ok =>
+                    {
+                        removeAds.interactable = !ok;
+                        removeAds.GetComponentInChildren<TextMeshProUGUI>().text = ok ? "ADS REMOVED - THANK YOU!" : $"REMOVE ADS - {Monetization.RemoveAdsPrice}";
+                    });
+                });
+                // The store reports the local price (and any restored purchase) a moment after launch.
+                System.Action refresh = null;
+                refresh = () =>
+                {
+                    if (removeAds == null) { Monetization.Changed -= refresh; return; }
+                    removeAds.interactable = !Monetization.AdsRemoved;
+                    removeAds.GetComponentInChildren<TextMeshProUGUI>().text =
+                        Monetization.AdsRemoved ? "ADS REMOVED - THANK YOU!" : $"REMOVE ADS - {Monetization.RemoveAdsPrice}";
+                };
+                Monetization.Changed += refresh;
+            }
+            Button restore = null;
+            restore = UIFactory.Button(page.Row("Restore", 36), skin, "RESTORE PURCHASES", 12, () =>
+            {
+                restore.interactable = false;
+                Monetization.RestorePurchases(ok =>
+                {
+                    restore.interactable = true;
+                    restore.GetComponentInChildren<TextMeshProUGUI>().text = Monetization.AdsRemoved ? "PURCHASES RESTORED" : "NOTHING TO RESTORE";
+                });
+            });
 
             page.Heading("STORY & DATA");
             if (hooks.ReplayIntro != null)

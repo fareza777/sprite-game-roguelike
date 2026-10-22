@@ -2,4 +2,5 @@
   <Project Path="Oathdeep.Runtime.csproj" />
   <Project Path="Oathdeep.Tests.EditMode.csproj" />
   <Project Path="Oathdeep.Editor.csproj" />
+  <Project Path="Oathdeep.Monetization.csproj" />
 </Solution>

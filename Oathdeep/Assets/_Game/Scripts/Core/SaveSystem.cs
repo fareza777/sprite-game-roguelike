@@ -52,6 +52,7 @@ namespace Oathdeep.Core
         public SettingsData settings = new SettingsData();
         public bool introSeen;
         public bool onboardingDone;
+        public bool adsRemoved;   // Remove Ads bought (or restored); re-confirmed from the store at startup
         public List<string> codex = new List<string>();
         public List<QuestProgress> quests = new List<QuestProgress>();
         public int bestFloor;

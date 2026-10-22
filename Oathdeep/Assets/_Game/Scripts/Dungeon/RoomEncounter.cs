@@ -86,6 +86,8 @@ namespace Oathdeep.Dungeon
 
         int PriceOf(ItemInstance item) => item.SellValue * 3 + floor * 6;
 
+        bool freePotionTaken;
+
         void Merchant()
         {
             var d = new EncounterDialog
@@ -97,6 +99,15 @@ namespace Oathdeep.Dungeon
                     : "Back again? The deeper you go, the better my wares. Funny how that works.",
             };
             d.Choices.Add(new EncounterChoice("SHOW ME", () => EncounterHost.OpenShop?.Invoke("OLD TALLOW", portrait, stock)));
+            // Once per merchant, an optional rewarded ad for a potion.
+            var inv = FindFirstObjectByType<PlayerInventory>();
+            if (!freePotionTaken && inv != null && Monetization.RewardedReady)
+                d.Choices.Add(new EncounterChoice("FREE POTION (WATCH AD)", () => Monetization.ShowRewarded(ok =>
+                {
+                    if (!ok) return;
+                    freePotionTaken = true;
+                    if (inv.PickUpPotion() == PotionPickup.Leave) GameEvents.RaiseToast("Your pouch is full");
+                })));
             d.Choices.Add(new EncounterChoice("LEAVE", null));
             EncounterHost.Dialog(d);
         }
@@ -117,7 +128,7 @@ namespace Oathdeep.Dungeon
             if (talent.HasValue)
             {
                 var info = TalentCatalog.Info(talent.Value);
-                d.Choices.Add(new EncounterChoice(info.Name.ToUpperInvariant() + ": " + info.Text, () =>
+                d.Choices.Add(new EncounterChoice(info.Name.ToUpperInvariant() + "\n" + info.Text, () =>
                 {
                     talents.Add(info.Id);
                     GameEvents.RaiseEncounterUsed("sunstone");
@@ -128,7 +139,7 @@ namespace Oathdeep.Dungeon
             foreach (var b in EncounterData.DrawBoons(rng, talent.HasValue ? 2 : 3))
             {
                 var boon = b;
-                d.Choices.Add(new EncounterChoice(boon.Name.ToUpperInvariant() + ": " + boon.Text, () =>
+                d.Choices.Add(new EncounterChoice(boon.Name.ToUpperInvariant() + "\n" + boon.Text, () =>
                 {
                     inv.AddRunBonus(boon.Stats, boon.Specials);
                     GameEvents.RaiseEncounterUsed("sunstone");

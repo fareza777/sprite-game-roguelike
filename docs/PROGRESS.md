@@ -80,6 +80,14 @@ in Unity 6. Design doc: `docs/design/2026-10-21-undersun-full-game-design.md`.
   trait (swift, armored, giant, regenerating), and harder rooms end in a pick of gold, mend or gear.
 - Talents (`Player/PlayerTalents`): six run-long fighting changes offered at sunstones (one per offer).
 - Atmosphere: `AmbientMotes` per floor, glowing enemy shots, roll afterimages, boss-kill slow motion.
+- Potions (`Player/PotionPouch`): picked-up potions go into a pouch of 3, drunk from the HUD potion button (heals 35%).
+  A potion the hero can't use (pouch full, health full) stays on the floor instead of homing in.
+- Monetization: `Core/Monetization` (facade + `AdPolicy`) is all the game calls. `Scripts/Monetization/` (own assembly)
+  holds `AdMobProvider` (UMP consent, adaptive banner on menus only, interstitial between floors from B2 at most every
+  2 floors / 2 min and never right after a rewarded ad, rewarded revive once per run + merchant free potion) and
+  `IapStoreProvider` (Unity IAP v5, non-consumable `com.fareza777.undersun.removeads`, $4.99, restore). They only
+  load on Android devices. Ad unit IDs and the AdMob app ID (`OathdeepSetup.Ads`) are Google's TEST IDs: swap
+  them for real ones and create the Play Console product before release.
 - `python tools/csc-check.py` compile-checks all C# with Unity's Roslyn, without the editor running.
 - Difficulty: enemy health/attack follow `FloorConfig.StatScaleFor` (x1.0 on B1 to x7.35 on B10, accelerating so it outgrows
   the player's compounding gear). Model it with a quick per-floor hits-to-kill / hits-to-die table before retuning.
