@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 6534920219961790702}
   - component: {fileID: 7940636527520610338}
   - component: {fileID: 7362961405878522408}
+  - component: {fileID: 4317767592330068152}
+  - component: {fileID: 8962525261578108500}
   - component: {fileID: 3202229202334543290}
   m_Layer: 0
   m_Name: Player_Aldric
@@ -169,6 +171,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c37011f905d0644b903e2aa45a489af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Player.PlayerInventory
+--- !u!114 &4317767592330068152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4178393363555964219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84cb2f93051495a47979083a93084f69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Player.PlayerStatus
+--- !u!114 &8962525261578108500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4178393363555964219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 255f305b0db6b5e4396ba37f82b28508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Player.PlayerTalents
+  flameFrames:
+  - {fileID: 1856501261, guid: 7bcbab3a54a8790408f5766d40657470, type: 3}
+  - {fileID: -469419871, guid: 7bcbab3a54a8790408f5766d40657470, type: 3}
+  - {fileID: -928979784, guid: 7bcbab3a54a8790408f5766d40657470, type: 3}
+  - {fileID: -1851202555, guid: 7bcbab3a54a8790408f5766d40657470, type: 3}
+  glowMaterial: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  sparkVfx: {fileID: 3256524253422176235, guid: 9233c42258542814783f40c24f591c5e, type: 3}
+  burstVfx: {fileID: 8634877478383949396, guid: 77267483d9b8daa43b62e58e78b5107c, type: 3}
+  ringVfx: {fileID: 8287267203246998322, guid: 3ec0983f206ac744ba61d24962ca8a67, type: 3}
 --- !u!114 &3202229202334543290
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -264,6 +264,8 @@ namespace Oathdeep.EditorTools
             var input = go.AddComponent<PlayerInputReader>();
             var driver = Driver(go, animator, renderer);
             go.AddComponent<PlayerInventory>();
+            go.AddComponent<PlayerStatus>();
+            go.AddComponent<PlayerTalents>().EditorInit(Seq(PropsPng, "torch", 4), unlit, Prefab("VFX/Spark"), Prefab("VFX/Poof"), Prefab("VFX/Toll"));
             Set(go.AddComponent<PlayerController>(), ("heroId", id), ("input", input), ("anim", driver), ("flash", flash),
                 ("slashVfx", Prefab("VFX/Slash")), ("dodgeDustVfx", Prefab("VFX/Dust")), ("bashVfx", Prefab("VFX/Bash")),
                 ("boltPrefab", Prefab("Projectiles/Bolt").GetComponent<Projectile>()),

@@ -111,7 +111,21 @@ namespace Oathdeep.Dungeon
                 Portrait = portrait,
                 Text = "A vein of buried sunlight, frozen into crystal. Its warmth can be drawn out once. Choose what to take.",
             };
-            foreach (var b in EncounterData.DrawBoons(rng))
+            // A talent (if any are left) leads the offer; it changes how the hero fights, not just how hard.
+            var talents = inv.GetComponent<PlayerTalents>();
+            var talent = talents != null ? TalentCatalog.Draw(rng, new System.Collections.Generic.HashSet<Talent>(talents.Owned)) : null;
+            if (talent.HasValue)
+            {
+                var info = TalentCatalog.Info(talent.Value);
+                d.Choices.Add(new EncounterChoice(info.Name.ToUpperInvariant() + ": " + info.Text, () =>
+                {
+                    talents.Add(info.Id);
+                    GameEvents.RaiseEncounterUsed("sunstone");
+                    AudioManager.Play(Sfx.Boon);
+                    Spend();
+                }));
+            }
+            foreach (var b in EncounterData.DrawBoons(rng, talent.HasValue ? 2 : 3))
             {
                 var boon = b;
                 d.Choices.Add(new EncounterChoice(boon.Name.ToUpperInvariant() + ": " + boon.Text, () =>

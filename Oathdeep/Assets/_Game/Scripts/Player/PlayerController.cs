@@ -26,6 +26,7 @@ namespace Oathdeep.Player
         Health health;
         CombatStats stats;
         PlayerStatus status;
+        PlayerTalents talents;
         float nextAfterImage;
         static readonly Color AfterImageTint = new Color(0.65f, 0.85f, 1f, 0.55f);
         HeroMoves moves;
@@ -63,6 +64,8 @@ namespace Oathdeep.Player
             if (flash == null) flash = GetComponentInChildren<HitFlash>();
             status = GetComponent<PlayerStatus>();
             if (status == null) status = gameObject.AddComponent<PlayerStatus>();
+            talents = GetComponent<PlayerTalents>();
+            if (talents == null) talents = gameObject.AddComponent<PlayerTalents>();
         }
 
         void OnEnable()
@@ -106,6 +109,7 @@ namespace Oathdeep.Player
                         nextAfterImage = Time.time + moves.DodgeDuration / 3f;   // three ghosts trail each roll
                         AfterImage.Spawn(anim.Renderer, AfterImageTint);
                     }
+                    talents.WhileRolling(transform.position);
                     if (stateTime >= moves.DodgeDuration) EndDodge();
                     break;
                 case State.Skill: UpdateSkill(); break;
@@ -248,6 +252,7 @@ namespace Oathdeep.Player
             aim = dashDir;
             dodgeReadyAt = Time.time + dodgeCooldown + moves.DodgeDuration;
             health.PushInvulnerable();
+            talents.RollStarted();
             Enter(State.Dodge);
             anim.Face(dashDir.x);
             anim.Play("dodge", true);
@@ -310,6 +315,7 @@ namespace Oathdeep.Player
             knockVelocity = Vector2.zero;
             dodgeReadyAt = skillReadyAt = 0f;
             status.Clear();
+            talents.OnFloorStart();
         }
     }
 }
