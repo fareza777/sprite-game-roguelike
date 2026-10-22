@@ -38,15 +38,16 @@ namespace Oathdeep.Enemies
 
         void Go(S s) { state = s; StateTime = 0f; }
 
+        protected override void OnResume()
+        {
+            telegraph?.Hide();
+            Go(S.Recover);
+        }
+
         protected override void Think(float dt)
         {
-            if (!phaseTwo && Health.Current <= Health.Max / 2)
-            {
-                phaseTwo = true;
-                flash?.Flash(new Color(1f, 0.4f, 0.1f), 0.3f);
-                CameraRig.Shake(0.6f);
-                GameEvents.RaiseToast("The Warden rages!");
-            }
+            // The shared boss rules own the phases (and their roar); phase two of three makes the Warden faster.
+            if (!phaseTwo) phaseTwo = BossRules != null ? BossRules.Phase >= 2 : Health.Current <= Health.Max / 2;
 
             switch (state)
             {

@@ -286,8 +286,12 @@ namespace Oathdeep.EditorTools
             Enemy<SlimeAI>(new EnemySpec { Name = "Slime", Ase = SlimeAse, Data = "slime", BodyRadius = 0.34f, ShadowWidth = 1.2f, ModelScale = 1f, Hurtbox = new Vector2(1f, 0.8f) },
                            ai => Set(ai, ("splitPrefab", slimeling.GetComponent<SlimeAI>()), ("splitCount", 2)));
             Enemy<BoneWardenAI>(new EnemySpec { Name = "BoneWarden", Ase = WardenAse, Data = "bone_warden", BodyRadius = 0.6f, ShadowWidth = 2.6f, ModelScale = 1f, KnockbackResistance = 0.85f, Hurtbox = new Vector2(1.6f, 2.6f) },
-                                ai => Set(ai, ("shardPrefab", Prefab("Projectiles/BoneShard").GetComponent<Projectile>()),
-                                              ("minionPrefab", skeleton.GetComponent<EnemyBase>())));
+                                ai =>
+                                {
+                                    var shard = Prefab("Projectiles/BoneShard").GetComponent<Projectile>();
+                                    Set(ai, ("shardPrefab", shard), ("minionPrefab", skeleton.GetComponent<EnemyBase>()));
+                                    AddBossRules(ai.gameObject, "bone_warden", shard);
+                                });
         }
 
         static GameObject Enemy<T>(EnemySpec spec, System.Action<T> extra) where T : EnemyBase

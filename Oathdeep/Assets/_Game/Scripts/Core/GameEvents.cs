@@ -24,6 +24,8 @@ namespace Oathdeep.Core
         public static event Action<float, float> BossHealthChanged;      // current, max
         public static event Action<string> BossEncountered;
         public static event Action<Vector2Int> RoomEntered;
+        public static event Action<float, bool> BossBreakChanged;        // gauge fraction, staggered
+        public static event Action<int> BossPhaseChanged;                // 1..3
 
         public static void RaiseDamageDealt(DamageInfo info, Vector3 at) => DamageDealt?.Invoke(info, at);
         public static void RaiseEnemyKilled(Vector3 at, bool boss) => EnemyKilled?.Invoke(at, boss);
@@ -41,12 +43,15 @@ namespace Oathdeep.Core
         public static void RaiseBossHealthChanged(float cur, float max) => BossHealthChanged?.Invoke(cur, max);
         public static void RaiseBossEncountered(string name) => BossEncountered?.Invoke(name);
         public static void RaiseRoomEntered(Vector2Int cell) => RoomEntered?.Invoke(cell);
+        public static void RaiseBossBreakChanged(float fraction, bool staggered) => BossBreakChanged?.Invoke(fraction, staggered);
+        public static void RaiseBossPhaseChanged(int phase) => BossPhaseChanged?.Invoke(phase);
 
         public static void ClearAll()
         {
             DamageDealt = null; EnemyKilled = null; GoldChanged = null; ItemEquipped = null; ItemFound = null; Toast = null;
             EliteKilled = null; ChestOpened = null; Purchased = null; EncounterUsed = null;
             RoomCleared = null; PlayerDied = null; BossDefeated = null; BossHealthChanged = null; BossEncountered = null; RoomEntered = null;
+            BossBreakChanged = null; BossPhaseChanged = null;
         }
     }
 }

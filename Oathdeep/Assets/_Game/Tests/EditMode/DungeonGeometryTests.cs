@@ -13,6 +13,28 @@ namespace Oathdeep.Tests
 
         static DungeonGeometry Build(int seed) => DungeonGeometry.Build(DungeonLayoutGenerator.Generate(seed, Rooms), seed);
 
+        static RoomGeometry BossRoom(DungeonGeometry geo) => geo.Rooms.First(r => r.Node.Type == RoomType.Boss);
+
+        [Test]
+        public void BossArenas_StayWalkable_OnEveryFloor([Values(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)] int floor, [Values(3, 7, 11)] int seed)
+        {
+            var geo = DungeonGeometry.Build(DungeonLayoutGenerator.Generate(seed, Rooms), seed, floor);
+            var boss = BossRoom(geo);
+            Assert.IsTrue(geo.IsFloor(boss.Centre));
+            Assert.IsTrue(geo.IsFloor(boss.Centre + Vector2Int.up * 3), "the boss rises 3 cells above the centre");
+            Assert.IsTrue(FloodFill(geo, geo.Rooms[0].Centre).Contains(boss.Centre));
+        }
+
+        [Test]
+        public void BossArenas_AreLaidOutDifferentlyAcrossTheDescent()
+        {
+            var layouts = Enumerable.Range(1, 10)
+                .Select(f => string.Join(";", BossRoom(DungeonGeometry.Build(DungeonLayoutGenerator.Generate(7, Rooms), 7, f)).Pillars
+                    .Select(p => p - BossRoom(DungeonGeometry.Build(DungeonLayoutGenerator.Generate(7, Rooms), 7, f)).Interior.min)))
+                .Distinct().Count();
+            Assert.GreaterOrEqual(layouts, 6);
+        }
+
         [Test]
         public void EveryRoomCentreIsFloor([ValueSource(nameof(Seeds))] int seed)
         {

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec31f9cd891c435418b0f49a31072d6b, type: 3}
+  m_Name: BossFx
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.BossFx
+  boneTotem: {fileID: -1194055613, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
+  rootCore: {fileID: 1508841960, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
+  sporePod: {fileID: -226363186, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
+  duskAnchor: {fileID: 1631326874, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
+  sporeCloud: {fileID: -991783801, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
+  water: {fileID: -1609803246, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
+  ice: {fileID: -2089557155, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
+  quicksand: {fileID: 1447545500, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
+  lava: {fileID: -536820380, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
+  rootSnare: {fileID: 804445694, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
+  timeBubble: {fileID: 1886281858, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
+  steam: {fileID: -1281906014, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
+  clockHand: {fileID: 1280074826, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
+  sandFog: {fileID: -1295228842, guid: e4c6f40fab7f24c45beefefc36d3b8d8, type: 3}

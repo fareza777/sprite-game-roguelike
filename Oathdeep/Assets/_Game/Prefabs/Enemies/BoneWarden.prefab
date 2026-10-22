@@ -289,6 +289,8 @@ GameObject:
   - component: {fileID: 8949193740246168862}
   - component: {fileID: 4400351073736291952}
   - component: {fileID: 4516969859121606569}
+  - component: {fileID: 1117837028001949908}
+  - component: {fileID: 5397991101581500005}
   m_Layer: 0
   m_Name: BoneWarden
   m_TagString: Untagged
@@ -461,6 +463,44 @@ MonoBehaviour:
     HitStopSeconds: 0.03
     ShakeAmount: 0.1
     Element: 0
+--- !u!114 &1117837028001949908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3891758054860640516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 204a9989b01b72d4fb185ff3c166927d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.BossCore
+  fx: {fileID: 11400000, guid: 8fcdad6911c44bb4097f856068d79d2e, type: 2}
+  shot: {fileID: 9218552166053127719, guid: 73ec81392091fcb4e9e7e94aa1f39af1, type: 3}
+  shardSpec:
+    Multiplier: 0.8
+    Knockback: 4
+    StunSeconds: 0
+    HitStopSeconds: 0.03
+    ShakeAmount: 0.08
+    Element: 0
+--- !u!114 &5397991101581500005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3891758054860640516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fdba2d145150e44c9631d081af21a4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.TotemShield
+  fromPhase: 2
+  untilPhase: 3
+  style: 0
+  count: 3
+  healthShare: 0.06
 --- !u!1 &5005044073759113272
 GameObject:
   m_ObjectHideFlags: 0

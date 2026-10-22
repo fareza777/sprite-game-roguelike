@@ -38,6 +38,11 @@ namespace Oathdeep.Enemies
 
         Vector2 knockVelocity;
         float stunnedUntil;
+        BossCore bossCore;
+        bool halted;
+
+        /// <summary>The Chorister rules on a boss (phases, break gauge); null on regular enemies.</summary>
+        protected BossCore BossRules => bossCore;
         float statScale = 1f;
 
         protected virtual void Awake()
@@ -48,6 +53,7 @@ namespace Oathdeep.Enemies
             if (anim == null) anim = GetComponentInChildren<AnimDriver>();
             if (flash == null) flash = GetComponentInChildren<HitFlash>();
             if (telegraph == null) telegraph = GetComponentInChildren<Telegraph>(true);
+            bossCore = GetComponent<BossCore>();
         }
 
         public bool IsElite { get; private set; }
@@ -85,6 +91,14 @@ namespace Oathdeep.Enemies
             if (Health.IsDead || Target == null) return;
             StateTime += Time.deltaTime;
             if (Stunned) { anim.Play("hurt"); return; }
+            if (bossCore != null && bossCore.Halted)
+            {
+                // Staggered or roaring into a new phase: the AI waits, then picks up from a recovery.
+                if (!halted) { halted = true; telegraph?.Hide(); }
+                anim.Play(bossCore.Staggered ? "hurt" : "cast");
+                return;
+            }
+            if (halted) { halted = false; OnResume(); }
             Think(Time.deltaTime);
         }
 
@@ -92,7 +106,7 @@ namespace Oathdeep.Enemies
         {
             if (Health.IsDead) { Body.linearVelocity = Vector2.zero; return; }
             knockVelocity = Vector2.MoveTowards(knockVelocity, Vector2.zero, 30f * Time.fixedDeltaTime);
-            Vector2 move = Stunned ? Vector2.zero : DesiredVelocity();
+            Vector2 move = Stunned || (bossCore != null && bossCore.Halted) ? Vector2.zero : DesiredVelocity();
             Body.linearVelocity = move + knockVelocity;
         }
 
@@ -113,6 +127,9 @@ namespace Oathdeep.Enemies
         }
 
         protected virtual void OnHurt(DamageInfo info) { }
+
+        /// <summary>A boss coming out of a stagger or phase roar; reset to a safe state.</summary>
+        protected virtual void OnResume() { }
 
         /// <summary>Interrupts telegraphs when stunned. Override to reset subclass state.</summary>
         protected virtual void CancelAttack()

@@ -198,6 +198,9 @@ GameObject:
   - component: {fileID: 2142349000332086754}
   - component: {fileID: 7725999914363792479}
   - component: {fileID: 3070633763944974223}
+  - component: {fileID: 241427565539637399}
+  - component: {fileID: 6508952854674866953}
+  - component: {fileID: 7239121104770639059}
   m_Layer: 0
   m_Name: PaleMatriarch
   m_TagString: Untagged
@@ -379,6 +382,57 @@ MonoBehaviour:
     HitStopSeconds: 0.06
     ShakeAmount: 0.2
     Element: 0
+--- !u!114 &241427565539637399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2632801824129063508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 204a9989b01b72d4fb185ff3c166927d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.BossCore
+  fx: {fileID: 11400000, guid: 8fcdad6911c44bb4097f856068d79d2e, type: 2}
+  shot: {fileID: 6443189652919626116, guid: bc3d79a880b69dd4db43af8190a2ebf5, type: 3}
+  shardSpec:
+    Multiplier: 0.8
+    Knockback: 4
+    StunSeconds: 0
+    HitStopSeconds: 0.03
+    ShakeAmount: 0.08
+    Element: 0
+--- !u!114 &6508952854674866953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2632801824129063508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c61ae8057c2d04ba912c0ca4259b8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.FrostFloor
+  fromPhase: 2
+  untilPhase: 3
+--- !u!114 &7239121104770639059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2632801824129063508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a2738b827143304f92a24c19bd79915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.MirrorDecoys
+  fromPhase: 3
+  untilPhase: 3
+  count: 2
+  tint: {r: 0.85, g: 0.92, b: 1, a: 0.92}
 --- !u!1 &3135599796751443152
 GameObject:
   m_ObjectHideFlags: 0

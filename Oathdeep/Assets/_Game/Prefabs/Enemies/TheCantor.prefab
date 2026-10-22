@@ -360,6 +360,12 @@ GameObject:
   - component: {fileID: 2289808649609982089}
   - component: {fileID: 2277592695439621614}
   - component: {fileID: 7283961950000724510}
+  - component: {fileID: 5178714037263037304}
+  - component: {fileID: 6583424017522896140}
+  - component: {fileID: 5095741741176447488}
+  - component: {fileID: 5636122856661614951}
+  - component: {fileID: 1637856284600161961}
+  - component: {fileID: 486748686057284447}
   m_Layer: 0
   m_Name: TheCantor
   m_TagString: Untagged
@@ -541,6 +547,104 @@ MonoBehaviour:
     HitStopSeconds: 0.06
     ShakeAmount: 0.2
     Element: 0
+--- !u!114 &5178714037263037304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6321004156598374636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 204a9989b01b72d4fb185ff3c166927d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.BossCore
+  fx: {fileID: 11400000, guid: 8fcdad6911c44bb4097f856068d79d2e, type: 2}
+  shot: {fileID: 9018593204275491130, guid: f40a2763a166603429c5697d8ca6a39a, type: 3}
+  shardSpec:
+    Multiplier: 0.8
+    Knockback: 4
+    StunSeconds: 0
+    HitStopSeconds: 0.03
+    ShakeAmount: 0.08
+    Element: 0
+--- !u!114 &6583424017522896140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6321004156598374636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fdba2d145150e44c9631d081af21a4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.TotemShield
+  fromPhase: 1
+  untilPhase: 1
+  style: 2
+  count: 3
+  healthShare: 0.06
+--- !u!114 &5095741741176447488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6321004156598374636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03785fce997147340b60e83ab43fe8fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.ClockHands
+  fromPhase: 2
+  untilPhase: 3
+--- !u!114 &5636122856661614951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6321004156598374636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfbc647794610ca44b8ab8807b62f18a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.Tides
+  fromPhase: 2
+  untilPhase: 2
+--- !u!114 &1637856284600161961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6321004156598374636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4c45e2e5427cce47a59761bb8421ee2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.Sandstorm
+  fromPhase: 3
+  untilPhase: 3
+  fogFromPhase: 3
+  quicksand: 0
+--- !u!114 &486748686057284447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6321004156598374636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a2738b827143304f92a24c19bd79915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.MirrorDecoys
+  fromPhase: 3
+  untilPhase: 3
+  count: 2
+  tint: {r: 0.85, g: 0.92, b: 1, a: 0.92}
 --- !u!1 &6929563183327465080
 GameObject:
   m_ObjectHideFlags: 0

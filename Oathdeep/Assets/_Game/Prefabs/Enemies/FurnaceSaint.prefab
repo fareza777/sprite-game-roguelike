@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 3996579339581150513}
   - component: {fileID: 5655917368381832553}
   - component: {fileID: 6320185446030956343}
+  - component: {fileID: 6241183799431532871}
+  - component: {fileID: 4290750126315069197}
   m_Layer: 0
   m_Name: FurnaceSaint
   m_TagString: Untagged
@@ -196,6 +198,41 @@ MonoBehaviour:
     HitStopSeconds: 0.06
     ShakeAmount: 0.2
     Element: 0
+--- !u!114 &6241183799431532871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121611248381243561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 204a9989b01b72d4fb185ff3c166927d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.BossCore
+  fx: {fileID: 11400000, guid: 8fcdad6911c44bb4097f856068d79d2e, type: 2}
+  shot: {fileID: 8980131576557696235, guid: 5a3a8e9f48fdd2444a33c89846f7de48, type: 3}
+  shardSpec:
+    Multiplier: 0.8
+    Knockback: 4
+    StunSeconds: 0
+    HitStopSeconds: 0.03
+    ShakeAmount: 0.08
+    Element: 0
+--- !u!114 &4290750126315069197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121611248381243561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7adda1eb0abfed0479b04ac5fbc5b3f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.Overheat
+  fromPhase: 1
+  untilPhase: 3
 --- !u!1 &2841544546185492290
 GameObject:
   m_ObjectHideFlags: 0

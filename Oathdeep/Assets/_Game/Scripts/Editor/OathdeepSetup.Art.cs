@@ -70,6 +70,7 @@ namespace Oathdeep.EditorTools
             Slice(HeroFxPng, HeroFxCells(), WorldPpu, SpriteMeshType.FullRect);
             ConfigureWorldArt();
             ConfigureBestiaryArt();
+            ConfigureBossArt();
             Slice(ItemIconsPng, ItemIconNames.Select((n, i) => G(n, i % 8, i / 8, Centre)).ToList(), WorldPpu, SpriteMeshType.FullRect);
             Slice(UiPng, UiCells(), UiPpu, SpriteMeshType.FullRect);
             WriteWhiteSprite();

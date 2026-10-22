@@ -247,8 +247,11 @@ namespace Oathdeep.EditorTools
                     Enemy<BomberAI>(spec, ai => Set(ai, ("burstVfx", boom)));
                     break;
                 case Archetype.Boss:
-                    Enemy<PatternBossAI>(spec, ai => Set(ai, ("patternId", e.Id), ("shot", shot), ("blast", blast),
-                        ("minion", EnemyPrefab(BossMinions[e.Id]))));
+                    Enemy<PatternBossAI>(spec, ai =>
+                    {
+                        Set(ai, ("patternId", e.Id), ("shot", shot), ("blast", blast), ("minion", EnemyPrefab(BossMinions[e.Id])));
+                        AddBossRules(ai.gameObject, e.Id, shot);
+                    });
                     break;
             }
         }

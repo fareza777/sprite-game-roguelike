@@ -106,6 +106,9 @@ GameObject:
   - component: {fileID: 1142778664366719106}
   - component: {fileID: 5967843868018590984}
   - component: {fileID: 6057139478118690576}
+  - component: {fileID: 8403675967182519789}
+  - component: {fileID: 1200366301056103891}
+  - component: {fileID: 8399153056289954717}
   m_Layer: 0
   m_Name: VerdantHierophant
   m_TagString: Untagged
@@ -287,6 +290,58 @@ MonoBehaviour:
     HitStopSeconds: 0.06
     ShakeAmount: 0.2
     Element: 0
+--- !u!114 &8403675967182519789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235009297817436566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 204a9989b01b72d4fb185ff3c166927d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.BossCore
+  fx: {fileID: 11400000, guid: 8fcdad6911c44bb4097f856068d79d2e, type: 2}
+  shot: {fileID: 8335315960767826104, guid: 64bdd8e4216d5ef4aace124cc5871655, type: 3}
+  shardSpec:
+    Multiplier: 0.8
+    Knockback: 4
+    StunSeconds: 0
+    HitStopSeconds: 0.03
+    ShakeAmount: 0.08
+    Element: 0
+--- !u!114 &1200366301056103891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235009297817436566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3ec62d4f77694640a4c99386c98f286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.RootSnares
+  fromPhase: 1
+  untilPhase: 3
+--- !u!114 &8399153056289954717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235009297817436566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fdba2d145150e44c9631d081af21a4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.TotemShield
+  fromPhase: 2
+  untilPhase: 3
+  style: 1
+  count: 3
+  healthShare: 0.06
 --- !u!1 &1898167337955026655
 GameObject:
   m_ObjectHideFlags: 0

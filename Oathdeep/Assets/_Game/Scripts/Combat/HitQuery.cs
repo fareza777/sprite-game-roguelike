@@ -43,7 +43,7 @@ namespace Oathdeep.Combat
             var info = attacker.BuildDamage(spec, defense, sourcePosition);
             if (!target.TryTakeDamage(info)) return false;
 
-            GameEvents.RaiseDamageDealt(info, target.transform.position);
+            GameEvents.RaiseDamageDealt(target.LastHit, target.transform.position);
             HitStop.Trigger(info.IsCrit ? spec.HitStopSeconds * 1.6f : spec.HitStopSeconds);
             CameraRig.Shake(info.IsCrit ? spec.ShakeAmount * 1.5f : spec.ShakeAmount);
             return true;

@@ -35,7 +35,7 @@ namespace Oathdeep.Enemies
         readonly HashSet<Health> hit = new HashSet<Health>();
         readonly System.Random rng = new System.Random();
 
-        float Pace => phase == 1 ? 1f : phase == 2 ? 0.78f : 0.62f;
+        float Pace => phase == 1 ? 1f : phase == 2 ? 0.82f : 0.66f;
 
         protected override void OnSpawned()
         {
@@ -75,16 +75,17 @@ namespace Oathdeep.Enemies
             }
         }
 
+        /// <summary>Phases come from the shared boss rules (thirds of health), which also play the transition.</summary>
         void UpdatePhase()
         {
-            int want = Health.Current <= Health.Max / 2 ? 2 : 1;
-            if (patternId == "the_cantor" && Health.Current <= Health.Max / 4) want = 3;
-            if (want <= phase) return;
-            phase = want;
-            flash?.Flash(new Color(1f, 0.45f, 0.15f), 0.35f);
-            CameraRig.Shake(0.6f);
-            AudioManager.Play(Sfx.BossRoar, transform.position);
-            GameEvents.RaiseToast(phase == 3 ? $"{data.DisplayName} sings the last verse!" : $"{data.DisplayName} rages!");
+            if (BossRules != null) phase = BossRules.Phase;
+            else phase = BossPhases.PhaseFor(Health.Current, Health.Max);
+        }
+
+        protected override void OnResume()
+        {
+            telegraph?.Hide();
+            Go(S.Recover);
         }
 
         void Begin()
@@ -113,6 +114,7 @@ namespace Oathdeep.Enemies
 
         void Execute()
         {
+            BossRules?.ReportMove(current.Move);
             switch (current.Move)
             {
                 case BossMove.Radial:

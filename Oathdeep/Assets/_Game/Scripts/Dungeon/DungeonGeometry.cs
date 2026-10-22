@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Oathdeep.Dungeon
@@ -74,9 +75,12 @@ namespace Oathdeep.Dungeon
 
         public static Vector2Int CellCentre(Vector2Int grid) => new Vector2Int(grid.x * StrideX, grid.y * StrideY);
 
-        public static DungeonGeometry Build(DungeonLayout layout, int seed)
+        int floorNumber = 1;
+
+        /// <param name="floorNumber">Which floor of the descent (1-10); each one lays its boss arena out differently.</param>
+        public static DungeonGeometry Build(DungeonLayout layout, int seed, int floorNumber = 1)
         {
-            var geo = new DungeonGeometry();
+            var geo = new DungeonGeometry { floorNumber = floorNumber };
             var rng = new System.Random(seed ^ 0x5f3759df);
 
             foreach (var node in layout.Rooms)
@@ -158,7 +162,12 @@ namespace Oathdeep.Dungeon
 
             var r = room.Interior;
             var centre = room.Centre;
-            int pattern = type == RoomType.Boss ? 1 : rng.Next(5); // 0 none, 1 corners, 2 lattice, 3 colonnade, 4 scattered
+            if (type == RoomType.Boss)
+            {
+                foreach (var offset in ArenaPillars(floorNumber)) TryPillar(room, centre + offset);
+                return;
+            }
+            int pattern = rng.Next(5); // 0 none, 1 corners, 2 lattice, 3 colonnade, 4 scattered
             if (pattern == 0) return;
 
             var candidates = new List<Vector2Int>();
@@ -190,16 +199,59 @@ namespace Oathdeep.Dungeon
             foreach (var p in candidates)
             {
                 if (pattern == 4 && rng.NextDouble() < 0.55) continue;
-                bool inLaneX = p.x + 1 >= centre.x - LaneHalf && p.x <= centre.x + LaneHalf;
-                bool inLaneY = p.y + 1 >= centre.y - LaneHalf && p.y <= centre.y + LaneHalf;
-                if (inLaneX || inLaneY) continue;
-                if (p.x < r.xMin + PillarMargin || p.x + 1 >= r.xMax - PillarMargin) continue;
-                if (p.y < r.yMin + PillarMargin || p.y + 1 >= r.yMax - PillarMargin) continue;
+                TryPillar(room, p);
+            }
+        }
 
-                room.Pillars.Add(p);
-                for (int dx = 0; dx < 2; dx++)
-                    for (int dy = 0; dy < 2; dy++)
-                        floor.Remove(new Vector2Int(p.x + dx, p.y + dy));
+        /// <summary>Places a 2x2 pillar unless it would block the centre cross lanes or hug a wall.</summary>
+        void TryPillar(RoomGeometry room, Vector2Int p)
+        {
+            var r = room.Interior;
+            var centre = room.Centre;
+            bool inLaneX = p.x + 1 >= centre.x - LaneHalf && p.x <= centre.x + LaneHalf;
+            bool inLaneY = p.y + 1 >= centre.y - LaneHalf && p.y <= centre.y + LaneHalf;
+            if (inLaneX || inLaneY) return;
+            if (p.x < r.xMin + PillarMargin || p.x + 1 >= r.xMax - PillarMargin) return;
+            if (p.y < r.yMin + PillarMargin || p.y + 1 >= r.yMax - PillarMargin) return;
+
+            room.Pillars.Add(p);
+            for (int dx = 0; dx < 2; dx++)
+                for (int dy = 0; dy < 2; dy++)
+                    floor.Remove(new Vector2Int(p.x + dx, p.y + dy));
+        }
+
+        /// <summary>
+        /// Each boss arena (33x29) has its own cover, as offsets of 2x2 pillars from the room centre. The Hollow and the
+        /// Ossuary stay open: spore clouds and the clock hand need the floor.
+        /// </summary>
+        static IEnumerable<Vector2Int> ArenaPillars(int floorNumber)
+        {
+            var corners = new[] { new Vector2Int(-12, -10), new Vector2Int(10, -10), new Vector2Int(-12, 8), new Vector2Int(10, 8) };
+            switch (floorNumber)
+            {
+                case 1: return corners;                                                                 // crypt: four tombs
+                case 3:                                                                                   // cistern: side colonnades
+                    return new[] { -9, -4, 3, 8 }.SelectMany(y => new[] { new Vector2Int(-11, y), new Vector2Int(9, y) });
+                case 4:                                                                                   // forge: anvil rows
+                    return new[] { -11, -6, 4, 9 }.SelectMany(x => new[] { new Vector2Int(x, -8), new Vector2Int(x, 6) });
+                case 5: return Ring(8f, 8, 22.5f);                                                        // frost: a ring of ice
+                case 6:                                                                                   // thornwild: overgrown lattice
+                    return new[] { -10, -5, 4, 9 }.SelectMany(x => new[] { -9, -5, 3, 7 }.Select(y => new Vector2Int(x, y)))
+                        .Where((p, i) => i % 3 != 1);
+                case 8:                                                                                   // necropolis: sarcophagi
+                    return new[] { new Vector2Int(-9, -7), new Vector2Int(6, -8), new Vector2Int(-6, 5), new Vector2Int(9, 4), new Vector2Int(-12, 4), new Vector2Int(11, -9) };
+                case 9: return new[] { new Vector2Int(-7, -6), new Vector2Int(5, -6), new Vector2Int(-7, 4), new Vector2Int(5, 4) };   // glass: a tight square
+                case 10: return corners.Concat(Ring(6.5f, 4, 45f));                                       // heart: tombs and a tight ring
+                default: return System.Array.Empty<Vector2Int>();                                         // 2 hollow, 7 ossuary: open
+            }
+        }
+
+        static IEnumerable<Vector2Int> Ring(float radius, int count, float startDegrees)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                float a = (startDegrees + i * 360f / count) * Mathf.Deg2Rad;
+                yield return new Vector2Int(Mathf.RoundToInt(Mathf.Cos(a) * radius) - 1, Mathf.RoundToInt(Mathf.Sin(a) * radius) - 1);
             }
         }
 

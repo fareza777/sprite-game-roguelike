@@ -180,6 +180,11 @@ namespace Oathdeep.Dungeon
         {
             var e = Instantiate(prefab, at, Quaternion.identity, enemyRoot);
             e.Spawn(player, config.StatScale, elite);
+            if (e.TryGetComponent<Enemies.BossCore>(out var boss))
+            {
+                var r = room.Interior;
+                boss.Begin(player, new Rect(r.xMin, r.yMin, r.width, r.height), isFloor);
+            }
         }
 
         List<Vector3> PickSpawnPositions(int count)

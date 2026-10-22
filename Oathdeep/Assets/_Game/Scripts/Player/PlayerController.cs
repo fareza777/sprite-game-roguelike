@@ -25,6 +25,7 @@ namespace Oathdeep.Player
         Rigidbody2D body;
         Health health;
         CombatStats stats;
+        PlayerStatus status;
         HeroMoves moves;
         State state;
         float stateTime;
@@ -58,6 +59,8 @@ namespace Oathdeep.Player
             if (input == null) input = GetComponent<PlayerInputReader>();
             if (anim == null) anim = GetComponentInChildren<AnimDriver>();
             if (flash == null) flash = GetComponentInChildren<HitFlash>();
+            status = GetComponent<PlayerStatus>();
+            if (status == null) status = gameObject.AddComponent<PlayerStatus>();
         }
 
         void OnEnable()
@@ -88,6 +91,8 @@ namespace Oathdeep.Player
 
             Vector2 move = input.Move;
             if (move.sqrMagnitude > 0.01f && (state == State.Move)) aim = move.normalized;
+            // Rooted: roll presses tear the hero free instead of rolling.
+            if (status.Rooted && input.Consume(PlayerAction.Dodge)) status.Struggle();
 
             switch (state)
             {
@@ -104,10 +109,11 @@ namespace Oathdeep.Player
             if (state == State.Dead) { body.linearVelocity = Vector2.zero; return; }
 
             Vector2 target = Vector2.zero;
+            var ground = status.Ground;   // water and quicksand slow, ice slides
             switch (state)
             {
                 case State.Move:
-                    target = input.Move * stats.Stats.MoveSpeed;
+                    target = status.Rooted ? Vector2.zero : input.Move * stats.Stats.MoveSpeed * ground.SpeedMultiplier;
                     break;
                 case State.Attack:
                     var mv = moves.Combo[comboIndex];
@@ -125,7 +131,7 @@ namespace Oathdeep.Player
             knockVelocity = Vector2.MoveTowards(knockVelocity, Vector2.zero, 40f * Time.fixedDeltaTime);
             Vector2 desired = target + knockVelocity;
             bool instant = state == State.Dodge || state == State.Skill;
-            body.linearVelocity = instant ? desired : Vector2.MoveTowards(body.linearVelocity, desired, acceleration * Time.fixedDeltaTime);
+            body.linearVelocity = instant ? desired : Vector2.MoveTowards(body.linearVelocity, desired, acceleration * ground.Traction * Time.fixedDeltaTime);
         }
 
         void UpdateMove(Vector2 move)
@@ -294,6 +300,7 @@ namespace Oathdeep.Player
             comboIndex = 0;
             knockVelocity = Vector2.zero;
             dodgeReadyAt = skillReadyAt = 0f;
+            status.Clear();
         }
     }
 }

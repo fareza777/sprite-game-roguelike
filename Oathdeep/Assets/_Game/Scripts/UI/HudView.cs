@@ -19,7 +19,9 @@ namespace Oathdeep.UI
         TextMeshProUGUI floorText;
         RectTransform bossRoot;
         Image bossFill;
+        Image breakFill;
         TextMeshProUGUI bossName;
+        string bossTitle = "";
         TextMeshProUGUI toast;
         CanvasGroup toastGroup;
         Coroutine toastRoutine;
@@ -80,14 +82,22 @@ namespace Oathdeep.UI
             UIWidgets.IconButton(bag, skin, skin.iconBag, () => onBag?.Invoke());
 
             // --- Boss bar (hidden until a boss appears) ---
-            bossRoot = UIFactory.Rect("Boss", safeArea, new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -136), new Vector2(260, 30));
-            var bossFrame = UIFactory.Rect("Frame", bossRoot, new Vector2(0, 0), new Vector2(1, 0), new Vector2(0.5f, 0), Vector2.zero, new Vector2(0, 14));
+            // Under the minimap/bag column and stretching with the screen (a 20:9 phone is only ~322 units wide).
+            bossRoot = UIFactory.Rect("Boss", safeArea, new Vector2(0.05f, 1), new Vector2(0.95f, 1), new Vector2(0.5f, 1), new Vector2(0, -178), new Vector2(0, 38));
+            var bossFrame = UIFactory.Rect("Frame", bossRoot, new Vector2(0, 0), new Vector2(1, 0), new Vector2(0.5f, 0), new Vector2(0, 8), new Vector2(0, 14));
             UIFactory.Image(bossFrame, skin.barFrame, null, true);
             var bossFillRect = UIFactory.Stretch("Fill", bossFrame); bossFillRect.offsetMin = new Vector2(3, 3); bossFillRect.offsetMax = new Vector2(-3, -3);
             bossFill = UIFactory.Image(bossFillRect, skin.barFillBoss != null ? skin.barFillBoss : skin.white, skin.barFillBoss != null ? Color.white : skin.dangerColor);
             bossFill.type = Image.Type.Filled; bossFill.fillMethod = Image.FillMethod.Horizontal; bossFill.preserveAspect = false;
             var bossNameRect = UIFactory.Rect("Name", bossRoot, new Vector2(0, 1), new Vector2(1, 1), new Vector2(0.5f, 1), Vector2.zero, new Vector2(0, 14));
             bossName = UIFactory.Text(bossNameRect, skin, "", 12, TextAlignmentOptions.Center, skin.dangerColor);
+            // Break gauge: fills as the boss is pressured; full means its guard is broken.
+            var breakRect = UIFactory.Rect("Break", bossRoot, new Vector2(0.1f, 0), new Vector2(0.9f, 0), new Vector2(0.5f, 0), Vector2.zero, new Vector2(0, 5));
+            UIFactory.Image(breakRect, skin.white, new Color(0.05f, 0.06f, 0.1f, 0.85f)).preserveAspect = false;
+            var breakFillRect = UIFactory.Stretch("Fill", breakRect); breakFillRect.offsetMin = new Vector2(1, 1); breakFillRect.offsetMax = new Vector2(-1, -1);
+            breakFill = UIFactory.Image(breakFillRect, skin.white, skin.accentColor);
+            breakFill.type = Image.Type.Filled; breakFill.fillMethod = Image.FillMethod.Horizontal; breakFill.preserveAspect = false;
+            breakFill.fillAmount = 0f;
             bossRoot.gameObject.SetActive(false);
 
             // --- Toast ---
@@ -193,7 +203,13 @@ namespace Oathdeep.UI
             };
             GameEvents.GoldChanged += g => goldText.text = g.ToString();
             GameEvents.Toast += ShowToast;
-            GameEvents.BossEncountered += n => { bossRoot.gameObject.SetActive(true); bossName.text = n; };
+            GameEvents.BossEncountered += n => { bossRoot.gameObject.SetActive(true); bossTitle = n; bossName.text = n; };
+            GameEvents.BossPhaseChanged += p => bossName.text = p > 1 ? $"{bossTitle}  -  PHASE {p}" : bossTitle;
+            GameEvents.BossBreakChanged += (f, broken) =>
+            {
+                breakFill.fillAmount = f;
+                breakFill.color = broken ? Color.white : skin.accentColor;
+            };
             GameEvents.BossHealthChanged += (c, m) => bossFill.fillAmount = m > 0 ? c / m : 0f;
             GameEvents.BossDefeated += () => bossRoot.gameObject.SetActive(false);
         }

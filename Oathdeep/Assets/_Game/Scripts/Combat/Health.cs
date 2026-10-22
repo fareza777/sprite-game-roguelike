@@ -19,6 +19,13 @@ namespace Oathdeep.Combat
         public event Action<int> Healed;
         public event Action Died;
         public event Action<int, int> Changed; // current, max
+        public event Action<DamageInfo> Blocked;  // a hit shrugged off while immune (a shielded boss)
+
+        /// <summary>Scales incoming damage: 0 is immune (shielded), 2 is an exposed weak point.</summary>
+        public float DamageTakenMultiplier { get; set; } = 1f;
+
+        /// <summary>The last hit as actually taken, after <see cref="DamageTakenMultiplier"/>.</summary>
+        public DamageInfo LastHit { get; private set; }
 
         float invulnerableUntil;
         int invulnerableLocks;
@@ -46,6 +53,11 @@ namespace Oathdeep.Combat
         public bool TryTakeDamage(DamageInfo info)
         {
             if (IsDead || IsInvulnerable || info.SourceTeam == team) return false;
+            if (DamageTakenMultiplier <= 0f) { Blocked?.Invoke(info); return false; }
+            if (!Mathf.Approximately(DamageTakenMultiplier, 1f))
+                info = new DamageInfo(Mathf.Max(1, Mathf.RoundToInt(info.Amount * DamageTakenMultiplier)), info.IsCrit, info.SourcePosition,
+                    info.Knockback, info.StunSeconds, info.SourceTeam, info.Element);
+            LastHit = info;
 
             Current = Mathf.Max(0, Current - info.Amount);
             if (invulnerableAfterHit > 0f) invulnerableUntil = Time.time + invulnerableAfterHit;

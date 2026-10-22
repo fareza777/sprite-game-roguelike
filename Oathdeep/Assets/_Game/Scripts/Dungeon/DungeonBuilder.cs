@@ -29,7 +29,7 @@ namespace Oathdeep.Dungeon
         {
             Clear();
             var layout = DungeonLayoutGenerator.Generate(seed, config.RoomCount);
-            Geometry = DungeonGeometry.Build(layout, seed);
+            Geometry = DungeonGeometry.Build(layout, seed, config.FloorNumber);
             var rng = new System.Random(seed * 7919 + 13);
 
             CreateTilemaps();

@@ -211,6 +211,8 @@ GameObject:
   - component: {fileID: 3101652436554949651}
   - component: {fileID: 9007302739733678271}
   - component: {fileID: 829558901894428594}
+  - component: {fileID: 6883846756731177978}
+  - component: {fileID: 7443103386907009055}
   m_Layer: 0
   m_Name: DunePharaoh
   m_TagString: Untagged
@@ -392,6 +394,43 @@ MonoBehaviour:
     HitStopSeconds: 0.06
     ShakeAmount: 0.2
     Element: 0
+--- !u!114 &6883846756731177978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3115910963338072350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 204a9989b01b72d4fb185ff3c166927d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.BossCore
+  fx: {fileID: 11400000, guid: 8fcdad6911c44bb4097f856068d79d2e, type: 2}
+  shot: {fileID: 3975438973919713997, guid: 1daf02e9343769046ba8d4ea140c2c2e, type: 3}
+  shardSpec:
+    Multiplier: 0.8
+    Knockback: 4
+    StunSeconds: 0
+    HitStopSeconds: 0.03
+    ShakeAmount: 0.08
+    Element: 0
+--- !u!114 &7443103386907009055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3115910963338072350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4c45e2e5427cce47a59761bb8421ee2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.Sandstorm
+  fromPhase: 1
+  untilPhase: 3
+  fogFromPhase: 2
+  quicksand: 1
 --- !u!1 &4658323927568538145
 GameObject:
   m_ObjectHideFlags: 0

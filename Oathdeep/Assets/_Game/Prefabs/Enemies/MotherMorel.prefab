@@ -327,6 +327,8 @@ GameObject:
   - component: {fileID: 2431489139429665493}
   - component: {fileID: 5976429258952139899}
   - component: {fileID: 5758063429380944196}
+  - component: {fileID: 8825232278834890043}
+  - component: {fileID: 940333892783317673}
   m_Layer: 0
   m_Name: MotherMorel
   m_TagString: Untagged
@@ -508,6 +510,41 @@ MonoBehaviour:
     HitStopSeconds: 0.06
     ShakeAmount: 0.2
     Element: 0
+--- !u!114 &8825232278834890043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2962373674846272206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 204a9989b01b72d4fb185ff3c166927d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.BossCore
+  fx: {fileID: 11400000, guid: 8fcdad6911c44bb4097f856068d79d2e, type: 2}
+  shot: {fileID: 3905084245405588967, guid: fe7acf069da51c9419c382a41eeb432e, type: 3}
+  shardSpec:
+    Multiplier: 0.8
+    Knockback: 4
+    StunSeconds: 0
+    HitStopSeconds: 0.03
+    ShakeAmount: 0.08
+    Element: 0
+--- !u!114 &940333892783317673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2962373674846272206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 752ad6f3962f8e244bb27b9ee95254c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.SporeGarden
+  fromPhase: 1
+  untilPhase: 3
 --- !u!1 &5240162099310191022
 GameObject:
   m_ObjectHideFlags: 0

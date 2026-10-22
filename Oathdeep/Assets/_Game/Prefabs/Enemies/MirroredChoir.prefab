@@ -451,6 +451,8 @@ GameObject:
   - component: {fileID: 2733927961077005794}
   - component: {fileID: 5317719318137141167}
   - component: {fileID: 4611650715330546260}
+  - component: {fileID: 5655999834861782208}
+  - component: {fileID: 6343615403767428393}
   m_Layer: 0
   m_Name: MirroredChoir
   m_TagString: Untagged
@@ -632,6 +634,43 @@ MonoBehaviour:
     HitStopSeconds: 0.06
     ShakeAmount: 0.2
     Element: 0
+--- !u!114 &5655999834861782208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7141040085753781120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 204a9989b01b72d4fb185ff3c166927d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.BossCore
+  fx: {fileID: 11400000, guid: 8fcdad6911c44bb4097f856068d79d2e, type: 2}
+  shot: {fileID: 2113633085649228232, guid: e70d74937bcef1b40a276a7591f6a426, type: 3}
+  shardSpec:
+    Multiplier: 0.8
+    Knockback: 4
+    StunSeconds: 0
+    HitStopSeconds: 0.03
+    ShakeAmount: 0.08
+    Element: 0
+--- !u!114 &6343615403767428393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7141040085753781120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a2738b827143304f92a24c19bd79915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oathdeep.Runtime::Oathdeep.Enemies.MirrorDecoys
+  fromPhase: 1
+  untilPhase: 3
+  count: 2
+  tint: {r: 0.85, g: 0.92, b: 1, a: 0.92}
 --- !u!1 &8124331808365644683
 GameObject:
   m_ObjectHideFlags: 0
