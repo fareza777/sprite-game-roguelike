@@ -43,7 +43,7 @@ in Unity 6. Design doc: `docs/design/2026-10-21-undersun-full-game-design.md`.
    - VO: `tools/audio/vo.py`.
 3. Unity: `bash tools/setup-wait.sh` queues **Oathdeep > Build Everything**. It runs these stages in order: importers and
    slicing, content data, audio library and story, about 97 prefabs, floors and the scene.
-4. Tests: EditMode, 2045 passing (`node tools/unity-mcp.mjs tests-run '{"testMode":"EditMode"}'`; save the scene first).
+4. Tests: EditMode, 2142 passing (`node tools/unity-mcp.mjs tests-run '{"testMode":"EditMode"}'`; save the scene first).
 5. QA: `bash tools/smoke.sh` in play mode runs every floor (teleport to the boss, clear it, take the portal).
 6. APK: `node tools/run-cs.mjs tools/playtest/apk.cs`, then pump the editor; output goes to `Oathdeep/Builds/Android/Undersun.apk`.
 
@@ -71,6 +71,16 @@ in Unity 6. Design doc: `docs/design/2026-10-21-undersun-full-game-design.md`.
 - **Editor**: `OathdeepSetup.*` partials build all content from code and data.
 
 ## Known limits / next ideas
+- Boss fights (`Enemies/Bosses/`): `BossCore` gives every Chorister three phases (at 2/3 and 1/3 health), a break
+  gauge that staggers it, and damage multipliers; each boss adds its signature `BossMechanic` components (totems,
+  spores, tides, overheat, frost, roots, clock hands, sandstorm, mirror decoys; the Cantor stacks them by phase).
+  Hazards are `HazardZone`s the hero's movement samples (slow, ice, burn, root). Arena pillars differ per floor.
+  Play-test a boss with `bash tools/bossrun.sh <floor> [hpFraction] [pumps]`.
+- Rooms: combat rooms roll a `RoomChallenge` (waves, survive, nests, gauntlet), biomes lay terrain, elites carry a
+  trait (swift, armored, giant, regenerating), and harder rooms end in a pick of gold, mend or gear.
+- Talents (`Player/PlayerTalents`): six run-long fighting changes offered at sunstones (one per offer).
+- Atmosphere: `AmbientMotes` per floor, glowing enemy shots, roll afterimages, boss-kill slow motion.
+- `python tools/csc-check.py` compile-checks all C# with Unity's Roslyn, without the editor running.
 - Difficulty: enemy health/attack follow `FloorConfig.StatScaleFor` (x1.0 on B1 to x7.35 on B10, accelerating so it outgrows
   the player's compounding gear). Model it with a quick per-floor hits-to-kill / hits-to-die table before retuning.
 - Screenshots in the editor use a landscape Game view, so the room camera clamp centres horizontally there.
