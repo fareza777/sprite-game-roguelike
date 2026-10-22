@@ -18,6 +18,7 @@ namespace Oathdeep.UI
         UISkin skin;
         CanvasGroup group;
         UnityEngine.UI.Image portrait;
+        RectTransform portraitFrame;
         TextMeshProUGUI speaker, body;
         RectTransform choiceRoot;
         readonly List<GameObject> buttons = new List<GameObject>();
@@ -44,6 +45,7 @@ namespace Oathdeep.UI
             var artInner = UIFactory.Stretch("Art", art);
             artInner.offsetMin = new Vector2(4, 4); artInner.offsetMax = new Vector2(-4, -4);
             view.portrait = UIFactory.Image(artInner, null);
+            view.portraitFrame = art;
 
             var name = UIFactory.Rect("Speaker", panel, new Vector2(0, 1), new Vector2(1, 1), new Vector2(0, 1), new Vector2(92, -12), new Vector2(-102, 20));
             view.speaker = UIFactory.Text(name, skin, "", 15, TextAlignmentOptions.TopLeft, skin.accentColor);
@@ -66,6 +68,12 @@ namespace Oathdeep.UI
             group.alpha = 1f;
             portrait.sprite = dialog.Portrait;
             portrait.enabled = dialog.Portrait != null;
+            // No portrait (spoils): drop the empty frame and let the words use the full width.
+            bool framed = dialog.Portrait != null;
+            portraitFrame.gameObject.SetActive(framed);
+            float left = framed ? 92f : 14f;
+            var sp = (RectTransform)speaker.transform; sp.anchoredPosition = new Vector2(left, sp.anchoredPosition.y); sp.sizeDelta = new Vector2(-left - 10f, sp.sizeDelta.y);
+            var bd = (RectTransform)body.transform; bd.anchoredPosition = new Vector2(left, bd.anchoredPosition.y); bd.sizeDelta = new Vector2(-left - 12f, bd.sizeDelta.y);
             speaker.text = dialog.Speaker;
             body.text = dialog.Text;
             body.maxVisibleCharacters = 0;

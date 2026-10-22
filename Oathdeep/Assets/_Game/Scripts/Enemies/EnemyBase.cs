@@ -57,6 +57,9 @@ namespace Oathdeep.Enemies
         }
 
         public bool IsElite { get; private set; }
+        public EliteTrait Trait { get; private set; }
+        float lastHurtAt;
+        float regenPool;
 
         /// <summary>Activates the enemy; statScale lets later floors reuse the same data. Elites are tougher and richer.</summary>
         public virtual void Spawn(Transform target, float scale = 1f, bool elite = false)
@@ -70,8 +73,17 @@ namespace Oathdeep.Enemies
             var scaled = new StatBlock(Mathf.RoundToInt(s.MaxHealth * hp), Mathf.RoundToInt(s.Attack * atk), s.Defense, s.CritChance, s.CritMultiplier, s.MoveSpeed);
             if (elite)
             {
-                transform.localScale = Vector3.one * EliteSizeMultiplier;
-                if (eliteAura != null) eliteAura.SetActive(true);
+                // Every elite carries one trait (swift, armored, giant, regenerating), shown by its aura colour.
+                Trait = EliteTraits.Pick(UnityEngine.Random.value);
+                var buff = EliteTraits.Apply(scaled, Trait);
+                scaled = buff.Stats;
+                transform.localScale = Vector3.one * EliteSizeMultiplier * buff.Size;
+                Health.DamageTakenMultiplier = buff.DamageTaken;
+                if (eliteAura != null)
+                {
+                    eliteAura.SetActive(true);
+                    foreach (var sr in eliteAura.GetComponentsInChildren<SpriteRenderer>(true)) sr.color = buff.Aura;
+                }
             }
             Stats.Set(scaled, Team.Enemy);
             Health.Init(scaled.MaxHealth, Team.Enemy);
@@ -90,6 +102,11 @@ namespace Oathdeep.Enemies
         {
             if (Health.IsDead || Target == null) return;
             StateTime += Time.deltaTime;
+            if (IsElite && Trait == EliteTrait.Regenerating && Time.time - lastHurtAt > 2f && Health.Current < Health.Max)
+            {
+                regenPool += Health.Max * 0.03f * Time.deltaTime;   // 3% a second once left alone for 2 s
+                if (regenPool >= 1f) { Health.Heal((int)regenPool); regenPool -= (int)regenPool; }
+            }
             if (Stunned) { anim.Play("hurt"); return; }
             if (bossCore != null && bossCore.Halted)
             {
@@ -118,6 +135,7 @@ namespace Oathdeep.Enemies
 
         void OnDamaged(DamageInfo info)
         {
+            lastHurtAt = Time.time;
             Vector2 away = ((Vector2)transform.position - info.SourcePosition).normalized;
             knockVelocity = away * info.Knockback * (1f - knockbackResistance);
             if (info.StunSeconds > 0f) stunnedUntil = Mathf.Max(stunnedUntil, Time.time + info.StunSeconds * (1f - knockbackResistance));

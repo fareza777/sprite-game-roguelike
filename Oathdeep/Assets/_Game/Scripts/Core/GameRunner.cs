@@ -36,6 +36,7 @@ namespace Oathdeep.Core
         [SerializeField] Camera worldCamera;
         [SerializeField] Light2D globalLight;
         [SerializeField] AmbientMotes ambient;
+        [SerializeField] Enemies.BossFx bossFx;
 
         Phase phase;
         FrontEnd frontEnd;

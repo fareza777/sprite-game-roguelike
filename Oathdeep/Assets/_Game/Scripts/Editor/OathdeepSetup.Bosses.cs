@@ -27,7 +27,7 @@ namespace Oathdeep.EditorTools
                 new Cell("spore_pod", 64, 0, 32, 32, Feet), new Cell("dusk_anchor", 96, 0, 32, 32, Feet),
                 new Cell("steam", 128, 0, 16, 16, Centre), new Cell("water", 144, 0, 16, 16, Centre),
                 new Cell("ice", 160, 0, 16, 16, Centre), new Cell("lava", 176, 0, 16, 16, Centre),
-                new Cell("clock_hand", 192, 0, 16, 16, BeamPivot),
+                new Cell("clock_hand", 192, 0, 16, 16, BeamPivot), new Cell("nest", 208, 0, 32, 32, Feet),
                 new Cell("spore_cloud", 0, 32, 72, 72, Centre), new Cell("quicksand", 72, 32, 80, 80, Centre),
                 new Cell("time_bubble", 152, 32, 80, 80, Centre), new Cell("root_snare", 0, 112, 40, 40, Centre),
             }, WorldPpu, SpriteMeshType.FullRect);
@@ -38,6 +38,7 @@ namespace Oathdeep.EditorTools
             fx.rootCore = Spr(BossFxPng, "root_core");
             fx.sporePod = Spr(BossFxPng, "spore_pod");
             fx.duskAnchor = Spr(BossFxPng, "dusk_anchor");
+            fx.nest = Spr(BossFxPng, "nest");
             fx.sporeCloud = Spr(BossFxPng, "spore_cloud");
             fx.water = Spr(BossFxPng, "water");
             fx.ice = Spr(BossFxPng, "ice");

@@ -32,6 +32,7 @@ namespace Oathdeep.Core
             LootDropper.BeginFloor(config.FloorNumber, seed);
             dungeon = new GameObject("Dungeon").AddComponent<DungeonBuilder>();
             dungeon.SetProps(props);
+            dungeon.SetFx(bossFx);
             dungeon.Build(config, seed, player.transform, OnBossRoomCleared);
 
             var body = player.GetComponent<Rigidbody2D>();

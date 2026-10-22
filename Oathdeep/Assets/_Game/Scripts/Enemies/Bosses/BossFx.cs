@@ -11,6 +11,7 @@ namespace Oathdeep.Enemies
         public Sprite rootCore;
         public Sprite sporePod;
         public Sprite duskAnchor;
+        public Sprite nest;          // room challenge: a rift that keeps spawning foes
 
         [Header("Ground hazards (tile or scale)")]
         public Sprite sporeCloud;

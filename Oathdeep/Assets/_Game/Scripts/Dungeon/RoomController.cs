@@ -14,7 +14,7 @@ namespace Oathdeep.Dungeon
     /// Runs one room: camera bounds on entry, door lock + enemy waves for combat rooms,
     /// boss encounter, and rewards when cleared.
     /// </summary>
-    public sealed class RoomController : MonoBehaviour
+    public sealed partial class RoomController : MonoBehaviour
     {
         const float SpawnTelegraphSeconds = 0.7f;
         const float MinSpawnDistance = 3.5f;
@@ -93,7 +93,7 @@ namespace Oathdeep.Dungeon
 
             if (room.Node.Type == RoomType.Treasure) SpawnTreasure();
             if (room.Node.Type == RoomType.Elite) GameEvents.RaiseToast("Something strong waits here...");
-            if (!cleared && !fighting) StartCoroutine(room.Node.Type == RoomType.Boss ? RunBoss() : RunWaves());
+            if (!cleared && !fighting) StartCoroutine(room.Node.Type == RoomType.Boss ? RunBoss() : RunChallenge());
         }
 
         IEnumerator RunWaves()
@@ -101,16 +101,20 @@ namespace Oathdeep.Dungeon
             fighting = true;
             SetDoors(true);
             bool elite = room.Node.Type == RoomType.Elite;
-            int waves = rng.Next(config.WavesPerRoom.x, config.WavesPerRoom.y + 1) + (elite ? 1 : 0);
+            bool gauntlet = challenge == RoomChallenge.Gauntlet;   // fewer foes, more hostile ground
+            if (gauntlet) GameEvents.RaiseToast("Watch your step!");
+            int waves = gauntlet ? 2 : rng.Next(config.WavesPerRoom.x, config.WavesPerRoom.y + 1) + (elite ? 1 : 0);
             for (int w = 0; w < waves; w++)
             {
                 int count = rng.Next(config.EnemiesPerWave.x, config.EnemiesPerWave.y + 1);
+                if (gauntlet) count = Mathf.Max(2, count / 2);
                 yield return SpawnWave(count, elite ? 0.45f : config.EliteChance);
                 yield return WaitUntilClear();
                 if (w < waves - 1) yield return new WaitForSeconds(0.6f);
             }
             Clear();
-            if (elite) Reward(1.4f, "The elite falls. Spoils!");
+            if (elite) OfferSpoils("The elite falls!");
+            else if (gauntlet) OfferSpoils("You crossed the gauntlet!");
         }
 
         /// <summary>A cursed chest or similar trap turns a peaceful room into a sealed elite fight.</summary>

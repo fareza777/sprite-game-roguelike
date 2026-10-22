@@ -16,6 +16,7 @@ MonoBehaviour:
   rootCore: {fileID: 1508841960, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
   sporePod: {fileID: -226363186, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
   duskAnchor: {fileID: 1631326874, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
+  nest: {fileID: 838828598, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
   sporeCloud: {fileID: -991783801, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
   water: {fileID: -1609803246, guid: 63b11635a69fc3f4695203793600cebd, type: 3}
   ice: {fileID: -2089557155, guid: 63b11635a69fc3f4695203793600cebd, type: 3}

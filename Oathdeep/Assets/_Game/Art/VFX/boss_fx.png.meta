@@ -422,6 +422,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: nest
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 128
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47ed8690c89a4a647b7e015954b69570
+      internalID: 838828598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -441,6 +463,7 @@ TextureImporter:
       dusk_anchor: 1631326874
       ice: -2089557155
       lava: -536820380
+      nest: 838828598
       quicksand: 1447545500
       root_core: 1508841960
       root_snare: 804445694

@@ -57,7 +57,7 @@ namespace Oathdeep.EditorTools
                 ("pickupPrefab", Prefab("Pickup").GetComponent<Pickup>()),
                 ("goldSprite", Spr(PropsPng, "coin0")), ("potionSprite", Spr(PropsPng, "potion")),
                 ("skin", uiSkin), ("itemIcons", itemIcons), ("audioLibrary", audioLibrary), ("story", storyAssets), ("worldCamera", cam), ("globalLight", global),
-                ("ambient", motes));
+                ("ambient", motes), ("bossFx", AssetDatabase.LoadAssetAtPath<Oathdeep.Enemies.BossFx>(BossFxAsset)));
 
             EditorSceneManager.SaveScene(scene, ScenePath);
             EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };

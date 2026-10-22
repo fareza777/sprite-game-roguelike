@@ -66,6 +66,16 @@ def dusk_anchor(c):
     shade(c, rect(9, 28, 14, 3), ("w", "z", "Z", "1"), sep=True)
 
 
+def nest(c):
+    shade(c, ellipse(16, 24, 13, 6.5), ("z", "Z", "1", "2"))           # rock rim on the floor
+    shade(c, ellipse(16, 22, 10, 9.5), ("w", "D", "o", "p"), sep=True)   # the rift
+    shade(c, poly([(16, 12), (20, 21), (16, 30), (12, 21)]), RAMP["crimson"], sep=False)
+    shade(c, ellipse(16, 21, 2, 3.5), RAMP["fire"], sep=False)
+    put(c, 15, 18, "H")
+    for x, y in ((7, 26), (24, 27), (10, 30), (22, 31)):
+        c.paste(["2", "1"], x, y)
+
+
 # ---------------------------------------------------------------- 16x16 tiles and puffs
 def tile(base, dark, light, motif):
     def draw(c):
@@ -230,6 +240,7 @@ def main(out):
     paste(sheet, cell(16, 16, tile("n", "m", "H", ice_cracks), False), 160, 0)
     paste(sheet, cell(16, 16, tile("e", "F", "g", lava_cracks), False), 176, 0)
     paste(sheet, cell(16, 16, tile("b", "a", "c", clock_band), False), 192, 0)
+    paste(sheet, cell(32, 32, nest), 208, 0)
     paste(sheet, cell(72, 72, spore_cloud, False), 0, 32)
     paste(sheet, cell(80, 80, blob_circle(80, ("6", "7", "8", "x"), "5", rings=True), False), 72, 32)
     paste(sheet, cell(80, 80, blob_circle(80, ("j", "l", "m", "n"), "H", rings=True, ticks=True), False), 152, 32)

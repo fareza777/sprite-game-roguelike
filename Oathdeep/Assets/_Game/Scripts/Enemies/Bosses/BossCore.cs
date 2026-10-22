@@ -197,8 +197,7 @@ namespace Oathdeep.Enemies
             if (ended) return;
             ended = true;
             foreach (var m in mechanics) m.End();
-            HazardZone.ClearAll();
-            if (HazardRoot != null) Destroy(HazardRoot.gameObject);
+            if (HazardRoot != null) Destroy(HazardRoot.gameObject);   // only this fight's hazards; room terrain stays
             if (Target != null && Target.TryGetComponent<PlayerStatus>(out var status)) status.Clear();
             GameEvents.RaiseBossBreakChanged(0f, false);
         }

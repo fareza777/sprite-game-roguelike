@@ -12,6 +12,7 @@ namespace Oathdeep.Dungeon
     {
         [SerializeField] PropSet props;
         [SerializeField] string sortingLayer = "Default";
+        [SerializeField] Enemies.BossFx fx;   // terrain and nest art for room challenges
 
         Grid grid;
         Tilemap floorMap;
@@ -24,6 +25,7 @@ namespace Oathdeep.Dungeon
         public Vector3 StartPosition { get; private set; }
 
         public void SetProps(PropSet set) => props = set;
+        public void SetFx(Enemies.BossFx library) => fx = library;
 
         public void Build(FloorConfig config, int seed, Transform player, System.Action<Vector3> onExit)
         {
@@ -35,6 +37,11 @@ namespace Oathdeep.Dungeon
             CreateTilemaps();
             Paint(config.Biome, rng);
 
+            // Terrain burns with the floor's strength: a few points a tick, growing with depth.
+            var terrainStats = new GameObject("Terrain").AddComponent<Combat.CombatStats>();
+            terrainStats.transform.SetParent(transform, false);
+            terrainStats.Set(new Data.StatBlock(1, Mathf.RoundToInt(4f * config.StatScale), 0, 0f, 1.5f, 0f), Combat.Team.Hazard);
+
             var decorator = new DungeonDecorator(props, decalMap, transform, rng);
             foreach (var room in Geometry.Rooms)
             {
@@ -43,6 +50,7 @@ namespace Oathdeep.Dungeon
                 go.transform.SetParent(transform, false);
                 var controller = go.AddComponent<RoomController>();
                 controller.Init(room, Geometry.IsFloor, config, rng, player, doors, props != null ? props.spawnMarker : null, onExit);
+                controller.ConfigureChallenge(fx, terrainStats);
                 Rooms.Add(controller);
                 decorator.Decorate(room, Geometry, config, controller);
             }
