@@ -232,6 +232,7 @@ namespace Oathdeep.Enemies
         {
             CameraRig.Shake(0.8f);
             HitStop.Trigger(0.25f);
+            HitStop.SlowMotion(0.3f, 1.1f);
             GameEvents.RaiseBossDefeated();
         }
     }

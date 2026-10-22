@@ -214,6 +214,13 @@ namespace Oathdeep.EditorTools
         {
             var go = new GameObject(name);
             AddSprite(go, "Sprite", sprite, 3, Vector3.zero, magic);
+            if (magic)
+            {
+                // A soft halo so shots stay easy to read (and dodge) in dark rooms.
+                var halo = AddSprite(go, "Glow", Spr(VfxPng, "glow"), 2, Vector3.zero, true);
+                halo.color = new Color(1f, 1f, 1f, 0.4f);
+                halo.transform.localScale = Vector3.one * 1.3f;
+            }
             var col = go.AddComponent<CircleCollider2D>();
             col.isTrigger = true;
             col.radius = 0.14f;

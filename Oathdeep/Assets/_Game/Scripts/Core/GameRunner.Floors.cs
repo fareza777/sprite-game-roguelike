@@ -47,6 +47,7 @@ namespace Oathdeep.Core
                 globalLight.intensity = config.Biome.AmbientIntensity;
             }
             if (worldCamera != null && config.Biome != null) worldCamera.backgroundColor = config.Biome.AmbientLight * 0.08f;
+            if (ambient != null && config.Biome != null) ambient.Show(config.Biome.Ambient, AmbientStyles.For(config.FloorNumber));
 
             hud.SetFloor(config.FloorNumber, config.Biome != null ? config.Biome.DisplayName : "The Deep");
             hud.Minimap.Show(dungeon.Geometry.Rooms);

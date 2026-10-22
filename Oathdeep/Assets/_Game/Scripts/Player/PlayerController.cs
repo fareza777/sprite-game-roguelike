@@ -26,6 +26,8 @@ namespace Oathdeep.Player
         Health health;
         CombatStats stats;
         PlayerStatus status;
+        float nextAfterImage;
+        static readonly Color AfterImageTint = new Color(0.65f, 0.85f, 1f, 0.55f);
         HeroMoves moves;
         State state;
         float stateTime;
@@ -98,7 +100,14 @@ namespace Oathdeep.Player
             {
                 case State.Move: UpdateMove(move); break;
                 case State.Attack: UpdateAttack(); break;
-                case State.Dodge: if (stateTime >= moves.DodgeDuration) EndDodge(); break;
+                case State.Dodge:
+                    if (Time.time >= nextAfterImage)
+                    {
+                        nextAfterImage = Time.time + moves.DodgeDuration / 3f;   // three ghosts trail each roll
+                        AfterImage.Spawn(anim.Renderer, AfterImageTint);
+                    }
+                    if (stateTime >= moves.DodgeDuration) EndDodge();
+                    break;
                 case State.Skill: UpdateSkill(); break;
                 case State.Hurt: if (stateTime >= HeroMoves.HurtStagger) Enter(State.Move); break;
             }

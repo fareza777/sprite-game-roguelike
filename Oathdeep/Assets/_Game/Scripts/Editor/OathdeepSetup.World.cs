@@ -96,6 +96,7 @@ namespace Oathdeep.EditorTools
                 Set(biome, ("displayName", name), ("rareFloorChance", 0.06f), ("ambientLight", light), ("ambientIntensity", intensity),
                     ("music", BiomeTracks[i]), ("bossMusic", i < 4 ? Oathdeep.Audio.MusicTrack.Boss : i < 9 ? Oathdeep.Audio.MusicTrack.BossDeep
                                                                                                     : Oathdeep.Audio.MusicTrack.BossFinal));
+                biome.EditorSetAmbient(AmbientFrames(i));
                 EditorUtility.SetDirty(biome);
                 Biomes[id] = biome;
             }

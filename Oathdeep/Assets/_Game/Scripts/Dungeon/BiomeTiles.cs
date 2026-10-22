@@ -22,6 +22,7 @@ namespace Oathdeep.Dungeon
         [SerializeField, Range(0f, 1f)] float ambientIntensity = 0.35f;
         [SerializeField] Audio.MusicTrack music = Audio.MusicTrack.Crypt;
         [SerializeField] Audio.MusicTrack bossMusic = Audio.MusicTrack.Boss;
+        [SerializeField] Sprite[] ambient;                        // the floor's drifting motes (two frames)
 
         public string DisplayName => displayName;
         public TileBase[] Decals => decals;
@@ -30,6 +31,7 @@ namespace Oathdeep.Dungeon
         public float AmbientIntensity => ambientIntensity;
         public Audio.MusicTrack Music => music;
         public Audio.MusicTrack BossMusic => bossMusic;
+        public Sprite[] Ambient => ambient;
 
         public TileBase Floor(System.Random rng)
         {
@@ -58,6 +60,8 @@ namespace Oathdeep.Dungeon
         }
 
 #if UNITY_EDITOR
+        public void EditorSetAmbient(Sprite[] motes) => ambient = motes;
+
         public void EditorInit(TileBase[] common, TileBase[] rare, TileBase[] faces, TileBase[] caps, TileBase top, TileBase left, TileBase corner,
                                TileBase[] floorDecals, TileBase[] corners)
         {

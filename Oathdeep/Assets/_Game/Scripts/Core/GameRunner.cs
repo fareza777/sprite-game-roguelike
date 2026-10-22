@@ -35,6 +35,7 @@ namespace Oathdeep.Core
         [Header("Scene")]
         [SerializeField] Camera worldCamera;
         [SerializeField] Light2D globalLight;
+        [SerializeField] AmbientMotes ambient;
 
         Phase phase;
         FrontEnd frontEnd;

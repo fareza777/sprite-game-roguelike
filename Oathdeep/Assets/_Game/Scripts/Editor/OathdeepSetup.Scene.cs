@@ -47,13 +47,17 @@ namespace Oathdeep.EditorTools
             global.lightType = Light2D.LightType.Global;
             global.intensity = 0.35f;
 
+            var motes = new GameObject("Ambient").AddComponent<AmbientMotes>();
+            motes.EditorInit(cam, AssetDatabase.LoadAssetAtPath<Material>(UnlitMaterialPath));
+
             var runner = new GameObject("GameRunner").AddComponent<GameRunner>();
             Set(runner,
                 ("heroes", Heroes.OrderBy(h => h.Key).Select(h => (Object)h.Value).ToArray()),
                 ("codex", Oathdeep.Data.Bestiary.All.Select(e => (Object)Enemies[e.Id]).ToArray()), ("floors", Floors.Select(f => (Object)f).ToArray()), ("props", cryptProps),
                 ("pickupPrefab", Prefab("Pickup").GetComponent<Pickup>()),
                 ("goldSprite", Spr(PropsPng, "coin0")), ("potionSprite", Spr(PropsPng, "potion")),
-                ("skin", uiSkin), ("itemIcons", itemIcons), ("audioLibrary", audioLibrary), ("story", storyAssets), ("worldCamera", cam), ("globalLight", global));
+                ("skin", uiSkin), ("itemIcons", itemIcons), ("audioLibrary", audioLibrary), ("story", storyAssets), ("worldCamera", cam), ("globalLight", global),
+                ("ambient", motes));
 
             EditorSceneManager.SaveScene(scene, ScenePath);
             EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };

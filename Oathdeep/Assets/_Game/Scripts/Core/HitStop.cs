@@ -20,6 +20,23 @@ namespace Oathdeep.Core
             if (!instance.running) instance.StartCoroutine(instance.Run());
         }
 
+        /// <summary>A beat of slow motion (a boss falls). Skipped while paused or with Reduce Motion on.</summary>
+        public static void SlowMotion(float scale, float seconds)
+        {
+            if (instance == null || seconds <= 0f || GameSettings.ReduceMotion || Time.timeScale <= 0f) return;
+            instance.StartCoroutine(instance.Slow(scale, seconds));
+        }
+
+        IEnumerator Slow(float scale, float seconds)
+        {
+            yield return new WaitWhile(() => running);   // let a hit stop finish first
+            if (Time.timeScale <= 0f) yield break;
+            Time.timeScale = scale;
+            float end = Time.unscaledTime + seconds;
+            while (Time.unscaledTime < end && Time.timeScale > 0f) yield return null;
+            if (Mathf.Approximately(Time.timeScale, scale)) Time.timeScale = 1f;
+        }
+
         IEnumerator Run()
         {
             running = true;

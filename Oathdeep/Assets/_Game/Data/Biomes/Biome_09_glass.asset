@@ -71,3 +71,6 @@ MonoBehaviour:
   ambientIntensity: 0.4
   music: 13
   bossMusic: 15
+  ambient:
+  - {fileID: -1478075030, guid: 414850d8c812c914d932ebae230d590b, type: 3}
+  - {fileID: -2025100169, guid: 414850d8c812c914d932ebae230d590b, type: 3}
