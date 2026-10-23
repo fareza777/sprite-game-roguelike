@@ -12,3 +12,4 @@ Oathdeep/.env
 *.log
 __pycache__/
 *.pyc
+tools/art-qa/

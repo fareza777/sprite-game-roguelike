@@ -147,7 +147,7 @@ TextureImporter:
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -213,9 +213,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
-        width: 16
-        height: 16
+        y: 256
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,10 +234,10 @@ TextureImporter:
       name: longsword
       rect:
         serializedVersion: 2
-        x: 16
-        y: 64
-        width: 16
-        height: 16
+        x: 64
+        y: 256
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -256,10 +256,10 @@ TextureImporter:
       name: greatsword
       rect:
         serializedVersion: 2
-        x: 32
-        y: 64
-        width: 16
-        height: 16
+        x: 128
+        y: 256
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,10 +278,10 @@ TextureImporter:
       name: axe
       rect:
         serializedVersion: 2
-        x: 48
-        y: 64
-        width: 16
-        height: 16
+        x: 192
+        y: 256
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,10 +300,10 @@ TextureImporter:
       name: mace
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
-        width: 16
-        height: 16
+        x: 256
+        y: 256
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -322,10 +322,10 @@ TextureImporter:
       name: flail
       rect:
         serializedVersion: 2
-        x: 80
-        y: 64
-        width: 16
-        height: 16
+        x: 320
+        y: 256
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -344,10 +344,10 @@ TextureImporter:
       name: hammer
       rect:
         serializedVersion: 2
-        x: 96
-        y: 64
-        width: 16
-        height: 16
+        x: 384
+        y: 256
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -366,10 +366,10 @@ TextureImporter:
       name: dagger
       rect:
         serializedVersion: 2
-        x: 112
-        y: 64
-        width: 16
-        height: 16
+        x: 448
+        y: 256
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -389,9 +389,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 48
-        width: 16
-        height: 16
+        y: 192
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -410,10 +410,10 @@ TextureImporter:
       name: crossbow
       rect:
         serializedVersion: 2
-        x: 16
-        y: 48
-        width: 16
-        height: 16
+        x: 64
+        y: 192
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -432,10 +432,10 @@ TextureImporter:
       name: staff
       rect:
         serializedVersion: 2
-        x: 32
-        y: 48
-        width: 16
-        height: 16
+        x: 128
+        y: 192
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -454,10 +454,10 @@ TextureImporter:
       name: scythe
       rect:
         serializedVersion: 2
-        x: 48
-        y: 48
-        width: 16
-        height: 16
+        x: 192
+        y: 192
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -476,10 +476,10 @@ TextureImporter:
       name: plate
       rect:
         serializedVersion: 2
-        x: 64
-        y: 48
-        width: 16
-        height: 16
+        x: 256
+        y: 192
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -498,10 +498,10 @@ TextureImporter:
       name: mail
       rect:
         serializedVersion: 2
-        x: 80
-        y: 48
-        width: 16
-        height: 16
+        x: 320
+        y: 192
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -520,10 +520,10 @@ TextureImporter:
       name: leather
       rect:
         serializedVersion: 2
-        x: 96
-        y: 48
-        width: 16
-        height: 16
+        x: 384
+        y: 192
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -542,10 +542,10 @@ TextureImporter:
       name: robe
       rect:
         serializedVersion: 2
-        x: 112
-        y: 48
-        width: 16
-        height: 16
+        x: 448
+        y: 192
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -565,9 +565,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
-        width: 16
-        height: 16
+        y: 128
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -586,10 +586,10 @@ TextureImporter:
       name: helm
       rect:
         serializedVersion: 2
-        x: 16
-        y: 32
-        width: 16
-        height: 16
+        x: 64
+        y: 128
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -608,10 +608,10 @@ TextureImporter:
       name: gauntlet
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
-        width: 16
-        height: 16
+        x: 128
+        y: 128
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -630,10 +630,10 @@ TextureImporter:
       name: boots
       rect:
         serializedVersion: 2
-        x: 48
-        y: 32
-        width: 16
-        height: 16
+        x: 192
+        y: 128
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -652,10 +652,10 @@ TextureImporter:
       name: ring
       rect:
         serializedVersion: 2
-        x: 64
-        y: 32
-        width: 16
-        height: 16
+        x: 256
+        y: 128
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -674,10 +674,10 @@ TextureImporter:
       name: ringGem
       rect:
         serializedVersion: 2
-        x: 80
-        y: 32
-        width: 16
-        height: 16
+        x: 320
+        y: 128
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -696,10 +696,10 @@ TextureImporter:
       name: amulet
       rect:
         serializedVersion: 2
-        x: 96
-        y: 32
-        width: 16
-        height: 16
+        x: 384
+        y: 128
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -718,10 +718,10 @@ TextureImporter:
       name: talisman
       rect:
         serializedVersion: 2
-        x: 112
-        y: 32
-        width: 16
-        height: 16
+        x: 448
+        y: 128
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -741,9 +741,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 16
-        width: 16
-        height: 16
+        y: 64
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -762,10 +762,10 @@ TextureImporter:
       name: idol
       rect:
         serializedVersion: 2
-        x: 16
-        y: 16
-        width: 16
-        height: 16
+        x: 64
+        y: 64
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -784,10 +784,10 @@ TextureImporter:
       name: tome
       rect:
         serializedVersion: 2
-        x: 32
-        y: 16
-        width: 16
-        height: 16
+        x: 128
+        y: 64
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -806,10 +806,10 @@ TextureImporter:
       name: skull
       rect:
         serializedVersion: 2
-        x: 48
-        y: 16
-        width: 16
-        height: 16
+        x: 192
+        y: 64
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -828,10 +828,10 @@ TextureImporter:
       name: orb
       rect:
         serializedVersion: 2
-        x: 64
-        y: 16
-        width: 16
-        height: 16
+        x: 256
+        y: 64
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -850,10 +850,10 @@ TextureImporter:
       name: lantern
       rect:
         serializedVersion: 2
-        x: 80
-        y: 16
-        width: 16
-        height: 16
+        x: 320
+        y: 64
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -872,10 +872,10 @@ TextureImporter:
       name: hourglass
       rect:
         serializedVersion: 2
-        x: 96
-        y: 16
-        width: 16
-        height: 16
+        x: 384
+        y: 64
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -894,10 +894,10 @@ TextureImporter:
       name: feather
       rect:
         serializedVersion: 2
-        x: 112
-        y: 16
-        width: 16
-        height: 16
+        x: 448
+        y: 64
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -918,8 +918,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -938,10 +938,10 @@ TextureImporter:
       name: heart
       rect:
         serializedVersion: 2
-        x: 16
+        x: 64
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -960,10 +960,10 @@ TextureImporter:
       name: crown
       rect:
         serializedVersion: 2
-        x: 32
+        x: 128
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -982,10 +982,10 @@ TextureImporter:
       name: candle
       rect:
         serializedVersion: 2
-        x: 48
+        x: 192
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 64
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

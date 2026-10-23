@@ -56,10 +56,10 @@ namespace Oathdeep.UI
         {
             var steps = new[]
             {
-                new Step { Text = "Drag anywhere on the lower left to move.", Control = null, Done = () => moved > 0.6f },
+                new Step { Text = "Touch and drag on the lower " + (GameSettings.LeftHanded ? "right" : "left") + " to move. The stick appears while you hold.", Control = null, Done = () => moved > 0.6f },
                 new Step { Text = "Tap the sword to strike. Keep tapping to chain a combo.", Control = "Attack", Done = () => Took(PlayerAction.Attack) },
-                new Step { Text = "Tap the boots to roll. Nothing can touch you mid-roll.", Control = "Dodge", Done = () => Took(PlayerAction.Dodge) },
-                new Step { Text = "Tap the shield for your hero's skill. It needs time to recharge.", Control = "Skill", Done = () => Took(PlayerAction.Skill) },
+                new Step { Text = "Tap the arrow to roll. Nothing can touch you mid-roll.", Control = "Dodge", Done = () => Took(PlayerAction.Dodge) },
+                new Step { Text = "Tap the skill above the sword for your hero's power. It needs time to recharge.", Control = "Skill", Done = () => Took(PlayerAction.Skill) },
                 new Step { Text = "Doors seal when foes rise. Silence them all to move on.\nThe Sun is waiting below.", Control = null, Done = null },
             };
             foreach (var step in steps)

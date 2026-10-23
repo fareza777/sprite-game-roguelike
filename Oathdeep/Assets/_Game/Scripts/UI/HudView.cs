@@ -166,8 +166,8 @@ namespace Oathdeep.UI
             var zoneImg = UIFactory.Image(zone, skin.white, new Color(0, 0, 0, 0), false, true);
             zoneImg.preserveAspect = false;
             var stickBase = UIFactory.Rect("Base", zone, Vector2.zero, Vector2.zero, new Vector2(0.5f, 0.5f), ControlLayout.StickRest, Vector2.one * ControlLayout.StickSize);
-            UIFactory.Image(stickBase, skin.joystickBase);
-            var knob = UIFactory.Rect("Knob", stickBase, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(52, 52));
+            UIFactory.Image(stickBase, skin.joystickBase, new Color(1f, 1f, 1f, 0.78f));
+            var knob = UIFactory.Rect("Knob", stickBase, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(44, 44));
             UIFactory.Image(knob, skin.joystickKnob);
             var group = stickBase.gameObject.AddComponent<CanvasGroup>();
             group.blocksRaycasts = false;

@@ -9,12 +9,12 @@ namespace Oathdeep.UI
 {
     /// <summary>
     /// Floating stick: touch anywhere inside the zone, the base appears under the thumb and follows long drags.
-    /// Fixed stick: the base stays at its rest position.
+    /// Fixed stick: the base stays at its rest position. Both modes are invisible until held.
     /// Knob travel is clamped to radius; small dead zone avoids drift.
     /// A per-frame watchdog releases the stick if its touch ends without a pointer-up event
     /// (cancelled touches, system gestures, focus loss), which otherwise leaves the knight walking on its own.
     /// </summary>
-    public sealed class VirtualJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+    public sealed class VirtualJoystick : MonoBehaviour, IPointerDownHandler, IInitializePotentialDragHandler, IDragHandler, IPointerUpHandler
     {
         [SerializeField] RectTransform stickBase;
         [SerializeField] RectTransform knob;
@@ -22,12 +22,12 @@ namespace Oathdeep.UI
         [SerializeField, Range(0f, 0.5f)] float deadZone = 0.12f;
         [SerializeField] bool floating = true;
         [SerializeField] CanvasGroup visual;
-        [SerializeField, Range(0f, 1f)] float idleAlpha = 0.35f;
 
         RectTransform zone;
         Vector2 restPosition;
         Vector2? restFraction;   // a player-placed rest point, as a fraction of the zone
-        int pointerId = -1;
+        bool held;
+        int pointerId;
         int touchId = -1;   // -1 = mouse/pen
 
         /// <summary>
@@ -40,8 +40,10 @@ namespace Oathdeep.UI
             knob = knobRect;
             visual = group;
             floating = isFloating;
+            zone = (RectTransform)transform;
             restPosition = stickBase.anchoredPosition;
-            SetActiveLook(false);
+            if (visual != null) visual.blocksRaycasts = false;
+            Release();
         }
 
         void Awake() => zone = (RectTransform)transform;
@@ -57,7 +59,7 @@ namespace Oathdeep.UI
 
         void PlaceAtRest()
         {
-            if (pointerId == -1 && stickBase != null) stickBase.anchoredPosition = Rest;
+            if (!held && stickBase != null) stickBase.anchoredPosition = Rest;
         }
 
         // The zone only gets its real size once the canvas lays out; keep the resting stick on its spot.
@@ -65,46 +67,56 @@ namespace Oathdeep.UI
 
         public void OnPointerDown(PointerEventData e)
         {
-            if (pointerId != -1) return;
+            if (held || stickBase == null || knob == null || e.button != PointerEventData.InputButton.Left) return;
+            if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(zone, e.position, e.pressEventCamera, out var local)) return;
+            held = true;
             pointerId = e.pointerId;
             touchId = e is ExtendedPointerEventData ext && ext.pointerType == UIPointerType.Touch ? ext.touchId : -1;
-            if (floating && RectTransformUtility.ScreenPointToLocalPointInRectangle(zone, e.position, e.pressEventCamera, out var local))
-                stickBase.anchoredPosition = ControlLayout.ClampStick(local, zone.rect.size, stickBase.sizeDelta.x);
+            // Start exactly under the finger, including at an edge: clamping here used to move the hero on touch-down.
+            if (floating) stickBase.anchoredPosition = local - zone.rect.min;
+            else stickBase.anchoredPosition = Rest;
             SetActiveLook(true);
             OnDrag(e);
         }
 
+        public void OnInitializePotentialDrag(PointerEventData e) => e.useDragThreshold = false;
+
         public void OnDrag(PointerEventData e)
         {
-            if (e.pointerId != pointerId) return;
+            if (!held || e.pointerId != pointerId) return;
             if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(stickBase, e.position, e.pressEventCamera, out var local)) return;
-            if (floating && local.magnitude > radius)
+            // Keep the whole knob inside the rim, rather than allowing its centre to reach the outer edge.
+            float travel = Mathf.Max(1f, Mathf.Min(radius,
+                (Mathf.Min(stickBase.rect.width, stickBase.rect.height) - Mathf.Max(knob.rect.width, knob.rect.height)) / 2f - 4f));
+            if (floating && local.magnitude > travel)
             {
-                // The base trails the thumb so a long drag never runs out of stick.
-                var moved = ControlLayout.FollowStick(stickBase.anchoredPosition, local, radius);
-                stickBase.anchoredPosition = ControlLayout.ClampStick(moved, zone.rect.size, stickBase.sizeDelta.x);
+                // The initial zone captures the gesture; an owned drag can continue beyond it without a hard stop.
+                stickBase.anchoredPosition = ControlLayout.FollowStick(stickBase.anchoredPosition, local, travel);
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(stickBase, e.position, e.pressEventCamera, out local);
             }
-            var offset = Vector2.ClampMagnitude(local, radius);
+            var offset = Vector2.ClampMagnitude(local, travel);
             knob.anchoredPosition = offset;
-            var value = offset / radius;
-            PlayerInputReader.SetTouchMove(value.magnitude < deadZone ? Vector2.zero : value);
+            var value = offset / travel;
+            float magnitude = value.magnitude;
+            PlayerInputReader.SetTouchMove(magnitude <= deadZone ? Vector2.zero : value.normalized * ((magnitude - deadZone) / (1f - deadZone)));
         }
 
         public void OnPointerUp(PointerEventData e)
         {
-            if (e.pointerId == pointerId) Release();
+            if (held && e.pointerId == pointerId) Release();
         }
 
         void Update()
         {
-            if (pointerId != -1 && !PointerStillDown()) Release();
+            if (held && !PointerStillDown()) Release();
         }
 
         void OnApplicationFocus(bool focused)
         {
-            if (!focused && pointerId != -1) Release();
+            if (!focused) Release();
         }
+
+        void OnApplicationPause(bool paused) { if (paused) Release(); }
 
         bool PointerStillDown()
         {
@@ -114,28 +126,27 @@ namespace Oathdeep.UI
                 foreach (var t in screen.touches)
                     touches.Add((t.touchId.ReadValue(), t.press.isPressed));
             var mouse = Mouse.current;
-            return PointerHold.StillDown(touchId, touches, mouse != null ? mouse.leftButton.isPressed : (bool?)null);
+            var pen = Pen.current;
+            return PointerHold.StillDown(touchId, touches,
+                mouse != null || pen != null ? mouse != null && mouse.leftButton.isPressed || pen != null && pen.tip.isPressed : (bool?)null);
         }
 
         void Release()
         {
-            pointerId = -1;
+            held = false;
+            pointerId = 0;
             touchId = -1;
-            knob.anchoredPosition = Vector2.zero;
-            if (floating) stickBase.anchoredPosition = Rest;
+            if (knob != null) knob.anchoredPosition = Vector2.zero;
+            PlaceAtRest();
             PlayerInputReader.SetTouchMove(Vector2.zero);
             SetActiveLook(false);
         }
 
-        void OnDisable()
-        {
-            pointerId = -1;
-            PlayerInputReader.SetTouchMove(Vector2.zero);
-        }
+        void OnDisable() => Release();
 
         void SetActiveLook(bool active)
         {
-            if (visual != null) visual.alpha = active ? 1f : idleAlpha;
+            if (visual != null) visual.alpha = active ? 1f : 0f;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Oathdeep.EditorTools
         const string HeroFxPng = ArtDir + "/VFX/hero_fx.png";
         const string ItemIconsPng = ArtDir + "/UI/item_icons.png";
 
-        /// <summary>Order of the 16x16 cells in item_icons.png (ArtSource/gen/items.py ICONS).</summary>
+        /// <summary>Order of the 64px inventory sprites (ArtSource/gen/import_generated_icons.mjs).</summary>
         static readonly string[] ItemIconNames =
         {
             "sword", "longsword", "greatsword", "axe", "mace", "flail", "hammer", "dagger",
@@ -72,7 +72,7 @@ namespace Oathdeep.EditorTools
             ConfigureBestiaryArt();
             ConfigureBossArt();
             ConfigureAmbientArt();
-            Slice(ItemIconsPng, ItemIconNames.Select((n, i) => G(n, i % 8, i / 8, Centre)).ToList(), WorldPpu, SpriteMeshType.FullRect);
+            ConfigureInterfaceArt();
             Slice(UiPng, UiCells(), UiPpu, SpriteMeshType.FullRect);
             WriteWhiteSprite();
             Slice(MenuIconsPng, MenuIconNames.Select((n, i) => G(n, i, 0, Centre)).ToList(), UiPpu, SpriteMeshType.FullRect);

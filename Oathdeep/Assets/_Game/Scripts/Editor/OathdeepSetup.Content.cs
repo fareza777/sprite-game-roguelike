@@ -61,28 +61,28 @@ namespace Oathdeep.EditorTools
             Hero(HeroId.Aldric, "Hero_Knight", KnightAse, "Aldric", "The Oathknight",
                  "He swore to guard a sun he has never seen. Sword, shield, and a stubbornness older than the dusk.",
                  new StatBlock(110, 12, 5, 0.08f, 1.75f, 4.2f), 5f, 0.45f, "Shield Bash",
-                 "Charge behind your shield, slamming and stunning everything in your path. Untouchable while charging.", Spr(UiPng, "iconSkill"));
+                 "Charge behind your shield, slamming and stunning everything in your path. Untouchable while charging.", Spr(InterfacePng, "iconSkill"));
             Hero(HeroId.Wren, "Hero_Wren", WrenAse, "Wren", "The Lamplighter",
                  "The last lamplighter of Hollowmere kept every wick burning through forty winters of dusk. When the oil ran out " +
                  "she took her crossbow and her lantern and went down to fetch the real thing.",
                  new StatBlock(80, 9, 2, 0.12f, 1.75f, 4.8f), 6f, 0.4f, "Flare Volley",
-                 "Hop back and loose five burning bolts in a wide fan. Bolts reach far - keep your distance.", Spr(HeroFxPng, "iconFlare"));
+                 "Hop back and loose five burning bolts in a wide fan. Bolts reach far - keep your distance.", Spr(InterfacePng, "iconFlare"));
             Hero(HeroId.Morrow, "Hero_Morrow", MorrowAse, "Morrow", "The Gravesinger",
                  "Gravesingers hum the dead to sleep. Morrow hums them awake. The Choir struck his name from every hymn for it, " +
                  "so he sings his own.",
                  new StatBlock(85, 11, 2, 0.08f, 1.75f, 4.0f), 9f, 0.5f, "Requiem",
                  "Sing up three wisps of the dead. They circle you for 7 seconds, chilling and biting anything they touch. " +
-                 "Your soul orbs seek their own targets.", Spr(HeroFxPng, "iconRequiem"));
+                 "Your soul orbs seek their own targets.", Spr(InterfacePng, "iconRequiem"));
             Hero(HeroId.Brakka, "Hero_Brakka", BrakkaAse, "Brakka", "The Bellbreaker",
                  "A bell-founder from the mountain halls who heard the Choir's great bell ring the Sun down. He has come to break it, " +
                  "and brought a smaller bell to do the breaking.",
                  new StatBlock(150, 15, 8, 0.05f, 1.6f, 3.5f), 7f, 0.6f, "Toll",
-                 "Ring the bell-hammer into the floor. The shockwave hits and stuns every foe around you.", Spr(HeroFxPng, "iconToll"));
+                 "Ring the bell-hammer into the floor. The shockwave hits and stuns every foe around you.", Spr(InterfacePng, "iconToll"));
             Hero(HeroId.Sable, "Hero_Sable", SableAse, "Sable", "The Duskblade",
                  "Born in the dusk, raised by it, paid by it. Sable cut throats for the Choir's wardens, and knows exactly " +
                  "where their hymns are thin.",
                  new StatBlock(90, 10, 3, 0.18f, 2.0f, 5.0f), 5f, 0.35f, "Shadowstep",
-                 "Melt into shadow and reappear behind the nearest foe with a devastating strike.", Spr(HeroFxPng, "iconShadowstep"));
+                 "Melt into shadow and reappear behind the nearest foe with a devastating strike.", Spr(InterfacePng, "iconShadowstep"));
         }
 
         static void Hero(HeroId id, string asset, string ase, string name, string title, string lore, StatBlock stats,
@@ -159,27 +159,27 @@ namespace Oathdeep.EditorTools
             skin.barFrame = Spr(UiPng, "barFrame");
             skin.barFillHealth = Spr(UiPng, "barFillHealth");
             skin.barFillBoss = Spr(UiPng, "barFillBoss");
-            skin.iconGold = Spr(UiPng, "iconGold");
-            skin.iconPotion = Spr(UiPng, "iconPotion");
-            skin.iconAttack = Spr(UiPng, "iconAttack");
-            skin.iconDodge = Spr(UiPng, "iconDodge");
-            skin.iconSkill = Spr(UiPng, "iconSkill");
-            skin.iconPause = Spr(UiPng, "iconPause");
-            skin.actionRing = Spr(UiPng, "actionRing");
-            skin.joystickBase = Spr(UiPng, "joystickBase");
-            skin.joystickKnob = Spr(UiPng, "joystickKnob");
+            skin.iconGold = Spr(InterfacePng, "iconGold");
+            skin.iconPotion = Spr(InterfacePng, "iconPotion");
+            skin.iconAttack = Spr(InterfacePng, "iconAttack");
+            skin.iconDodge = Spr(InterfacePng, "iconDodge");
+            skin.iconSkill = Spr(InterfacePng, "iconSkill");
+            skin.iconPause = Spr(InterfacePng, "iconPause");
+            skin.actionRing = AssetDatabase.LoadAssetAtPath<Sprite>(ActionRingPng);
+            skin.joystickBase = AssetDatabase.LoadAssetAtPath<Sprite>(JoystickBasePng);
+            skin.joystickKnob = AssetDatabase.LoadAssetAtPath<Sprite>(JoystickKnobPng);
             skin.logo = AssetDatabase.LoadAssetAtPath<Sprite>(LogoPng);
             skin.menuBackground = AssetDatabase.LoadAssetAtPath<Sprite>(MenuBgPng);
-            skin.iconSettings = Spr(MenuIconsPng, "gear");
-            skin.iconInfo = Spr(MenuIconsPng, "info");
-            skin.iconShare = Spr(MenuIconsPng, "share");
-            skin.iconRate = Spr(MenuIconsPng, "star");
-            skin.iconCodex = Spr(MenuIconsPng, "codex");
-            skin.iconQuest = Spr(MenuIconsPng, "quest");
-            skin.iconHeroes = Spr(MenuIconsPng, "heroes");
-            skin.iconBack = Spr(MenuIconsPng, "back");
-            skin.iconClose = Spr(MenuIconsPng, "close");
-            skin.iconBag = Spr(MenuIconsPng, "bag");
+            skin.iconSettings = Spr(InterfacePng, "gear");
+            skin.iconInfo = Spr(InterfacePng, "info");
+            skin.iconShare = Spr(InterfacePng, "share");
+            skin.iconRate = Spr(InterfacePng, "star");
+            skin.iconCodex = Spr(InterfacePng, "codex");
+            skin.iconQuest = Spr(InterfacePng, "quest");
+            skin.iconHeroes = Spr(InterfacePng, "heroes");
+            skin.iconBack = Spr(InterfacePng, "back");
+            skin.iconClose = Spr(InterfacePng, "close");
+            skin.iconBag = Spr(InterfacePng, "bag");
             skin.white = AssetDatabase.LoadAssetAtPath<Sprite>(WhitePng);
             EditorUtility.SetDirty(skin);
             return skin;

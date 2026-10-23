@@ -32,7 +32,8 @@ you descend through ten biomes to silence every verse and raise her.
   - Twelve side quests that grant permanent bonuses.
 - **Original score and sound**: eleven synthesized music tracks and 34 sound effects, all made offline.
 - **Mobile-first controls**:
-  - Floating or fixed joystick, attack / dodge / skill buttons, a contextual TALK / TRADE / TOUCH button.
+  - Touch-revealed floating or fixed joystick, attack / dodge / skill buttons, a contextual TALK / TRADE / TOUCH button.
+  - The joystick hides on release; floating starts under the finger and follows long drags, while fixed keeps its chosen position.
   - Left-handed layout, auto-aim, haptics, settings, and a one-time tutorial.
 
 ## Building
@@ -42,6 +43,7 @@ you descend through ten biomes to silence every verse and raise her.
 
 Art and audio are generated from source:
 - Pixel art: Python generators in `ArtSource/gen/` → curated and exported with Aseprite (`ArtSource/*.aseprite`).
+- Inventory and interface art: transparent source sheets in `ArtSource/generated/` → `ArtSource/gen/import_generated_icons.mjs` → 64px item, menu, HUD and hero-skill sprites. Use **Oathdeep > Refresh Item and HUD Art** to update these assets without rebuilding the scene.
 - Music, SFX and narration: `tools/audio/` (numpy / scipy synthesis, fully offline).
 
 See `docs/PROGRESS.md` for the full pipeline and architecture.

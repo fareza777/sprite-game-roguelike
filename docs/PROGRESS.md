@@ -43,7 +43,7 @@ in Unity 6. Design doc: `docs/design/2026-10-21-undersun-full-game-design.md`.
    - VO: `tools/audio/vo.py`.
 3. Unity: `bash tools/setup-wait.sh` queues **Oathdeep > Build Everything**. It runs these stages in order: importers and
    slicing, content data, audio library and story, about 97 prefabs, floors and the scene.
-4. Tests: EditMode, 2142 passing (`node tools/unity-mcp.mjs tests-run '{"testMode":"EditMode"}'`; save the scene first).
+4. Tests: EditMode, 2169 passing (23 October 2026), including 16 component-level joystick regression cases (`node tools/unity-mcp.mjs tests-run '{"testMode":"EditMode"}'`; save the scene first).
 5. QA: `bash tools/smoke.sh` in play mode runs every floor (teleport to the boss, clear it, take the portal).
 6. APK: `node tools/run-cs.mjs tools/playtest/apk.cs`, then pump the editor; output goes to `Oathdeep/Builds/Android/Undersun.apk`.
 

@@ -29,7 +29,7 @@ MonoBehaviour:
   skillName: Requiem
   skillDescription: Sing up three wisps of the dead. They circle you for 7 seconds,
     chilling and biting anything they touch. Your soul orbs seek their own targets.
-  skillIcon: {fileID: -56386152, guid: 5e49e45f0301f8b47b43e2fcf9949509, type: 3}
+  skillIcon: {fileID: -1403888462, guid: 01bf924837f2c274a939b2121ea5ba07, type: 3}
   idleFrames:
   - {fileID: 909772579929821044, guid: 2ccbd133c22d3fa44be63fc26988f8a7, type: 3}
   - {fileID: -3036817245431224008, guid: 2ccbd133c22d3fa44be63fc26988f8a7, type: 3}

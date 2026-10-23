@@ -517,8 +517,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 751a36ded24f99949be220ca42241c04, type: 2}
   props: {fileID: 11400000, guid: 66b359ca40410a448b5244a15cef92e5, type: 2}
   pickupPrefab: {fileID: 3554536345392132917, guid: 8579467ead7ca6246bfee2c5592112f4, type: 3}
-  goldSprite: {fileID: -1225209026, guid: 7bcbab3a54a8790408f5766d40657470, type: 3}
-  potionSprite: {fileID: -272396806, guid: 7bcbab3a54a8790408f5766d40657470, type: 3}
+  goldSprite: {fileID: 1653620304, guid: 01bf924837f2c274a939b2121ea5ba07, type: 3}
+  potionSprite: {fileID: 1583922861, guid: 01bf924837f2c274a939b2121ea5ba07, type: 3}
   skin: {fileID: 11400000, guid: 7fdb318b563891749b2383f1690c2c76, type: 2}
   itemIcons: {fileID: 11400000, guid: b068103b881740e42bbe2994c7394da5, type: 2}
   audioLibrary: {fileID: 11400000, guid: 6e2dde635ec90714883229bbf8149d1e, type: 2}

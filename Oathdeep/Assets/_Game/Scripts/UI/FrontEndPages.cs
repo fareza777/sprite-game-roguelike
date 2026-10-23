@@ -31,6 +31,7 @@ namespace Oathdeep.UI
             page.Heading("CONTROLS");
             UIWidgets.ToggleRow(page.Row("Joystick", 36), skin, "Joystick", () => GameSettings.FixedJoystick,
                 v => { GameSettings.FixedJoystick = v; hooks.ControlsChanged?.Invoke(); }, "FIXED", "FLOATING");
+            page.Paragraph("Touch the movement area to reveal the stick; release to hide it.\nFixed stays at your chosen spot. Floating follows your thumb.", 10, skin.mutedColor);
             UIWidgets.ToggleRow(page.Row("LeftHanded", 36), skin, "Left-handed", () => GameSettings.LeftHanded,
                 v => { GameSettings.LeftHanded = v; GameSettings.MirrorControlPositions(); hooks.ControlsChanged?.Invoke(); });
             if (hooks.CustomizeControls != null)

@@ -199,7 +199,7 @@ namespace Oathdeep.EditorTools
             Projectile("SoulOrb", Spr(HeroFxPng, "orb0"), true);
 
             var go = new GameObject("Pickup");
-            var item = AddSprite(go, "Sprite", Spr(PropsPng, "coin0"), 2, new Vector3(0f, 0.08f, 0f));
+            var item = AddSprite(go, "Sprite", Spr(InterfacePng, "iconGold"), 2, new Vector3(0f, 0.08f, 0f));
             var glow = AddSprite(go, "Glow", Spr(VfxPng, "glow"), 1, Vector3.zero, true);
             glow.enabled = false;
             var trigger = go.AddComponent<CircleCollider2D>();

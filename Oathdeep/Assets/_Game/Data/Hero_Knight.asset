@@ -29,7 +29,7 @@ MonoBehaviour:
   skillName: Shield Bash
   skillDescription: Charge behind your shield, slamming and stunning everything in
     your path. Untouchable while charging.
-  skillIcon: {fileID: 1658395501, guid: 91328039fdaca344cb84d9102bb38d1c, type: 3}
+  skillIcon: {fileID: 1750554243, guid: 01bf924837f2c274a939b2121ea5ba07, type: 3}
   idleFrames:
   - {fileID: 5785711979613571302, guid: 68692a7f75ad45240921058deb59ef9b, type: 3}
   - {fileID: 1319098542178843522, guid: 68692a7f75ad45240921058deb59ef9b, type: 3}

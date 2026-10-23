@@ -30,7 +30,7 @@ MonoBehaviour:
   skillName: Flare Volley
   skillDescription: Hop back and loose five burning bolts in a wide fan. Bolts reach
     far - keep your distance.
-  skillIcon: {fileID: 937725249, guid: 5e49e45f0301f8b47b43e2fcf9949509, type: 3}
+  skillIcon: {fileID: 2103480374, guid: 01bf924837f2c274a939b2121ea5ba07, type: 3}
   idleFrames:
   - {fileID: -6867676691373221881, guid: 84f96ae958692cd459738b24a0941627, type: 3}
   - {fileID: -6160775878162644433, guid: 84f96ae958692cd459738b24a0941627, type: 3}

@@ -30,7 +30,7 @@ MonoBehaviour:
   skillName: Toll
   skillDescription: Ring the bell-hammer into the floor. The shockwave hits and stuns
     every foe around you.
-  skillIcon: {fileID: -785310681, guid: 5e49e45f0301f8b47b43e2fcf9949509, type: 3}
+  skillIcon: {fileID: -1066086985, guid: 01bf924837f2c274a939b2121ea5ba07, type: 3}
   idleFrames:
   - {fileID: -5942441035346054287, guid: d23cc16bf9c43aa44a6587bbc3b51c5f, type: 3}
   - {fileID: 6593248397347396234, guid: d23cc16bf9c43aa44a6587bbc3b51c5f, type: 3}

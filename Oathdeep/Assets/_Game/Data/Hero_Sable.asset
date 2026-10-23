@@ -29,7 +29,7 @@ MonoBehaviour:
   skillName: Shadowstep
   skillDescription: Melt into shadow and reappear behind the nearest foe with a devastating
     strike.
-  skillIcon: {fileID: 825445696, guid: 5e49e45f0301f8b47b43e2fcf9949509, type: 3}
+  skillIcon: {fileID: 141241560, guid: 01bf924837f2c274a939b2121ea5ba07, type: 3}
   idleFrames:
   - {fileID: -7117250638166702569, guid: baa7c89f4d5bd8e4a8d05e9229323253, type: 3}
   - {fileID: 3777768661917698970, guid: baa7c89f4d5bd8e4a8d05e9229323253, type: 3}
